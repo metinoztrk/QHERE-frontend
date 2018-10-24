@@ -1,25 +1,27 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-
+import {Route} from 'react-router-dom'
+import PasswordReset from './components/pages/PasswordReset'
+import RegisterPage from './components/pages/RegisterPage'
+import LoginPage from './components/pages/LoginPage'
+import IndexPage from './components/pages/IndexPage'
+import HomePage from './components/pages/HomePage'
+import CreateClassForm from './components/CreateClassForm'
+import Classes from './components/Classes'
+import AccontSetting from './components/AccontSetting'
 class App extends Component {
   render() {
+    
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <Route path='/' component={IndexPage}></Route>
+        <Route path='/homePage' component={HomePage}></Route>
+        <Route exact path='/homePage/createClass' component={CreateClassForm}></Route>
+        <Route exact path='/homePage/classes' component={Classes}></Route>
+        <Route exact path='/homePage/accontSetting' component={AccontSetting}></Route>
+        <Route exact path='/passwordReset' component={PasswordReset}></Route>
+        <Route exact path='/register' component={RegisterPage}></Route>
+        <Route exact path='/login' component={LoginPage}></Route>
       </div>
     );
   }
