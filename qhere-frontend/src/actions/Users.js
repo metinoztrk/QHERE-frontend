@@ -1,11 +1,20 @@
 import axios from 'axios';
 import setAuthorizationToken  from '../setAuthorizationToken';
+
 export const TOKEN="TOKEN"
 export const TOKEN_ERROR="TOKEN_ERROR"
+
 export const REGISTER="REGISTER"
 export const REGISTER_ERROR="REGISTER_ERROR"
+
 export const FORGOT="FORGOT"
 export const FORGOT_ERROR="FORGOT_ERROR"
+
+export const LOGOUT="LOGOUT"
+export const LOGOUT_ERROR="LOGOUT_ERROR"
+
+export const RESET_PASSWORD="RESET_PASSWORD"
+export const RESET_PASSWORD_ERROR="RESET_PASSWORD_ERROR"
 
 
 export function login({email,password}) {
@@ -49,6 +58,25 @@ export function register({schoolNumber,fullName,email,password,gender}){
     }
 }
 
+export function logout(){
+    return dispatch=>{
+        axios.post('http://localhost:8000/user/logout')
+        .then(data=>{
+            dispatch({
+                type:LOGOUT,
+                payload:""
+            })
+        }).catch((err)=>{  
+            console.log(err.response)
+            dispatch({
+                type:LOGOUT_ERROR,
+                payload:err.response
+            })
+        })
+        localStorage.removeItem('token');
+    }
+}
+
 export function forgot({email}){
     console.log(email)
 
@@ -64,6 +92,35 @@ export function forgot({email}){
                 type:FORGOT_ERROR,
                 payload:err.response
             })
+        })
+    }
+}
+
+export function resetPassword({_id,newPassword}){
+    console.log(_id+" "+newPassword)
+    return dispatch=>{
+        axios.post('http://localhost:8000/user/resetPassword',{_id,newPassword})
+        .then(data=>{
+            dispatch({
+                type:RESET_PASSWORD,
+                payload:data.data.status_code
+            })
+        }).catch(err=>{
+            dispatch({
+                type:RESET_PASSWORD,
+                payload:err.response
+            })
+        })
+    }
+}
+
+export function reload(){
+    let token=localStorage.getItem('token')
+    console.log(localStorage.getItem('token'))
+    return dispatch=>{
+        dispatch({
+            type:TOKEN,
+            payload:token,
         })
     }
 }

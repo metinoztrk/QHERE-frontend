@@ -1,4 +1,5 @@
 import React ,{Component} from 'react';
+import {connect} from 'react-redux'
 import {
     Button,
     Container,
@@ -8,27 +9,35 @@ import {
     Visibility,
     Grid
   } from 'semantic-ui-react'
+import {logout,reload} from '../../actions/Users'
 import DashBoard from '../DashBoard';
-import {Link } from 'react-router-dom';
+import {Link ,Redirect} from 'react-router-dom';
 class HomePage extends Component{
     state = {
-        isHome:true
+        isHome:true,
+        isDashBoard:true
     }
 
     hideFixedMenu = () => this.setState({ fixed: false })
     showFixedMenu = () => this.setState({ fixed: true })
 
     componentWillMount(){
-        if(window.location.pathname !== '/homePage')
+        this.props.reload()
+        if(window.location.pathname === '/')
         {
             this.setState({
                 isHome:false
             })
         }
+        if(window.location.pathname !== '/homePage'){
+            this.setState({
+                isDashBoard:false
+            })
+        }
     }
 
     componentWillReceiveProps(){
-        if(window.location.pathname !== '/homePage')
+        if(window.location.pathname === '/')
         {
             this.setState({
                 isHome:false
@@ -38,10 +47,27 @@ class HomePage extends Component{
                 isHome:true
             })
         }
+        if(window.location.pathname === '/homePage'){
+            this.setState({
+                isDashBoard:true
+            })
+        }else{
+            this.setState({
+                isDashBoard:false
+            })
+        }
     }
 
+    onSubmit=()=>(
+        this.setState({
+            isHome:false
+        },
+        this.props.logout() 
+        )    
+    )
+
     render(){
-        console.log(this.state)
+        
         const { fixed } = this.state
 
         const dashBoard=(
@@ -55,8 +81,8 @@ class HomePage extends Component{
                     </Grid> 
                 </div>
         )
-        
 
+        
         return(
             <div>
                 <Responsive minWidth={Responsive.onlyTablet.minWidth}>
@@ -84,9 +110,8 @@ class HomePage extends Component{
                             </Menu.Item>
                             <Menu.Item as={Link} to="/homePage/createClass" style={{ marginLeft: '5em' , color:'#FFFFFF' }}>Create Class</Menu.Item>
                             <Menu.Item as={Link} to="/homePage/classes" style={{ marginLeft: '5em' , color:'#FFFFFF' }}>Classes</Menu.Item>
-                            <Menu.Item as={Link} to="/homePage/accontSetting" style={{ marginLeft: '5em' , color:'#FFFFFF' }}>Accont Setting</Menu.Item>
                             <Menu.Item position='right'>
-                            <Button inverted={!fixed} primary={fixed} style={{ marginRight: '5em' }}>
+                            <Button inverted={!fixed} primary={fixed} style={{ marginRight: '5em' }} onClick={this.onSubmit}>
                                 Logout
                             </Button>
                             </Menu.Item>
@@ -95,7 +120,8 @@ class HomePage extends Component{
                     </Segment>
                     </Visibility>
                 </Responsive>
-                {this.state.isHome === true ? dashBoard : ""}
+                {this.props.users.isLogin === true ? "" : <Redirect to="/"/>}
+                {this.state.isDashBoard === true ? dashBoard : ""}
             </div>
         )
         
@@ -103,5 +129,15 @@ class HomePage extends Component{
 
 }
 
+const mapStateToProps=(state)=>{
+    return {
+        users:state.users
+    }
+}
 
-export default HomePage;
+const mapDispatchToProps={
+    logout,
+    reload
+}
+
+export default connect(mapStateToProps,mapDispatchToProps) (HomePage);

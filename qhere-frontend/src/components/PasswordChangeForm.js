@@ -1,27 +1,85 @@
 import React ,{Component} from 'react'
-import {Form,Button} from 'semantic-ui-react'
+import {connect} from 'react-redux'
+import {resetPassword} from '../actions/Users'
+import {Form,Button,Message} from 'semantic-ui-react'
+import {Redirect} from 'react-router-dom'
  class PasswordChangeForm extends Component{
 
-    render(){
+    state={
+        newPassword:"",
+        confirmNewPassword:"",
+        _id:"",
+        error:{
+            statusCode:"",
+            statusText:""
+        }
+    }
+
+    componentDidMount(){
+        let path=window.location.pathname
+        let _id=path.substring(20);
+        this.setState({
+            _id:_id
+        })
+    }
+    
+
+    handleChange=(e)=>{
+        this.setState({
+            [e.target.name]:e.target.value
+        })
+    }
+
+    onSubmit=()=>{
+        if(this.state.newPassword !== this.state.confirmNewPassword){
+            console.log("Şifreleriniz aynı değil")
+        }else{
+            console.log(this.state._id+" "+this.state.newPassword)
+            this.props.resetPassword(this.state)
+        }
+    }
+
+    render(){ 
+        console.log(this.props.state.users.Error.statusCode)
+        const message=(
+            <div style={style.Message}>
+            <Message negative>
+                <Message.Header>Uyarı</Message.Header>
+                <p>Şifreleriniz Eşit Değil</p>
+            </Message>
+            </div>
+        )
+
+        
         return(
             <div>
                 <Form style={style.Form}>
-                    <Form.Field >
-                    <label style={style.Label}>Old Password</label>
-                    <input placeholder='Old Password' />
-                    </Form.Field>
-                    <Form.Field>
                     <label style={style.Label}>New Password</label>
-                    <input placeholder='New Password' />
-                    </Form.Field>
-                    <Form.Field>
+                    <Form.Input
+                            fluid
+                            name='newPassword'
+                            icon='lock'
+                            iconPosition='left'
+                            placeholder='New Password'
+                            type='password'
+                            value={this.state.newPassword}
+                            onChange={this.handleChange}
+                        />
                     <label style={style.Label}>Confirm New Password</label>
-                    <input placeholder='Confirm New Password' />
-                    </Form.Field>
-                    <Form.Field>
-                    </Form.Field>
-                    <Button type='submit'>Update Password</Button>
+                    <Form.Input
+                            fluid
+                            name='confirmNewPassword'
+                            icon='lock'
+                            iconPosition='left'
+                            placeholder='Confirm New Password'
+                            type='password'
+                            value={this.state.confirmNewPassword}
+                            onChange={this.handleChange}
+                        />
+                    <Button type='submit' onClick={this.onSubmit}>Update Password</Button>
                 </Form>
+                {this.state.newPassword === this.state.confirmNewPassword ? "" : message}
+                {this.props.state.users.Error.statusCode === 200 ? <Redirect to="/"/> : ""}
             </div>
         )
     }
@@ -31,12 +89,25 @@ import {Form,Button} from 'semantic-ui-react'
  const style={
      Form:{
          margin:'auto',
+         marginTop:50,
          width:450
      },
      Label:{
          float:'Left',
-         marginLeft:15
+         marginLeft:15,
+         font:25
      }
  }
 
- export default PasswordChangeForm;
+ const mapStateToProps=(state)=>{
+    return{
+        resetPassword:state.resetPassword,
+        state:state
+    }
+ }
+
+ const mapDispatchToProps={
+    resetPassword
+ }
+
+ export default connect(mapStateToProps,mapDispatchToProps) (PasswordChangeForm);

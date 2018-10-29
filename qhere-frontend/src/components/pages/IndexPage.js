@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 class IndexPage extends Component{
 
     state={
-        isIndex:false,
+        isIndex:false
     }
 
     hideFixedMenu = () => this.setState({ fixed: false })
@@ -31,6 +31,7 @@ class IndexPage extends Component{
                 isIndex:true
             })
         }else{
+           
             this.setState({
                 isIndex:false
             })
@@ -85,7 +86,7 @@ class IndexPage extends Component{
 
         return(
             <div>
-            { this.props.isLogin === false ? index : "" }
+            {  this.props.isLogin === false && localStorage.token === undefined  ? index : "" }
             { this.state.isIndex === true ? <h1>QHERE hakkında bilgi</h1> : "" }
             </div>
         )  
