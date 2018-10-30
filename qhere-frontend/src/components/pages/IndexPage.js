@@ -13,7 +13,7 @@ class IndexPage extends Component{
 
     componentWillMount(){
         if(window.location.pathname === '/')
-        {
+        {   
             this.setState({
                 isIndex:true
             })
@@ -24,7 +24,7 @@ class IndexPage extends Component{
         }
     }
 
-    componentWillReceiveProps(){
+    componentWillReceiveProps(){   
         if(window.location.pathname === '/')
         {
             this.setState({
@@ -96,8 +96,10 @@ class IndexPage extends Component{
 
 const mapStateToProps=(state)=>{
     return {
-        isLogin:state.users.isLogin
+        isLogin:state.users.isLogin,
+        state:state.users
     }
 }
+
 
 export default connect(mapStateToProps) (IndexPage);

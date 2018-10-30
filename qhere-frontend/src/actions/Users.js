@@ -16,6 +16,8 @@ export const LOGOUT_ERROR="LOGOUT_ERROR"
 export const RESET_PASSWORD="RESET_PASSWORD"
 export const RESET_PASSWORD_ERROR="RESET_PASSWORD_ERROR"
 
+export const RESET="RESET"
+
 
 export function login({email,password}) {
     console.log(email,password);
@@ -116,11 +118,20 @@ export function resetPassword({_id,newPassword}){
 
 export function reload(){
     let token=localStorage.getItem('token')
-    console.log(localStorage.getItem('token'))
+    setAuthorizationToken(token)
     return dispatch=>{
         dispatch({
             type:TOKEN,
             payload:token,
+        })
+    }
+}
+
+export function reset(){
+    return dispatch=>{
+        dispatch({
+            type:RESET,
+            payload:""
         })
     }
 }

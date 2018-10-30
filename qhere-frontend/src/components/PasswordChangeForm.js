@@ -8,11 +8,8 @@ import {Redirect} from 'react-router-dom'
     state={
         newPassword:"",
         confirmNewPassword:"",
-        _id:"",
-        error:{
-            statusCode:"",
-            statusText:""
-        }
+        redirect:false,
+        _id:""
     }
 
     componentDidMount(){
@@ -22,7 +19,19 @@ import {Redirect} from 'react-router-dom'
             _id:_id
         })
     }
-    
+
+    componentWillMount(){
+        console.log(this.props)
+    }
+
+    componentDidUpdate(){
+        console.log(this.props.state.users.isResetPassword)
+        if(this.props.state.users.isResetPassword===true){
+            this.setState({
+                redirect:true
+            })
+        }
+    }
 
     handleChange=(e)=>{
         this.setState({
@@ -34,7 +43,7 @@ import {Redirect} from 'react-router-dom'
         if(this.state.newPassword !== this.state.confirmNewPassword){
             console.log("Şifreleriniz aynı değil")
         }else{
-            console.log(this.state._id+" "+this.state.newPassword)
+
             this.props.resetPassword(this.state)
         }
     }
@@ -79,7 +88,7 @@ import {Redirect} from 'react-router-dom'
                     <Button type='submit' onClick={this.onSubmit}>Update Password</Button>
                 </Form>
                 {this.state.newPassword === this.state.confirmNewPassword ? "" : message}
-                {this.props.state.users.Error.statusCode === 200 ? <Redirect to="/"/> : ""}
+                {this.state.redirect === true ? <Redirect to="/"/> : ""}
             </div>
         )
     }

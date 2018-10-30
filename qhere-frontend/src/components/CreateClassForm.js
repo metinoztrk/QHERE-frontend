@@ -1,37 +1,83 @@
 import React ,{Component} from 'react';
+import {connect} from 'react-redux';
+import {createClass} from '../actions/Manager'
 import { Button, Form } from 'semantic-ui-react';
 class CreateClassForm extends Component{
 
+    state={
+        managerName:"",
+        className:"",
+        joinTime:"",
+        quota:"",
+        discontinuity:"",
+        description:"",
+        redirect:false
+    }
+
+    handleChange=(e)=>{
+        this.setState({
+            [e.target.name]:e.target.value
+        })
+    }
+
+    onSubmit=()=>{
+        this.props.createClass(this.state)
+    }
+
     render(){
+        console.log(this.props.state.manager.createClass)
         return(
             <div>
                 <Form style={style.CreateClassForm}>
                     <Form.Field>
+                    <label>Manager Name</label>
+                    <input
+                    name='managerName'
+                    value={this.state.managerName}
+                    onChange={this.handleChange}
+                    placeholder='Manager Name' />
+                    </Form.Field>
+                    <Form.Field>
                     <label>Class Name</label>
-                    <input 
+                    <input
+                    name='className'
+                    value={this.state.className}
+                    onChange={this.handleChange}
                     placeholder='Class Name' />
                     </Form.Field>
                     <Form.Field>
                     <label>Join Time</label>
-                    <input 
+                    <input
+                    name='joinTime'
+                    value={this.state.joinTime}
+                    onChange={this.handleChange}
                     placeholder='Join Time' />
                     </Form.Field>
                     <Form.Field>
                     <label>Quota</label>
-                    <input 
+                    <input
+                    name='quota'
+                    value={this.state.quota}
+                    onChange={this.handleChange}
                     placeholder='Quota' />
                     </Form.Field>
                     <Form.Field>
                     <label>Discontinuity</label>
-                    <input 
+                    <input
+                    name='discontinuity'
+                    value={this.state.discontinuity}
+                    onChange={this.handleChange}
                     placeholder='Discontinuity' />
                     </Form.Field>
                     <Form.Field>
                     <label>Description</label>
-                    <input 
+                    <input
+                    name='description'
+                    value={this.state.description}
+                    onChange={this.handleChange}
                     placeholder='Description' />
                     </Form.Field>
-                    <Button type='submit'>Kayıt</Button>
+                    <Button type='submit' onClick={this.onSubmit}>Kayıt</Button>
                 </Form>
             </div>
         )
@@ -50,4 +96,14 @@ const style={
     }
 }
 
-export default CreateClassForm;
+const mapStateToProps=(state)=>{
+    return{
+        state:state
+    }
+}
+
+const mapDispatchToProps={
+    createClass
+}
+
+export default connect(mapStateToProps,mapDispatchToProps) (CreateClassForm);

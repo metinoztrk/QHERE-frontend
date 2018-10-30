@@ -120,7 +120,7 @@ class HomePage extends Component{
                     </Segment>
                     </Visibility>
                 </Responsive>
-                {this.props.users.isLogin === true ? "" : <Redirect to="/"/>}
+                {this.state.isHome === true ? "" : <Redirect to="/"/>}
                 {this.state.isDashBoard === true ? dashBoard : ""}
             </div>
         )

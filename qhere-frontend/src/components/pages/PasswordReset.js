@@ -2,7 +2,7 @@ import React,{Component} from 'react'
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 import { Button, Form, Message } from 'semantic-ui-react'
-import {forgot} from '../../actions/Users'
+import {forgot,reset} from '../../actions/Users'
 class PasswordReset extends Component{
 
     state={
@@ -15,20 +15,11 @@ class PasswordReset extends Component{
     }
 
     componentWillUpdate(nextProps) {
-        if(nextProps.state.users.Error.statusCode !== this.state.error.status)
-        {  
+        console.log(nextProps.state.users.isForgot)
+        if(nextProps.state.users.isForgot===true){
             this.setState({
-                error:{
-                    status:nextProps.state.users.Error.statusCode,
-                    statusText:nextProps.state.users.Error.statusText
-                }
+                redirect:true
             })
-            console.log(nextProps.state.users.Error.statusCode)
-            if(nextProps.state.users.Error.statusCode === 200){
-                this.setState({
-                    redirect:true
-                })
-            }
         }
     }
 
@@ -43,7 +34,7 @@ class PasswordReset extends Component{
     )
 
     render(){
-        console.log(this.state)
+        console.log(this.props.reset)
     const message=(
             <div style={style.Message}>
             <Message negative>
@@ -72,8 +63,10 @@ class PasswordReset extends Component{
     )
 
         return(
+            
             <div>
-                { this.state.redirect === true ?   <Redirect to='/login'/> : form  }
+                { this.state.redirect === true ?   <Redirect to='/'/> : form  }
+                { this.state.redirect === true ? this.props.reset() : ""}
             </div>
         )
     }
@@ -104,7 +97,8 @@ const mapStateToProp=(state)=>{
 }
 
 const mapDispatchToProps={
-    forgot
+    forgot,
+    reset
 }
 
 export default connect(mapStateToProp,mapDispatchToProps) (PasswordReset);
