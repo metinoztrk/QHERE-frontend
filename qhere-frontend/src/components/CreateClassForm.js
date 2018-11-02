@@ -40,19 +40,11 @@ class CreateClassForm extends Component{
     }
 
     render(){
-        console.log(this.state)
-        console.log(this.props.reset)
+        
         return(
             <div>
                 <Form style={style.CreateClassForm}>
-                    <Form.Field>
-                    <label>Manager Name</label>
-                    <input
-                    name='managerName'
-                    value={this.state.managerName}
-                    onChange={this.handleChange}
-                    placeholder='Manager Name' />
-                    </Form.Field>
+                    
                     <Form.Field>
                     <label>Class Name</label>
                     <input

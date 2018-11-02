@@ -4,10 +4,7 @@ import {Link} from 'react-router-dom'
 
 class ClassesList extends Component{
 
-    state = { 
-        activeIndex: -1,
-        classes:[]
-    }
+
 
     componentWillMount(){
         if(window.location.pathname==='/homePage/classes')
@@ -21,7 +18,7 @@ class ClassesList extends Component{
             <div style={style.div}>
                 { 
                     this.props.classes.map((Class)=>
-                            <List as={Link} to={`/homePage/classes/${Class._id}/info`} key={Class._id} divided relaxed style={style.list}>
+                            <List as={Link} to={`/homePage/classes/${Class._id}/info`}  key={Class._id} divided relaxed style={style.list}>
                                 <List.Item>
                                 <List.Content floated='left'>
                                     <List.Header as='a' style={style.header}>{Class.className}</List.Header>

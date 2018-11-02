@@ -17,5 +17,5 @@ const Store=createStore(
     
 )
 
-ReactDOM.render(<BrowserRouter><Provider store={Store} ><App /></Provider></BrowserRouter> , document.getElementById('root'));
+ReactDOM.render(<BrowserRouter><Provider store={Store} ><App/></Provider></BrowserRouter> , document.getElementById('root'));
 serviceWorker.unregister();
