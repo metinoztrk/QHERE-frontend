@@ -1,4 +1,4 @@
-import {TOKEN,TOKEN_ERROR,REGISTER,REGISTER_ERROR,FORGOT,FORGOT_ERROR,LOGOUT,LOGOUT_ERROR, RESET_PASSWORD, RESET_PASSWORD_ERROR,RESET} from '../actions/Users';
+import {TOKEN,TOKEN_ERROR,REGISTER,REGISTER_ERROR,FORGOT,FORGOT_ERROR,LOGOUT,LOGOUT_ERROR, RESET_PASSWORD, RESET_PASSWORD_ERROR,RESET_USER} from '../actions/Users';
 
 const initialState={
     userToken:"",
@@ -83,7 +83,7 @@ export default (state=initialState,action)=>{
                     statusText:action.payload
                 }  
             }
-        case RESET:
+        case RESET_USER:
             return {
                 ...state,
                 isResetPassword:false,

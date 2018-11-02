@@ -1,6 +1,7 @@
 import React ,{Component} from 'react';
 import {connect} from 'react-redux';
-import {createClass} from '../actions/Manager'
+import {createClass,reset} from '../actions/Manager'
+import {Redirect} from 'react-router-dom'
 import { Button, Form } from 'semantic-ui-react';
 class CreateClassForm extends Component{
 
@@ -11,7 +12,8 @@ class CreateClassForm extends Component{
         quota:"",
         discontinuity:"",
         description:"",
-        redirect:false
+        redirect:false,
+        status:""
     }
 
     handleChange=(e)=>{
@@ -20,12 +22,26 @@ class CreateClassForm extends Component{
         })
     }
 
+    componentWillUnmount( ){
+        this.props.reset()
+    }
+
+    componentWillUpdate(nextProps) {
+        console.log(nextProps.state.manager.createClass)
+        if(nextProps.state.manager.createClass===200){
+            this.setState({
+                redirect:true
+            })
+        }
+    }
+
     onSubmit=()=>{
         this.props.createClass(this.state)
     }
 
     render(){
-        console.log(this.props.state.manager.createClass)
+        console.log(this.state)
+        console.log(this.props.reset)
         return(
             <div>
                 <Form style={style.CreateClassForm}>
@@ -79,6 +95,7 @@ class CreateClassForm extends Component{
                     </Form.Field>
                     <Button type='submit' onClick={this.onSubmit}>Kayıt</Button>
                 </Form>
+                {this.state.redirect === true ? <Redirect to="/homePage"/>  : ""}
             </div>
         )
     }
@@ -103,7 +120,8 @@ const mapStateToProps=(state)=>{
 }
 
 const mapDispatchToProps={
-    createClass
+    createClass,
+    reset
 }
 
 export default connect(mapStateToProps,mapDispatchToProps) (CreateClassForm);

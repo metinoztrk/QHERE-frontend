@@ -10,6 +10,7 @@ import {
     Grid
   } from 'semantic-ui-react'
 import {logout,reload} from '../../actions/Users'
+import {getClasses} from '../../actions/Manager'
 import DashBoard from '../DashBoard';
 import {Link ,Redirect} from 'react-router-dom';
 class HomePage extends Component{
@@ -66,6 +67,10 @@ class HomePage extends Component{
         )    
     )
 
+    getClasses=()=>{
+        this.props.getClasses()
+    }
+
     render(){
         
         const { fixed } = this.state
@@ -109,7 +114,7 @@ class HomePage extends Component{
                             Home
                             </Menu.Item>
                             <Menu.Item as={Link} to="/homePage/createClass" style={{ marginLeft: '5em' , color:'#FFFFFF' }}>Create Class</Menu.Item>
-                            <Menu.Item as={Link} to="/homePage/classes" style={{ marginLeft: '5em' , color:'#FFFFFF' }}>Classes</Menu.Item>
+                            <Menu.Item as={Link} to="/homePage/classes" style={{ marginLeft: '5em' , color:'#FFFFFF' }} onClick={this.getClasses}>Classes</Menu.Item>
                             <Menu.Item position='right'>
                             <Button inverted={!fixed} primary={fixed} style={{ marginRight: '5em' }} onClick={this.onSubmit}>
                                 Logout
@@ -131,13 +136,15 @@ class HomePage extends Component{
 
 const mapStateToProps=(state)=>{
     return {
-        users:state.users
+        users:state.users,
+        getClasses:state
     }
 }
 
 const mapDispatchToProps={
     logout,
-    reload
+    reload,
+    getClasses
 }
 
 export default connect(mapStateToProps,mapDispatchToProps) (HomePage);

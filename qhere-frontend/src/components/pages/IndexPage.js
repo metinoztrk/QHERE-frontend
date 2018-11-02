@@ -12,28 +12,29 @@ class IndexPage extends Component{
     showFixedMenu = () => this.setState({ fixed: true })
 
     componentWillMount(){
+        
         if(window.location.pathname === '/')
         {   
             this.setState({
                 isIndex:true
-            })
+            }) 
         }else{
             this.setState({
-                isIndex:false
+                isIndex:false,
             })
         }
     }
 
-    componentWillReceiveProps(){   
+    componentWillReceiveProps(){
         if(window.location.pathname === '/')
         {
-            this.setState({
-                isIndex:true
-            })
+                this.setState({
+                    isIndex:true
+                })    
         }else{
            
             this.setState({
-                isIndex:false
+                isIndex:false,
             })
         }
     }
@@ -86,7 +87,7 @@ class IndexPage extends Component{
 
         return(
             <div>
-            {  this.props.isLogin === false && localStorage.token === undefined  ? index : "" }
+            { localStorage.token === undefined ? index : "" }
             { this.state.isIndex === true ? <h1>QHERE hakkında bilgi</h1> : "" }
             </div>
         )  

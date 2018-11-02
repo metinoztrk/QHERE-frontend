@@ -14,6 +14,10 @@ class PasswordReset extends Component{
         redirect:false   
     }
 
+    componentWillUnmount( ){
+        this.props.reset()
+    }
+
     componentWillUpdate(nextProps) {
         console.log(nextProps.state.users.isForgot)
         if(nextProps.state.users.isForgot===true){
@@ -66,7 +70,7 @@ class PasswordReset extends Component{
             
             <div>
                 { this.state.redirect === true ?   <Redirect to='/'/> : form  }
-                { this.state.redirect === true ? this.props.reset() : ""}
+                
             </div>
         )
     }
