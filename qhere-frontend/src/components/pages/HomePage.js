@@ -35,6 +35,12 @@ class HomePage extends Component{
                 isDashBoard:false
             })
         }
+            console.log(this.props)
+        if(window.location.pathname==='/homePage/classes')
+        {  
+           this.props.getClasses()
+        }
+
     }
 
     componentWillReceiveProps(){

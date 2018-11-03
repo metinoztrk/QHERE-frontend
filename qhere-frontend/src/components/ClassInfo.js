@@ -1,26 +1,37 @@
 import React,{Component} from 'react'
+import {connect} from 'react-redux'
 import {List,Button} from 'semantic-ui-react'
+import {Redirect} from 'react-router-dom'
 
 class ClassInfo extends Component{
 
     state={
-        ClassId:""
+        id:"",
+        class:""
     }
 
     componentWillMount(){
-        var id = window.location.pathname.slice(18,42);
-        this.setState({
-            ClassId:id
+        var _id = window.location.pathname.slice(18, 42);
+        var classes=this.props.classes
+        classes.find(instance=>{
+            if(instance._id===_id)
+            {
+                this.setState({
+                    id:_id,
+                    class:instance
+                })
+            }
         })
     }
 
     render(){
-        return(
+        console.log(this.state)
+        const Info=(
             <div style={style.div}>
             <List divided relaxed>
                 <List.Item>
                 <List.Content>
-                    <List.Header style={style.header}>Veri Madenciliği</List.Header>
+                    <List.Header style={style.header}>{this.state.class.className}</List.Header>
                     <Button color='red' style={style.button}>Sil</Button>
                     <Button color='yellow' style={style.button}>Düzenle</Button>  
                 </List.Content>
@@ -28,33 +39,38 @@ class ClassInfo extends Component{
                 <List.Item>
                 <List.Content>
                     <List.Header style={style.header}>Kontenjan</List.Header>
-                    <List.Description>24</List.Description>
+                    <List.Description>{this.state.class.quota}</List.Description>
                 </List.Content>
                 </List.Item>
                 <List.Item>
                 <List.Content>
                     <List.Header style={style.header}>Devamsızlık</List.Header>
-                    <List.Description>3</List.Description>
+                    <List.Description>{this.state.class.discontinuity}</List.Description>
                 </List.Content>
                 </List.Item>
                 <List.Item>
                 <List.Content>
                     <List.Header style={style.header}>Açıklama</List.Header>
-                    <List.Description>Laptop Getirilmeli</List.Description>
+                    <List.Description>{this.state.class.description}</List.Description>
                 </List.Content>
                 </List.Item>
                 <List.Item>
                 <List.Content>
                     <List.Header style={style.header}>Öğrenciler</List.Header>
-                    <List.Description>Öğrenciler Listelenecek</List.Description>
+                    <List.Description>{this.state.class.students}</List.Description>
                 </List.Content>
                 </List.Item>
             </List>
+        </div>
+        )
+
+        return(
+            <div>
+                { this.props.classes.length === 0 ? <Redirect to="/homePage"/> : Info }
             </div>
         )
     }
-
-}  
+}
 
 const style={
     header:{
@@ -77,4 +93,10 @@ const style={
     
 }
 
-export default ClassInfo
+const mapStateToProps=(state)=>{
+    return{
+        classes:state.manager.classes
+    }
+}
+
+export default connect(mapStateToProps) (ClassInfo)

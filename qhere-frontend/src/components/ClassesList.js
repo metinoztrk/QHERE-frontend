@@ -4,40 +4,28 @@ import {Link} from 'react-router-dom'
 
 class ClassesList extends Component{
 
-
-
-    componentWillMount(){
-        if(window.location.pathname==='/homePage/classes')
-        {  
-            this.props.getClasses()
-        }
-    }
-
     render(){
+
         return(
             <div style={style.div}>
                 { 
                     this.props.classes.map((Class)=>
-                            <List as={Link} to={`/homePage/classes/${Class._id}/info`}  key={Class._id} divided relaxed style={style.list}>
-                                <List.Item>
-                                <List.Content floated='left'>
-                                    <List.Header as='a' style={style.header}>{Class.className}</List.Header>
-                                </List.Content>
-                                <List.Content floated='right'>
-                                    <Button style={style.button}>QHERE</Button>
-                                    <Button color='yellow' style={{padding:12}}>Düzenle</Button>
-                                    <Button color='red' style={{padding:12}}>Sil</Button>
-                                </List.Content>
-                                </List.Item>
-                                <Divider/>
-                            </List>
-                            
+                                <List as={Link} to={`/homePage/classes/${Class._id}/info`} key={Class._id} divided relaxed style={style.list}>
+                                    <List.Item>
+                                    <List.Content  floated='left'>
+                                        <List.Header style={style.header}>{Class.className}</List.Header>
+                                    </List.Content>
+                                    <List.Content floated='right'>
+                                        <Button style={style.button}>QHERE</Button>
+                                    </List.Content>
+                                    </List.Item>
+                                    <Divider/>
+                                </List>   
                     ) 
                 }
             </div>
         )
     }
-
 }
 
 const style={

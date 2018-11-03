@@ -4,8 +4,6 @@ import ClassesList from '../components/ClassesList'
 import {getClasses} from '../actions/Manager'
 class Classes extends Component{
 
-    
-
     render(){
         return(
             <div>
