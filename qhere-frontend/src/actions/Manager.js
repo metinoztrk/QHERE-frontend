@@ -6,6 +6,9 @@ export const CREATE_CLASS_ERROR="CREATE_CLASS_ERROR"
 export const CLASSES="CLASSES"
 export const CLASSES_ERROR="CLASSES_ERROR"
 
+export const GET_CLASSES_REQUEST="GET_CLASSES_REQUEST"
+export const GET_CLASSES_REQUEST_ERROR="GET_CLASSES_REQUEST_ERROR"
+
 export const RESET_MANAGER="RESET_MANAGER"
 
 export function createClass({managerName,className,joinTime,quota,discontinuity,description}){
@@ -32,6 +35,20 @@ export function getClasses(){
         .then((data)=>{
             dispatch({
                 type:CLASSES,
+                payload:data.data.data
+            })
+        }).catch((err)=>{
+            console.log(err)
+        })
+    }
+}
+
+export function getClassesRequest(){
+    return dispatch=>{
+        axios.get('http://localhost:3000/manager/getClassesRequest')
+        .then((data)=>{
+            dispatch({
+                type:GET_CLASSES_REQUEST,
                 payload:data.data.data
             })
         }).catch((err)=>{

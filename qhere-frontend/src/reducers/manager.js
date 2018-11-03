@@ -1,4 +1,4 @@
-import {CREATE_CLASS,CREATE_CLASS_ERROR,RESET_MANAGER,CLASSES,CLASSES_ERROR} from '../actions/Manager'
+import {CREATE_CLASS,CREATE_CLASS_ERROR,RESET_MANAGER,CLASSES,CLASSES_ERROR,GET_CLASSES_REQUEST,GET_CLASSES_REQUEST_ERROR} from '../actions/Manager'
 
 const initialState={
     createClass:"",
@@ -6,7 +6,8 @@ const initialState={
     Error:{
         statusCode:"",
         statusText:""
-    }
+    },
+    requestStudents:[]
 }
 
 export default (state=initialState,action)=>{
@@ -30,6 +31,19 @@ export default (state=initialState,action)=>{
                 classes:action.payload
             }
         case CLASSES_ERROR:
+            return{
+                ...state,
+                Error:{
+                    statusCode:action.payload.status,
+                    statusText:action.payload.statusText
+                }  
+            }
+        case GET_CLASSES_REQUEST:
+            return{
+                ...state,
+                requestStudents:action.payload
+            }
+        case GET_CLASSES_REQUEST_ERROR:
             return{
                 ...state,
                 Error:{

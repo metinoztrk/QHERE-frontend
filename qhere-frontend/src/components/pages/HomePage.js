@@ -10,7 +10,7 @@ import {
     Grid
   } from 'semantic-ui-react'
 import {logout,reload} from '../../actions/Users'
-import {getClasses} from '../../actions/Manager'
+import {getClasses,getClassesRequest} from '../../actions/Manager'
 import DashBoard from '../DashBoard';
 import {Link ,Redirect} from 'react-router-dom';
 class HomePage extends Component{
@@ -78,7 +78,6 @@ class HomePage extends Component{
     }
 
     render(){
-        
         const { fixed } = this.state
 
         const dashBoard=(
@@ -86,7 +85,7 @@ class HomePage extends Component{
                     <Grid>
                         <Grid.Row>
                             <Grid.Column>
-                                <DashBoard/>
+                                <DashBoard getClassesRequest={this.props.getClassesRequest} requestStudents={this.props.requestStudents}/>
                             </Grid.Column>
                         </Grid.Row>
                     </Grid> 
@@ -143,14 +142,16 @@ class HomePage extends Component{
 const mapStateToProps=(state)=>{
     return {
         users:state.users,
-        getClasses:state
+        getClasses:state,
+        requestStudents:state.manager.requestStudents
     }
 }
 
 const mapDispatchToProps={
     logout,
     reload,
-    getClasses
+    getClasses,
+    getClassesRequest
 }
 
 export default connect(mapStateToProps,mapDispatchToProps) (HomePage);
