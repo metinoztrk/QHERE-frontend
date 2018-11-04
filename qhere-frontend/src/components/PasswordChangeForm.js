@@ -6,18 +6,10 @@ import {Redirect} from 'react-router-dom'
  class PasswordChangeForm extends Component{
 
     state={
+        code:"",
         newPassword:"",
         confirmNewPassword:"",
-        redirect:false,
-        _id:""
-    }
-
-    componentDidMount(){
-        let path=window.location.pathname
-        let _id=path.substring(20);
-        this.setState({
-            _id:_id
-        })
+        redirect:false
     }
 
     componentWillMount(){
@@ -63,6 +55,14 @@ import {Redirect} from 'react-router-dom'
         return(
             <div>
                 <Form style={style.Form}>
+                    <label style={style.Label}>Code</label>
+                    <Form.Input
+                            fluid
+                            name='code'
+                            placeholder='Code'
+                            value={this.state.code}
+                            onChange={this.handleChange}
+                        />
                     <label style={style.Label}>New Password</label>
                     <Form.Input
                             fluid

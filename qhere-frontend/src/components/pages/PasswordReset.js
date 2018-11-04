@@ -38,7 +38,7 @@ class PasswordReset extends Component{
     )
 
     render(){
-        console.log(this.props.reset)
+    console.log(this.state)
     const message=(
             <div style={style.Message}>
             <Message negative>
@@ -69,7 +69,7 @@ class PasswordReset extends Component{
         return(
             
             <div>
-                { this.state.redirect === true ?   <Redirect to='/'/> : form  }
+                { this.state.redirect === true ?   <Redirect to='/PasswordChangeForm'/> : form  }
                 
             </div>
         )

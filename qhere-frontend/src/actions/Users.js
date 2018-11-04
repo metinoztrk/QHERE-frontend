@@ -98,10 +98,10 @@ export function forgot({email}){
     }
 }
 
-export function resetPassword({_id,newPassword}){
-    console.log(_id+" "+newPassword)
+export function resetPassword({code,newPassword}){
+    console.log(code+" "+newPassword)
     return dispatch=>{
-        axios.post('http://localhost:3000/user/resetPassword',{_id,newPassword})
+        axios.post('http://localhost:3000/user/resetPassword',{code,newPassword})
         .then(data=>{
             dispatch({
                 type:RESET_PASSWORD,

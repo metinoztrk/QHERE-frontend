@@ -21,6 +21,8 @@ class App extends Component {
           <Route path='/' component={IndexPage}></Route>
           <Route exact path='/register' component={RegisterPage}></Route>
           <Route exact path='/login' component={LoginPage}></Route>
+          <Route exact path='/passwordReset' component={PasswordReset}></Route>
+          <Route exact path='/PasswordChangeForm' component={PasswordChangeForm}></Route>
       </div>
     )
   
@@ -29,8 +31,6 @@ class App extends Component {
           <Route path='/homePage' component={HomePage}></Route>
           <Route exact path='/homePage/createClass' component={CreateClassForm}></Route>
           <Route exact path='/homePage/classes' component={Classes}></Route>
-          <Route exact path='/passwordReset' component={PasswordReset}></Route>
-          <Route exact path='/PasswordChangeForm/:_id' component={PasswordChangeForm}></Route>
           <Route exact path='/homePage/classes/:_id/info' component={ClassInfo}></Route>
       </div>
     )

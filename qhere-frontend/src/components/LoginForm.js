@@ -89,7 +89,7 @@ class LoginForm extends Component{
                             onChange={this.handleChange}
                         />
                         <div>
-                        <Link to="passwordReset" res={this.state}>
+                        <Link to="/passwordReset" res={this.state}>
                         <Label  color='teal' style={style.ForgotLabel} >
                         Forgot password?
                         </Label>
