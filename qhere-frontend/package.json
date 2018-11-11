@@ -3,9 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "art": "^0.10.3",
     "axios": "^0.18.0",
     "react": "^16.5.2",
+    "react-art-svg-renderer": "0.0.1-rc.8",
     "react-dom": "^16.5.2",
+    "react-qr-code": "^0.1.2",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.0.5",

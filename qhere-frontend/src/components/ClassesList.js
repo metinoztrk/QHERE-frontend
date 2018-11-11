@@ -10,12 +10,12 @@ class ClassesList extends Component{
             <div style={style.div}>
                 { 
                     this.props.classes.map((Class)=>
-                                <List as={Link} to={`/homePage/classes/${Class._id}/info`} key={Class._id} divided relaxed style={style.list}>
+                                <List key={Class._id} divided relaxed style={style.list}>
                                     <List.Item>
-                                    <List.Content  floated='left'>
+                                    <List.Content as={Link} to={`/homePage/classes/${Class._id}/info`} floated='left'>
                                         <List.Header style={style.header}>{Class.className}</List.Header>
                                     </List.Content>
-                                    <List.Content floated='right'>
+                                    <List.Content as={Link} to={`/homePage/classes/${Class._id}/Qhere`} floated='right'>
                                         <Button style={style.button}>QHERE</Button>
                                     </List.Content>
                                     </List.Item>
