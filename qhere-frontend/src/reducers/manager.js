@@ -1,4 +1,15 @@
-import {CREATE_CLASS,CREATE_CLASS_ERROR,RESET_MANAGER,CLASSES,CLASSES_ERROR,GET_CLASSES_REQUEST,GET_CLASSES_REQUEST_ERROR} from '../actions/Manager'
+import {CREATE_CLASS,
+        CREATE_CLASS_ERROR,
+        RESET_MANAGER,
+        CLASSES,
+        CLASSES_ERROR,
+        GET_CLASSES_REQUEST,
+        GET_CLASSES_REQUEST_ERROR,
+        APPROVE_STUDENT,
+        APPROVE_STUDENT_ERROR,
+        REJECT_STUDENT,
+        REJECT_STUDENT_ERROR
+    } from '../actions/Manager'
 
 const initialState={
     createClass:"",
@@ -44,6 +55,42 @@ export default (state=initialState,action)=>{
                 requestStudents:action.payload
             }
         case GET_CLASSES_REQUEST_ERROR:
+            return{
+                ...state,
+                Error:{
+                    statusCode:action.payload.status,
+                    statusText:action.payload.statusText
+                }  
+            }
+        case APPROVE_STUDENT:
+            return{
+                ...state,
+                requestStudents:state.requestStudents.filter(item=>item.studentId!==action.payload)
+            }
+        case APPROVE_STUDENT_ERROR:
+            console.log(action.payload[1])
+            if(action.payload[1]===406){
+                console.log("a")
+                return{
+                    ...state,
+                    requestStudents:state.requestStudents.filter(item=>item.studentId!==action.payload[0])
+                }  
+            }else{
+                return{
+                    ...state,
+                    Error:{
+                        statusCode:action.payload.status,
+                        statusText:action.payload.statusText
+                    }  
+                }  
+            }
+            
+        case REJECT_STUDENT:
+            return{
+                ...state,
+                requestStudents:state.requestStudents.filter(item=>item.studentId!==action.payload)
+            }
+        case REJECT_STUDENT_ERROR:
             return{
                 ...state,
                 Error:{

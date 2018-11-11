@@ -10,7 +10,7 @@ import {
     Grid
   } from 'semantic-ui-react'
 import {logout,reload} from '../../actions/Users'
-import {getClasses,getClassesRequest} from '../../actions/Manager'
+import {getClasses,getClassesRequest,approveStudent,rejectStudent} from '../../actions/Manager'
 import DashBoard from '../DashBoard';
 import {Link ,Redirect} from 'react-router-dom';
 class HomePage extends Component{
@@ -35,7 +35,6 @@ class HomePage extends Component{
                 isDashBoard:false
             })
         }
-            console.log(this.props)
         if(window.location.pathname==='/homePage/classes')
         {  
            this.props.getClasses()
@@ -85,7 +84,10 @@ class HomePage extends Component{
                     <Grid>
                         <Grid.Row>
                             <Grid.Column>
-                                <DashBoard getClassesRequest={this.props.getClassesRequest} requestStudents={this.props.requestStudents}/>
+                                <DashBoard getClassesRequest={this.props.getClassesRequest} 
+                                            requestStudents={this.props.requestStudents}
+                                            rejectStudent={this.props.rejectStudent}
+                                            approveStudent={this.props.approveStudent}/>
                             </Grid.Column>
                         </Grid.Row>
                     </Grid> 
@@ -115,7 +117,7 @@ class HomePage extends Component{
                        
                         >
                         <Container>
-                            <Menu.Item as={Link} to="/homePage" style={{ marginLeft: '5em' , color:'#FFFFFF' }}>
+                            <Menu.Item as={Link} to="/homePage" style={{ marginLeft: '5em' , color:'#FFFFFF' }} onClick={()=>this.props.getClassesRequest()}>
                             Home
                             </Menu.Item>
                             <Menu.Item as={Link} to="/homePage/createClass" style={{ marginLeft: '5em' , color:'#FFFFFF' }}>Create Class</Menu.Item>
@@ -151,7 +153,9 @@ const mapDispatchToProps={
     logout,
     reload,
     getClasses,
-    getClassesRequest
+    getClassesRequest,
+    approveStudent,
+    rejectStudent
 }
 
 export default connect(mapStateToProps,mapDispatchToProps) (HomePage);

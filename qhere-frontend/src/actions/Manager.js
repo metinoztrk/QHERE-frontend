@@ -9,6 +9,12 @@ export const CLASSES_ERROR="CLASSES_ERROR"
 export const GET_CLASSES_REQUEST="GET_CLASSES_REQUEST"
 export const GET_CLASSES_REQUEST_ERROR="GET_CLASSES_REQUEST_ERROR"
 
+export const APPROVE_STUDENT="APPROVE_STUDENT"
+export const APPROVE_STUDENT_ERROR="APPROVE_STUDENT_ERROR"
+
+export const REJECT_STUDENT="REJECT_STUDENT"
+export const REJECT_STUDENT_ERROR="REJECT_STUDENT_ERROR"
+
 export const RESET_MANAGER="RESET_MANAGER"
 
 export function createClass({managerName,className,joinTime,quota,discontinuity,description}){
@@ -53,6 +59,51 @@ export function getClassesRequest(){
             })
         }).catch((err)=>{
             console.log(err)
+        })
+    }
+}
+
+export function approveStudent(id){
+    let message=[]
+    message.push(id)
+    return dispatch=>{
+        axios.put(`http://localhost:3000/manager/${id}/approveStudent`)
+        .then((data)=>{
+            dispatch({
+                type:APPROVE_STUDENT,
+                payload:id
+            })
+        }).catch((err)=>{
+            if(err.response.data.error.status_code)
+            {
+                message.push(err.response.data.error.status_code)
+                dispatch({
+                    type:APPROVE_STUDENT_ERROR,
+                    payload:message
+                })
+            }else{
+                dispatch({
+                    type:APPROVE_STUDENT_ERROR,
+                    payload:err.response
+                })
+            }
+        })
+    }
+}
+
+export function rejectStudent(id){
+    return dispatch=>{
+        axios.get(`http://localhost:3000/manager/${id}/rejectStudent`)
+        .then((data)=>{
+            dispatch({
+                type:REJECT_STUDENT,
+                payload:id
+            })
+        }).catch((err)=>{
+            dispatch({
+                type:REJECT_STUDENT_ERROR,
+                payload:err.response
+            })
         })
     }
 }
