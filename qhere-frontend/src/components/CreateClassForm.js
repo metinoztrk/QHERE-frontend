@@ -8,7 +8,7 @@ class CreateClassForm extends Component{
     state={
         managerName:"",
         className:"",
-        joinTime:"",
+        lastJoinTime:"",
         quota:"",
         discontinuity:"",
         description:"",
@@ -54,12 +54,12 @@ class CreateClassForm extends Component{
                     placeholder='Class Name' />
                     </Form.Field>
                     <Form.Field>
-                    <label>Join Time</label>
+                    <label>Last Join Time</label>
                     <input
-                    name='joinTime'
-                    value={this.state.joinTime}
+                    name='lastJoinTime'
+                    value={this.state.lastJoinTime}
                     onChange={this.handleChange}
-                    placeholder='Join Time' />
+                    placeholder='Last Join Time' />
                     </Form.Field>
                     <Form.Field>
                     <label>Quota</label>

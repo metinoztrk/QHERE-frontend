@@ -8,7 +8,11 @@ import {CREATE_CLASS,
         APPROVE_STUDENT,
         APPROVE_STUDENT_ERROR,
         REJECT_STUDENT,
-        REJECT_STUDENT_ERROR
+        REJECT_STUDENT_ERROR,
+        EDIT_CLASS,
+        EDIT_CLASS_ERROR,
+        DELETE_CLASS,
+        DELETE_CLASS_ERROR
     } from '../actions/Manager'
 
 const initialState={
@@ -65,15 +69,15 @@ export default (state=initialState,action)=>{
         case APPROVE_STUDENT:
             return{
                 ...state,
-                requestStudents:state.requestStudents.filter(item=>item.studentId!==action.payload)
+                requestStudents:state.requestStudents.filter(item=>item._id!==action.payload)
             }
         case APPROVE_STUDENT_ERROR:
             console.log(action.payload[1])
             if(action.payload[1]===406){
-                console.log("a")
+
                 return{
                     ...state,
-                    requestStudents:state.requestStudents.filter(item=>item.studentId!==action.payload[0])
+                    requestStudents:state.requestStudents.filter(item=>item._id!==action.payload[0])
                 }  
             }else{
                 return{
@@ -83,14 +87,37 @@ export default (state=initialState,action)=>{
                         statusText:action.payload.statusText
                     }  
                 }  
-            }
-            
+            }   
         case REJECT_STUDENT:
             return{
                 ...state,
-                requestStudents:state.requestStudents.filter(item=>item.studentId!==action.payload)
+                requestStudents:state.requestStudents.filter(item=>item._id!==action.payload)
             }
         case REJECT_STUDENT_ERROR:
+            return{
+                ...state,
+                Error:{
+                    statusCode:action.payload.status,
+                    statusText:action.payload.statusText
+                }  
+            }
+        case EDIT_CLASS:
+            return{
+                ...state
+            }
+        case EDIT_CLASS_ERROR:
+            return{
+                ...state,
+                Error:{
+                    statusCode:action.payload.status,
+                    statusText:action.payload.statusText
+                }  
+            }
+        case DELETE_CLASS:
+            return{
+                ...state
+            }
+        case DELETE_CLASS_ERROR:
             return{
                 ...state,
                 Error:{

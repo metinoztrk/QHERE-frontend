@@ -15,12 +15,18 @@ export const APPROVE_STUDENT_ERROR="APPROVE_STUDENT_ERROR"
 export const REJECT_STUDENT="REJECT_STUDENT"
 export const REJECT_STUDENT_ERROR="REJECT_STUDENT_ERROR"
 
+export const EDIT_CLASS="EDIT_CLASS"
+export const EDIT_CLASS_ERROR="EDIT_CLASS_ERROR"
+
+export const DELETE_CLASS="DELETE_CLASS"
+export const DELETE_CLASS_ERROR="DELETE_CLASS_ERROR"
+
 export const RESET_MANAGER="RESET_MANAGER"
 
-export function createClass({managerName,className,joinTime,quota,discontinuity,description}){
-    console.log(managerName+" "+className+" "+joinTime+" "+quota+" "+discontinuity+" "+description)
+export function createClass({managerName,className,lastJoinTime,quota,discontinuity,description}){
+    console.log(managerName+" "+className+" "+lastJoinTime+" "+quota+" "+discontinuity+" "+description)
     return dispatch=>{
-        axios.post('http://localhost:3000/manager/createClass',{managerName,className,joinTime,quota,discontinuity,description})
+        axios.post('http://localhost:3000/manager/createClass',{managerName,className,lastJoinTime,quota,discontinuity,description})
         .then((data)=>{
             dispatch({
                 type:CREATE_CLASS,
@@ -102,6 +108,40 @@ export function rejectStudent(id){
         }).catch((err)=>{
             dispatch({
                 type:REJECT_STUDENT_ERROR,
+                payload:err.response
+            })
+        })
+    }
+}
+
+export function editClass(id){
+    return dispatch=>{
+        axios.put(`http://localhost:3000/manager/${id}/editClass`)
+        .then((data)=>{
+            dispatch({
+                type:EDIT_CLASS,
+                payload:data.data
+            })
+        }).catch((err)=>{
+            dispatch({
+                type:EDIT_CLASS_ERROR,
+                payload:err.response
+            })
+        })
+    }
+}
+
+export function deleteClass(id){
+    return dispatch=>{
+        axios.delete(`http://localhost:3000/manager/${id}/deleteClass`)
+        .then((data)=>{
+            dispatch({
+                type:DELETE_CLASS,
+                payload:data.data
+            })
+        }).catch((err)=>{
+            dispatch({
+                type:DELETE_CLASS_ERROR,
                 payload:err.response
             })
         })

@@ -21,13 +21,11 @@ const DashBoardItem=({student,actions})=>{
 
 
 const onApprove=(student,action)=>{
-    action.getClassesRequest()
-    action.approveStudent(student.studentId)
+    action.approveStudent(student._id)
 }
 
 const onReject=(student,action)=>{
-    action.getClassesRequest()
-    action.rejectStudent(student.studentId)
+    action.rejectStudent(student._id)
 }
 
 

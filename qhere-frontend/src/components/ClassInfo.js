@@ -1,7 +1,10 @@
 import React,{Component} from 'react'
 import {connect} from 'react-redux'
-import {List,Button} from 'semantic-ui-react'
+import {List,Button,Table} from 'semantic-ui-react'
 import {Redirect} from 'react-router-dom'
+import {deleteClass,editClass,getClasses} from '../actions/Manager'
+import InfoStudentList from './InfoStudentList'
+import {Link} from 'react-router-dom';
 
 class ClassInfo extends Component{
 
@@ -24,16 +27,21 @@ class ClassInfo extends Component{
         })
     }
 
+    onDelete=()=>{
+        this.props.deleteClass(this.state.id)
+        this.props.getClasses()
+    }
+
     render(){
-        console.log(this.state)
+
         const Info=(
             <div style={style.div}>
             <List divided relaxed>
                 <List.Item>
                 <List.Content>
                     <List.Header style={style.header}>{this.state.class.className}</List.Header>
-                    <Button color='red' style={style.button}>Sil</Button>
-                    <Button color='yellow' style={style.button}>Düzenle</Button>  
+                    <Button as={Link} to={'/homePage/classes'} color='red' style={style.button} onClick={this.onDelete}>Sil</Button>
+                    <Button as={Link} to={`/homePage/createClass/${this.state.id}`} color='yellow' style={style.button} onClick={()=>this.props.editClass(this.state.id)}>Düzenle</Button>  
                 </List.Content>
                 </List.Item>
                 <List.Item>
@@ -56,8 +64,19 @@ class ClassInfo extends Component{
                 </List.Item>
                 <List.Item>
                 <List.Content>
-                    <List.Header style={style.header}>Öğrenciler</List.Header>
-                    <List.Description>{this.state.class.students}</List.Description>
+                    <List.Header style={style.studentHeader}>Öğrenciler</List.Header>
+                    <List.Description>
+                        <Table>
+                        <Table.Header>
+                        <Table.Row>
+                            <Table.HeaderCell>Adı Soyadı</Table.HeaderCell>
+                            <Table.HeaderCell>Okul Numarası</Table.HeaderCell>
+                            <Table.HeaderCell>Email</Table.HeaderCell>
+                        </Table.Row>
+                        </Table.Header>
+                            <InfoStudentList student={this.state.class.students}/>
+                        </Table>
+                    </List.Description>
                 </List.Content>
                 </List.Item>
             </List>
@@ -89,6 +108,11 @@ const style={
         borderStyle: 'groove',
         borderRadius: 25,
         padding:20
+    },
+    studentHeader:{
+        float:'Left',
+        fontSize: 16,
+        marginBottom:12
     }
     
 }
@@ -99,4 +123,10 @@ const mapStateToProps=(state)=>{
     }
 }
 
-export default connect(mapStateToProps) (ClassInfo)
+const mapDispatchToProps={
+    deleteClass,
+    editClass,
+    getClasses
+}
+
+export default connect(mapStateToProps,mapDispatchToProps) (ClassInfo)
