@@ -23,10 +23,10 @@ export const DELETE_CLASS_ERROR="DELETE_CLASS_ERROR"
 
 export const RESET_MANAGER="RESET_MANAGER"
 
-export function createClass({managerName,className,lastJoinTime,quota,discontinuity,description}){
-    console.log(managerName+" "+className+" "+lastJoinTime+" "+quota+" "+discontinuity+" "+description)
+export function createClass({_id,managerName,className,lastJoinTime,quota,discontinuity,description}){
+    console.log(_id+" "+managerName+" "+className+" "+lastJoinTime+" "+quota+" "+discontinuity+" "+description)
     return dispatch=>{
-        axios.post('http://localhost:3000/manager/createClass',{managerName,className,lastJoinTime,quota,discontinuity,description})
+        axios.post('http://localhost:3000/manager/createClass',{_id,managerName,className,lastJoinTime,quota,discontinuity,description})
         .then((data)=>{
             dispatch({
                 type:CREATE_CLASS,

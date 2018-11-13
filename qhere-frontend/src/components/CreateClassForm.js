@@ -6,6 +6,7 @@ import { Button, Form } from 'semantic-ui-react';
 class CreateClassForm extends Component{
 
     state={
+        _id:"",
         managerName:"",
         className:"",
         lastJoinTime:"",
@@ -19,6 +20,23 @@ class CreateClassForm extends Component{
     handleChange=(e)=>{
         this.setState({
             [e.target.name]:e.target.value
+        })
+    }
+
+    componentWillMount(){
+        var id = window.location.pathname.slice(22, 46);
+        this.props.state.manager.classes.find(instance=>{
+            if(instance._id===id){
+                this.setState({
+                    _id:instance._id,
+                    managerName:instance.managerName,
+                    className:instance.className,
+                    lastJoinTime:instance.lastJoinTime,
+                    quota:instance.quota,
+                    discontinuity:instance.discontinuity,
+                    description:instance.description,
+                })
+            }
         })
     }
 
@@ -40,7 +58,7 @@ class CreateClassForm extends Component{
     }
 
     render(){
-        
+        console.log(this.state)
         return(
             <div>
                 <Form style={style.CreateClassForm}>
