@@ -21,6 +21,9 @@ export const EDIT_CLASS_ERROR="EDIT_CLASS_ERROR"
 export const DELETE_CLASS="DELETE_CLASS"
 export const DELETE_CLASS_ERROR="DELETE_CLASS_ERROR"
 
+export const CREATE_QR="CREATE_QR"
+export const CREATE_QR_ERROR="CREATE_QR_ERROR"
+
 export const RESET_MANAGER="RESET_MANAGER"
 
 export function createClass({_id,managerName,className,lastJoinTime,quota,discontinuity,description}){
@@ -144,6 +147,17 @@ export function deleteClass(id){
                 type:DELETE_CLASS_ERROR,
                 payload:err.response
             })
+        })
+    }
+}
+
+export function createQr(classId){
+    return dispatch=>{
+        axios.put('http://localhost:3000/manager/createQr',{classId})
+        .then((data)=>{
+            console.log(data);
+        }).catch((err)=>{
+            console.log(err);
         })
     }
 }

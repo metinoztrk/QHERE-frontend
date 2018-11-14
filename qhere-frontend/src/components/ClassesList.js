@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom'
 class ClassesList extends Component{
 
     render(){
-
+        console.log(this.props)
         return(
             <div style={style.div}>
                 { 
@@ -16,7 +16,7 @@ class ClassesList extends Component{
                                         <List.Header style={style.header}>{Class.className}</List.Header>
                                     </List.Content>
                                     <List.Content as={Link} to={`/homePage/classes/${Class._id}/Qhere`} floated='right'>
-                                        <Button style={style.button}>QHERE</Button>
+                                        <Button style={style.button} onClick={()=>this.props.createQr(Class._id)}>QHERE</Button>
                                     </List.Content>
                                     </List.Item>
                                     <Divider/>
