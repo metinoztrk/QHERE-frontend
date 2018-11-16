@@ -11,6 +11,7 @@ import CreateClassForm from './components/CreateClassForm'
 import Classes from './components/Classes'
 import ClassInfo from './components/ClassInfo'
 import ClassQhere from './components/ClassQhere'
+import QhereInfo from './components/QhereInfo'
 
 class App extends Component {
 
@@ -35,6 +36,7 @@ class App extends Component {
           <Route exact path='/homePage/classes' component={Classes}></Route>
           <Route exact path='/homePage/classes/:_id/info' component={ClassInfo}></Route>
           <Route exact path='/homePage/classes/:_id/Qhere' component={ClassQhere}></Route>
+          <Route exact path='/homePage/classes/:id/qrInfo' component={QhereInfo}></Route>
       </div>
     )
   

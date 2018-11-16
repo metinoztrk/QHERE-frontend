@@ -4,13 +4,14 @@ import {List,Button,Table, TableBody} from 'semantic-ui-react'
 import {Redirect} from 'react-router-dom'
 import {deleteClass,editClass,getClasses} from '../actions/Manager'
 import InfoStudentList from './InfoStudentList'
+import QhereList from '../components/QhereList'
 import {Link} from 'react-router-dom';
 
 class ClassInfo extends Component{
 
     state={
         id:"",
-        class:""
+        class:"",
     }
 
     componentWillMount(){
@@ -33,7 +34,7 @@ class ClassInfo extends Component{
     }
 
     render(){
-
+        console.log(this.state)
         const Info=(
             <div style={style.div}>
             <List divided relaxed>
@@ -60,6 +61,16 @@ class ClassInfo extends Component{
                 <List.Content>
                     <List.Header style={style.header}>Açıklama</List.Header>
                     <List.Description>{this.state.class.description}</List.Description>
+                </List.Content>
+                </List.Item>
+                <List.Item>
+                <List.Content>
+                    <List.Header style={style.studentHeader}>Haftalar</List.Header>
+                    <List.Description>
+                        <Table style={style.table}>
+                            <QhereList class={this.state.class}/>
+                        </Table>    
+                    </List.Description>
                 </List.Content>
                 </List.Item>
                 <List.Item>
@@ -115,6 +126,9 @@ const style={
         float:'Left',
         fontSize: 16,
         marginBottom:12
+    },
+    table:{
+        border:'hidden'
     }
     
 }
