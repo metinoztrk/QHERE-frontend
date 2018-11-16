@@ -155,11 +155,31 @@ export function createQr(classId){
     return dispatch=>{
         axios.put('http://localhost:3000/manager/createQr',{classId})
         .then((data)=>{
-            console.log(data);
+            localStorage.setItem('lastQrId',data.data.data.qheres[data.data.data.qheres.length-1]._id);
+            dispatch({
+                type:CREATE_QR,
+                payload:data.data.data.qheres[data.data.data.qheres.length-1]._id
+            })
         }).catch((err)=>{
-            console.log(err);
+            dispatch({
+                type:CREATE_QR_ERROR,
+                payload:err.response
+            })
         })
     }
+}
+
+export function reloadManager(){
+    let QrId=localStorage.getItem('lastQrId')
+    if(QrId !== null)
+    {
+        return dispatch=>{
+            dispatch({
+                type:CREATE_QR,
+                payload:QrId,
+            })
+        }  
+    }    
 }
 
 export function reset(){

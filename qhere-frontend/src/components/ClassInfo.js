@@ -1,6 +1,6 @@
 import React,{Component} from 'react'
 import {connect} from 'react-redux'
-import {List,Button,Table} from 'semantic-ui-react'
+import {List,Button,Table, TableBody} from 'semantic-ui-react'
 import {Redirect} from 'react-router-dom'
 import {deleteClass,editClass,getClasses} from '../actions/Manager'
 import InfoStudentList from './InfoStudentList'
@@ -74,7 +74,9 @@ class ClassInfo extends Component{
                             <Table.HeaderCell>Email</Table.HeaderCell>
                         </Table.Row>
                         </Table.Header>
+                        <TableBody>
                             <InfoStudentList student={this.state.class.students}/>
+                        </TableBody>
                         </Table>
                     </List.Description>
                 </List.Content>

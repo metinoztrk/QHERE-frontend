@@ -10,7 +10,7 @@ import {
     Grid
   } from 'semantic-ui-react'
 import {logout,reload} from '../../actions/Users'
-import {getClasses,getClassesRequest,approveStudent,rejectStudent} from '../../actions/Manager'
+import {getClasses,getClassesRequest,approveStudent,rejectStudent,reloadManager} from '../../actions/Manager'
 import DashBoard from '../DashBoard';
 import {Link ,Redirect} from 'react-router-dom';
 class HomePage extends Component{
@@ -24,6 +24,7 @@ class HomePage extends Component{
 
     componentWillMount(){
         this.props.reload()
+        this.props.reloadManager()
         if(window.location.pathname === '/')
         {
             this.setState({
@@ -155,7 +156,8 @@ const mapDispatchToProps={
     getClasses,
     getClassesRequest,
     approveStudent,
-    rejectStudent
+    rejectStudent,
+    reloadManager
 }
 
 export default connect(mapStateToProps,mapDispatchToProps) (HomePage);

@@ -12,10 +12,13 @@ import {CREATE_CLASS,
         EDIT_CLASS,
         EDIT_CLASS_ERROR,
         DELETE_CLASS,
-        DELETE_CLASS_ERROR
+        DELETE_CLASS_ERROR,
+        CREATE_QR,
+        CREATE_QR_ERROR
     } from '../actions/Manager'
 
 const initialState={
+    lastQrId:"",
     createClass:"",
     classes:[],
     Error:{
@@ -118,6 +121,19 @@ export default (state=initialState,action)=>{
                 ...state
             }
         case DELETE_CLASS_ERROR:
+            return{
+                ...state,
+                Error:{
+                    statusCode:action.payload.status,
+                    statusText:action.payload.statusText
+                }  
+            }
+        case CREATE_QR:
+            return{
+                ...state,
+                lastQrId:action.payload
+            }
+        case CREATE_QR_ERROR:
             return{
                 ...state,
                 Error:{
