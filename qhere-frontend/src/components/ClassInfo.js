@@ -25,6 +25,7 @@ class ClassInfo extends Component{
                     class:instance
                 })
             }
+            return null;
         })
     }
 
@@ -42,7 +43,7 @@ class ClassInfo extends Component{
                 <List.Content>
                     <List.Header style={style.header}>{this.state.class.className}</List.Header>
                     <Button as={Link} to={'/homePage/classes'} color='red' style={style.button} onClick={this.onDelete}>Sil</Button>
-                    <Button as={Link} to={`/homePage/createClass/${this.state.id}`} color='yellow' style={style.button} onClick={()=>this.props.editClass(this.state.id)}>Düzenle</Button>  
+                    <Button as={Link} to={`/homePage/updateClass/${this.state.id}`} color='yellow' style={style.button}>Düzenle</Button>  
                 </List.Content>
                 </List.Item>
                 <List.Item>

@@ -12,6 +12,7 @@ import Classes from './components/Classes'
 import ClassInfo from './components/ClassInfo'
 import ClassQhere from './components/ClassQhere'
 import QhereInfo from './components/QhereInfo'
+import UpdateClass from './components/UpdateClass'
 
 class App extends Component {
 
@@ -32,7 +33,7 @@ class App extends Component {
       <div>
           <Route path='/homePage' component={HomePage}></Route>
           <Route exact path='/homePage/createClass' component={CreateClassForm}></Route>
-          <Route exact path='/homePage/createClass/:id' component={CreateClassForm}></Route>
+          <Route exact path='/homePage/updateClass/:id' component={UpdateClass}></Route>
           <Route exact path='/homePage/classes' component={Classes}></Route>
           <Route exact path='/homePage/classes/:_id/info' component={ClassInfo}></Route>
           <Route exact path='/homePage/classes/:_id/Qhere' component={ClassQhere}></Route>

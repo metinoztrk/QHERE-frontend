@@ -106,7 +106,11 @@ export default (state=initialState,action)=>{
             }
         case EDIT_CLASS:
             return{
-                ...state
+                ...state,
+                Error:{
+                    statusCode:action.payload,
+                    statusText:"Ok"
+                }  
             }
         case EDIT_CLASS_ERROR:
             return{

@@ -18,14 +18,13 @@ class ClassQhere extends Component{
         this.props.classes.find(instance=>{
                 if(instance._id===_id)
                 {
-
-                    
                     if(instance.qheres.length===15){
                         this.setState({
                             finished:true
                         })
                     }
                 }
+                return null;
         })
     }
 

@@ -26,10 +26,9 @@ export const CREATE_QR_ERROR="CREATE_QR_ERROR"
 
 export const RESET_MANAGER="RESET_MANAGER"
 
-export function createClass({_id,managerName,className,lastJoinTime,quota,discontinuity,description}){
-    console.log(_id+" "+managerName+" "+className+" "+lastJoinTime+" "+quota+" "+discontinuity+" "+description)
+export function createClass({className,lastJoinTime,quota,discontinuity,description}){
     return dispatch=>{
-        axios.post('http://localhost:3000/manager/createClass',{_id,managerName,className,lastJoinTime,quota,discontinuity,description})
+        axios.post('http://localhost:3000/manager/createClass',{className,lastJoinTime,quota,discontinuity,description})
         .then((data)=>{
             dispatch({
                 type:CREATE_CLASS,
@@ -102,7 +101,7 @@ export function approveStudent(id){
 
 export function rejectStudent(id){
     return dispatch=>{
-        axios.get(`http://localhost:3000/manager/${id}/rejectStudent`)
+        axios.post(`http://localhost:3000/manager/${id}/rejectStudent`)
         .then((data)=>{
             dispatch({
                 type:REJECT_STUDENT,
@@ -117,13 +116,13 @@ export function rejectStudent(id){
     }
 }
 
-export function editClass(id){
+export function editClass({classId,className,lastJoinTime,quota,discontinuity,description}){
     return dispatch=>{
-        axios.put(`http://localhost:3000/manager/${id}/editClass`)
+        axios.put(`http://localhost:3000/manager/${classId}/updateClass`,{className,lastJoinTime,quota,discontinuity,description})
         .then((data)=>{
             dispatch({
                 type:EDIT_CLASS,
-                payload:data.data
+                payload:data.data.status_code
             })
         }).catch((err)=>{
             dispatch({

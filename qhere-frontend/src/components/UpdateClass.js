@@ -1,30 +1,47 @@
-import React ,{Component} from 'react';
-import {connect} from 'react-redux';
-import {createClass,reset} from '../actions/Manager'
-import {Redirect} from 'react-router-dom'
+import React,{Component} from 'react'
 import { Button, Form } from 'semantic-ui-react';
+import {connect} from 'react-redux'
+import {editClass} from '../actions/Manager' 
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'react-day-picker/lib/style.css';
+import {Redirect} from 'react-router-dom';
+   
 
-class CreateClassForm extends Component{
+class UpdateClass extends Component{
 
     constructor(props) {
         super(props);
         this.handleDayChange = this.handleDayChange.bind(this);
-        this.state = {
-            lastJoinTime: undefined,
-        };
-      }
+    }
 
     state={
+        classId:"",
         className:"",
         lastJoinTime:"",
         quota:"",
         discontinuity:"",
         description:"",
-        redirect:false,
-        status:""
+        redirect:false
     }
+
+    componentWillMount(){
+        var id = window.location.pathname.slice(22, 46);
+        this.props.classes.find(instance=>{
+            if(instance._id===id){
+                this.setState({
+                    classId:instance._id,
+                    className:instance.className,
+                    lastJoinTime:instance.lastJoinTime,
+                    quota:instance.quota,
+                    discontinuity:instance.discontinuity,
+                    description:instance.description,
+                })
+            }
+            return null;
+        })
+    }
+
+
 
     handleChange=(e)=>{
         this.setState({
@@ -36,29 +53,15 @@ class CreateClassForm extends Component{
         this.setState({  lastJoinTime: day });
     }
 
-    componentWillUnmount( ){
-        this.props.reset()
-    }
-
-    componentWillUpdate(nextProps) {
-
-        if(nextProps.state.manager.createClass===200){
-            this.setState({
-                redirect:true
-            })
-        }
-    }
-
     onSubmit=()=>{
-        this.props.createClass(this.state)
+        this.props.editClass(this.state)
     }
 
     render(){
-
-        return(
+        console.log(this.props.state.manager.Error)
+        const form=(
             <div>
-                <Form style={style.CreateClassForm}>
-                    
+                <Form style={style.UpdateClassForm}>
                     <Form.Field>
                     <label>Class Name</label>
                     <input
@@ -91,13 +94,20 @@ class CreateClassForm extends Component{
                     onChange={this.handleChange}
                     placeholder='Description' />
                     </Form.Field>
-                    <Form.Field >
+                    <Form.Field>
                     <label>Last Join Time</label>
-                    <DayPickerInput style={style.Date} onDayChange={this.handleDayChange} />
+                    <DayPickerInput 
+                    value={this.state.lastJoinTime}
+                    onDayChange={this.handleDayChange} />
                     </Form.Field>
                     <Button type='submit' onClick={this.onSubmit}>Kayıt</Button>
                 </Form>
-                {this.state.redirect === true ? <Redirect to="/homePage"/>  : ""}
+            </div>
+        )
+
+        return(
+            <div>
+                {this.props.state.manager.Error.statusCode === 200 || this.state.className==="" ? <Redirect to="/homePage/classes"/> : form }
             </div>
         )
     }
@@ -105,28 +115,22 @@ class CreateClassForm extends Component{
 }
 
 const style={
-    CreateClassForm:{
+    UpdateClassForm:{
         margin:'auto',
         marginTop:50,
         width: 500
-    },
-    Message:{
-        marginTop:20
-    },
-    Date:{
-        width:500
     }
 }
 
 const mapStateToProps=(state)=>{
     return{
+        classes:state.manager.classes,
         state:state
     }
 }
 
 const mapDispatchToProps={
-    createClass,
-    reset
+    editClass
 }
 
-export default connect(mapStateToProps,mapDispatchToProps) (CreateClassForm);
+export default connect(mapStateToProps,mapDispatchToProps) (UpdateClass)
