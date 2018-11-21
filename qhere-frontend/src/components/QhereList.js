@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom'
 class QhereList extends Component{
 
     render(){
-        console.log(this.props.class.qheres)
+        console.log(this.props)
         return(
             <div>
                 <Grid columns='five'>   
@@ -13,8 +13,8 @@ class QhereList extends Component{
                     {
                         this.props.class.qheres.map((instance)=>
                             <Grid.Column key={instance._id} style={style.row}>
-                                <Button animated as={Link} to={`/homePage/classes/${instance._id}/qrInfo`}>
-                                <Button.Content visible >{instance.number}. Hafta</Button.Content>
+                                <Button animated as={Link} to={`/homePage/classes/${this.props.class._id}/qrInfo/${instance._id}`}>
+                                <Button.Content visible>{instance.number}. Hafta</Button.Content>
                                 <Button.Content hidden>
                                     <Icon name='arrow right' />
                                 </Button.Content>

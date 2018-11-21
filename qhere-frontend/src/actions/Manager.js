@@ -24,6 +24,9 @@ export const DELETE_CLASS_ERROR="DELETE_CLASS_ERROR"
 export const CREATE_QR="CREATE_QR"
 export const CREATE_QR_ERROR="CREATE_QR_ERROR"
 
+export const GET_QR_INFO="GET_QR_INFO"
+export const GET_QR_INFO_ERROR="GET_QR_INFO_ERROR"
+
 export const RESET_MANAGER="RESET_MANAGER"
 
 export function createClass({className,lastJoinTime,quota,discontinuity,description}){
@@ -164,6 +167,20 @@ export function createQr(classId){
                 type:CREATE_QR_ERROR,
                 payload:err.response
             })
+        })
+    }
+}
+
+export function getQrInfo(qrId){
+    return dispatch=>{
+        axios.get(`http://localhost:3000/manager/getQrInfo/${qrId}`).then((data)=>{
+            console.log(data.data.data);
+            dispatch({
+                type:GET_QR_INFO,
+                payload:data.data.data
+            })
+        }).catch((err)=>{
+            console.log(err);
         })
     }
 }

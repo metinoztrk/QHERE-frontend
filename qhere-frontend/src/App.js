@@ -37,7 +37,7 @@ class App extends Component {
           <Route exact path='/homePage/classes' component={Classes}></Route>
           <Route exact path='/homePage/classes/:_id/info' component={ClassInfo}></Route>
           <Route exact path='/homePage/classes/:_id/Qhere' component={ClassQhere}></Route>
-          <Route exact path='/homePage/classes/:id/qrInfo' component={QhereInfo}></Route>
+          <Route exact path='/homePage/classes/:id/qrInfo/:id' component={QhereInfo}></Route>
       </div>
     )
   

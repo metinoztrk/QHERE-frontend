@@ -35,7 +35,7 @@ class ClassInfo extends Component{
     }
 
     render(){
-        console.log(this.state)
+        console.log(this.props.getQrInfo);
         const Info=(
             <div style={style.div}>
             <List divided relaxed>
@@ -87,7 +87,7 @@ class ClassInfo extends Component{
                         </Table.Row>
                         </Table.Header>
                         <TableBody>
-                            <InfoStudentList student={this.state.class.students}/>
+                            <InfoStudentList student={this.state.class.students} />
                         </TableBody>
                         </Table>
                     </List.Description>
@@ -136,7 +136,7 @@ const style={
 
 const mapStateToProps=(state)=>{
     return{
-        classes:state.manager.classes
+        classes:state.manager.classes,
     }
 }
 

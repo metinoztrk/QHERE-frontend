@@ -14,7 +14,9 @@ import {CREATE_CLASS,
         DELETE_CLASS,
         DELETE_CLASS_ERROR,
         CREATE_QR,
-        CREATE_QR_ERROR
+        CREATE_QR_ERROR,
+        GET_QR_INFO,
+        GET_QR_INFO_ERROR
     } from '../actions/Manager'
 
 const initialState={
@@ -25,6 +27,7 @@ const initialState={
         statusCode:"",
         statusText:""
     },
+    qrInfo:"",
     requestStudents:[]
 }
 
@@ -138,6 +141,19 @@ export default (state=initialState,action)=>{
                 lastQrId:action.payload
             }
         case CREATE_QR_ERROR:
+            return{
+                ...state,
+                Error:{
+                    statusCode:action.payload.status,
+                    statusText:action.payload.statusText
+                }  
+            }
+        case GET_QR_INFO:
+            return{
+                ...state,
+                qrInfo:action.payload   
+            }
+        case GET_QR_INFO_ERROR:
             return{
                 ...state,
                 Error:{
