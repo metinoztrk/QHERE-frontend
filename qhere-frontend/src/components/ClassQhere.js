@@ -29,7 +29,7 @@ class ClassQhere extends Component{
     }
 
     render() {
-      
+      console.log(this.props)
         
         const Qr=(
             <div>
@@ -37,7 +37,7 @@ class ClassQhere extends Component{
                         React QR Codes
                     </h1>
                     <QRCode
-                    value={`http://localhost:3000/student/${this.props.classid}/joinRollCall/${this.state.lastQrId}`}
+                    value={`http://localhost:3000/student/${this.state.classid}/joinRollCall/${this.props.lastQrId}`}
                     size={256}
                     bgColor='#fff'
                     fgColor='#000'
