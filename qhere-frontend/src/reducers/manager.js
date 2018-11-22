@@ -16,7 +16,9 @@ import {CREATE_CLASS,
         CREATE_QR,
         CREATE_QR_ERROR,
         GET_QR_INFO,
-        GET_QR_INFO_ERROR
+        GET_QR_INFO_ERROR,
+        SEND_NOTİFİCATION,
+        SEND_NOTİFİCATION_ERROR
     } from '../actions/Manager'
 
 const initialState={
@@ -154,6 +156,22 @@ export default (state=initialState,action)=>{
                 qrInfo:action.payload   
             }
         case GET_QR_INFO_ERROR:
+            return{
+                ...state,
+                Error:{
+                    statusCode:action.payload.status,
+                    statusText:action.payload.statusText
+                }  
+            }
+        case SEND_NOTİFİCATION:
+            return{
+                ...state,
+                Error:{
+                    statusCode:action.payload,
+                    statusText:""
+                }  
+            }
+        case SEND_NOTİFİCATION_ERROR:
             return{
                 ...state,
                 Error:{

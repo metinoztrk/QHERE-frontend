@@ -27,6 +27,9 @@ export const CREATE_QR_ERROR="CREATE_QR_ERROR"
 export const GET_QR_INFO="GET_QR_INFO"
 export const GET_QR_INFO_ERROR="GET_QR_INFO_ERROR"
 
+export const SEND_NOTİFİCATION="SEND_NOTİFİCATION"
+export const SEND_NOTİFİCATION_ERROR="SEND_NOTİFİCATION_ERROR"
+
 export const RESET_MANAGER="RESET_MANAGER"
 
 export function createClass({className,lastJoinTime,quota,discontinuity,description}){
@@ -178,6 +181,19 @@ export function getQrInfo(qrId){
             dispatch({
                 type:GET_QR_INFO,
                 payload:data.data.data
+            })
+        }).catch((err)=>{
+            console.log(err);
+        })
+    }
+}
+
+export function sendNotification({id,title,content}){
+    return dispatch=>{
+        axios.post('http://localhost:3000/manager/sendNotification',{id,title,content}).then((data)=>{
+            dispatch({
+                type:SEND_NOTİFİCATION,
+                payload:data.data.status_code
             })
         }).catch((err)=>{
             console.log(err);
