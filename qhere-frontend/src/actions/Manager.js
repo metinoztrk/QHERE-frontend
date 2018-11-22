@@ -211,7 +211,9 @@ export function reloadManager(){
                 payload:QrId,
             })
         }  
-    }    
+    }else {
+        return () => {}
+    }
 }
 
 export function reset(){
