@@ -9,6 +9,7 @@ class RegisterForm extends Component{
         email:"",
         password:"",
         gender:"",
+        userType:"",
         error:{
             statusCode:"",
             statusText:""
@@ -17,7 +18,21 @@ class RegisterForm extends Component{
     }
     
     handleRadioChange = (e, { value }) => {
-        this.setState({ gender:value })
+        this.setState({ 
+            gender:value 
+        })
+    }
+
+    handleUserTypeChange = (e, { value }) => {
+        if(value==="Manager")
+            this.setState({  
+                userType:value,
+                schoolNumber:""
+            })
+        else
+            this.setState({  
+                userType:value
+            })   
     }
 
     handleChange=(e)=>{
@@ -65,14 +80,17 @@ class RegisterForm extends Component{
             <div>
                 <Form style={style.RegisterForm}>
                 <h1 style={{marginBottom:50}}>Register</h1>
-                    <Form.Field>
-                    <label>School Number</label>
-                    <input 
-                    name='schoolNumber'
-                    value={this.state.schoolNumber}
-                    onChange={this.handleChange}
-                    placeholder='School Number' />
-                    </Form.Field>
+                    {
+                        this.state.userType!=="Manager" ? 
+                        <Form.Field>
+                        <label>School Number</label>
+                        <input 
+                        name='schoolNumber'
+                        value={this.state.schoolNumber}
+                        onChange={this.handleChange}
+                        placeholder='School Number' />
+                        </Form.Field> : " "
+                    }
                     <Form.Field>
                     <label>Full Name</label>
                     <input 
@@ -99,6 +117,21 @@ class RegisterForm extends Component{
                     </Form.Field>
                     <div>
                     <Form.Field>
+                    <label>Kullanıcı Tipi</label>
+                    <Radio style={style.RegisterRadio}
+                        label='Manager'
+                        name='Manager'
+                        value='Manager'
+                        checked={this.state.userType === 'Manager'}
+                        onChange={this.handleUserTypeChange}
+                    />
+                    <Radio
+                        label='Student'
+                        name='Student'
+                        value='Student'
+                        checked={this.state.userType === 'Student'}
+                        onChange={this.handleUserTypeChange}
+                    />
                     <label>Cinsiyet</label>
                     <Radio style={style.RegisterRadio}
                         label='Erkek'

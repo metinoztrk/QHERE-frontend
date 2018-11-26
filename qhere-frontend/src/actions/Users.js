@@ -42,10 +42,10 @@ export function login({email,password}) {
     }
 }
 
-export function register({schoolNumber,fullName,email,password,gender}){
-    console.log(schoolNumber+" "+fullName+" "+email+" "+password+" "+gender)
+export function register({schoolNumber,fullName,email,password,gender,userType}){
+    console.log(schoolNumber+" "+fullName+" "+email+" "+password+" "+gender,userType)
     return dispatch=>{
-        axios.post('http://localhost:3000/user/register',{schoolNumber,fullName,email,password,gender})
+        axios.post('http://localhost:3000/user/register',{schoolNumber,fullName,email,password,gender,userType})
             .then(data=>{
                 dispatch({
                     type:REGISTER,
