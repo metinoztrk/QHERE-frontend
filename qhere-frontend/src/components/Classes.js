@@ -12,7 +12,7 @@ class Classes extends Component{
         return(
             <div>
                 <h1>Dersler</h1>
-                <ClassesList classes={this.props.classes} createQr={this.props.createQr}/>
+                {this.props.loading===false ?<ClassesList classes={this.props.classes} createQr={this.props.createQr}/> : "" }
             </div>
         )
     }
@@ -21,6 +21,7 @@ class Classes extends Component{
 
 const mapStateToProps=(state)=>{
     return{
+        loading:state.manager.isLoading,
         classes:state.manager.classes,
         getClasses:state,
         createQr:state

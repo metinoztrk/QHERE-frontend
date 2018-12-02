@@ -14,9 +14,10 @@ class DashBoard extends Component{
             <div  style={style.div}>
             <h1>Dashboard</h1>
             {
+                this.props.loading===false ?
                 this.props.requestStudents.map((student)=>
                     <DashBoardItem key={student.classId} student={student} actions={this.props}/>
-                )
+                ):""
             }
             </div>
         )

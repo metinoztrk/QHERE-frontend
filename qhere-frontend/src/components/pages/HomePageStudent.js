@@ -1,5 +1,7 @@
-import React ,{Component} from 'react';
-import {connect} from 'react-redux'
+import React,{Component} from 'react'
+import  {connect} from 'react-redux'
+import {logout,reload} from '../../actions/Users'
+import  {classes,joinClass} from '../../actions/Student'
 import {
     Button,
     Container,
@@ -9,22 +11,18 @@ import {
     Visibility,
     Grid
   } from 'semantic-ui-react'
-import {logout,reload} from '../../actions/Users'
-import {getClasses,getClassesRequest,approveStudent,rejectStudent,reloadManager} from '../../actions/Manager'
-import DashBoard from '../DashBoard';
-import {Link ,Redirect} from 'react-router-dom';
-class HomePage extends Component{
+import {Link,Redirect} from 'react-router-dom';
+import DashboardStudents from '../DashBoardStudent';
+
+class HomePageStudents extends Component{
+
     state = {
         isHome:true,
         isDashBoard:true
     }
 
-    hideFixedMenu = () => this.setState({ fixed: false })
-    showFixedMenu = () => this.setState({ fixed: true })
-
-    componentWillMount(){
+    componentWillMount(){  
         this.props.reload()
-        this.props.reloadManager()
         if(window.location.pathname === '/')
         {
             this.setState({
@@ -38,7 +36,7 @@ class HomePage extends Component{
         }
         if(window.location.pathname==='/homePage/classes')
         {  
-           this.props.getClasses()
+           //sa
         }
 
     }
@@ -64,6 +62,9 @@ class HomePage extends Component{
             })
         }
     }
+    
+    hideFixedMenu = () => this.setState({ fixed: false })
+    showFixedMenu = () => this.setState({ fixed: true })
 
     onSubmit=()=>(
         this.setState({
@@ -73,27 +74,26 @@ class HomePage extends Component{
         )    
     )
 
+    
+
     render(){
         const { fixed } = this.state
 
-        const dashBoard=(
-                <div>
-                    <Grid>
-                        <Grid.Row>
-                            <Grid.Column>
-                                <DashBoard 
-                                            loading={this.props.loading}
-                                            getClassesRequest={this.props.getClassesRequest} 
-                                            requestStudents={this.props.requestStudents}
-                                            rejectStudent={this.props.rejectStudent}
-                                            approveStudent={this.props.approveStudent}/>
-                            </Grid.Column>
-                        </Grid.Row>
-                    </Grid> 
-                </div>
+        const DashBoard=(
+            <div>
+                <Grid>
+                    <Grid.Row>
+                        <Grid.Column>
+                            <DashboardStudents  getClasses={this.props.classes}
+                                                isLoading={this.props.isLoading}
+                                                joinClass={this.props.joinClass}
+                                                openClasses={this.props.openClasses}/>
+                        </Grid.Column>
+                    </Grid.Row>
+                </Grid> 
+            </div>
         )
 
-        
         return(
             <div>
                 <Responsive minWidth={Responsive.onlyTablet.minWidth}>
@@ -116,11 +116,10 @@ class HomePage extends Component{
                        
                         >
                         <Container>
-                            <Menu.Item as={Link} to="/homePage" style={{ marginLeft: '5em' , color:'#FFFFFF' }} onClick={()=>this.props.getClassesRequest()}>
+                            <Menu.Item as={Link} to="/homePage" style={{ marginLeft: '5em' , color:'#FFFFFF' }}>
                             Home
                             </Menu.Item>
-                            <Menu.Item as={Link} to="/homePage/createClass" style={{ marginLeft: '5em' , color:'#FFFFFF' }}>Create Class</Menu.Item>
-                            <Menu.Item as={Link} to="/homePage/classes" style={{ marginLeft: '5em' , color:'#FFFFFF' }} onClick={()=>this.props.getClasses()}>Classes</Menu.Item>
+                            <Menu.Item as={Link} to="/homePage/classes" style={{ marginLeft: '5em' , color:'#FFFFFF' }}>Classes</Menu.Item>
                             <Menu.Item position='right'>
                             <Button inverted={!fixed} primary={fixed} style={{ marginRight: '5em' }} onClick={this.onSubmit}>
                                 Logout
@@ -132,31 +131,25 @@ class HomePage extends Component{
                     </Visibility>
                 </Responsive>
                 {this.state.isHome === true ? "" : <Redirect to="/"/>}
-                {this.state.isDashBoard === true ? dashBoard : ""}
+                {this.state.isDashBoard === true ? DashBoard : ""}
             </div>
         )
-        
     }
-
 }
 
 const mapStateToProps=(state)=>{
-    return {
-        loading:state.manager.isLoading,
-        users:state.users,
-        getClasses:state,
-        requestStudents:state.manager.requestStudents
+    return {    
+        openClasses:state.student.classes,
+        isLoading:state.student.isLoading
     }
 }
 
 const mapDispatchToProps={
     logout,
     reload,
-    getClasses,
-    getClassesRequest,
-    approveStudent,
-    rejectStudent,
-    reloadManager
+    classes,
+    joinClass
 }
 
-export default connect(mapStateToProps,mapDispatchToProps) (HomePage);
+
+export default connect(mapStateToProps,mapDispatchToProps) (HomePageStudents);

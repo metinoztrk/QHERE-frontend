@@ -24,9 +24,11 @@ export function login({email,password}) {
     return dispatch=>{  
         let tokenCopy
         axios.post('http://localhost:3000/user/login',{email,password})
-            .then(token=>token.data.data.token.accessToken)       
+            .then(token=>token.data.data)       
             .then(token=>{
-                tokenCopy=token;
+                console.log(token.userType)
+                tokenCopy=token.token.accessToken;
+                localStorage.setItem('userType',token.userType)
                 localStorage.setItem('token',tokenCopy);
                 setAuthorizationToken(token);
                 dispatch({
@@ -64,6 +66,7 @@ export function logout(){
     return dispatch=>{
         axios.post('http://localhost:3000/user/logout')
         .then(data=>{
+            console.log(data)
             dispatch({
                 type:LOGOUT,
                 payload:""
@@ -76,6 +79,8 @@ export function logout(){
             })
         })
         localStorage.removeItem('token');
+        localStorage.removeItem('userType');
+        localStorage.removeItem('lastQrId');
     }
 }
 

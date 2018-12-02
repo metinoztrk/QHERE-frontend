@@ -55,6 +55,9 @@ class UpdateClass extends Component{
 
     onSubmit=()=>{
         this.props.editClass(this.state)
+        this.setState({
+            redirect:true
+        })
     }
 
     render(){
@@ -107,7 +110,7 @@ class UpdateClass extends Component{
 
         return(
             <div>
-                {this.props.state.manager.Error.statusCode === 200 || this.state.className==="" ? <Redirect to="/homePage/classes"/> : form }
+                {this.props.state.manager.Error.statusCode === 200 && this.state.redirect ? <Redirect to="/homePage/classes"/> : form }
             </div>
         )
     }

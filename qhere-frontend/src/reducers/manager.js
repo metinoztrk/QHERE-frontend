@@ -1,190 +1,274 @@
-import {CREATE_CLASS,
-        CREATE_CLASS_ERROR,
-        RESET_MANAGER,
-        CLASSES,
-        CLASSES_ERROR,
-        GET_CLASSES_REQUEST,
-        GET_CLASSES_REQUEST_ERROR,
-        APPROVE_STUDENT,
-        APPROVE_STUDENT_ERROR,
-        REJECT_STUDENT,
-        REJECT_STUDENT_ERROR,
-        EDIT_CLASS,
-        EDIT_CLASS_ERROR,
-        DELETE_CLASS,
-        DELETE_CLASS_ERROR,
-        CREATE_QR,
-        CREATE_QR_ERROR,
-        GET_QR_INFO,
-        GET_QR_INFO_ERROR,
-        SEND_NOTİFİCATION,
-        SEND_NOTİFİCATION_ERROR
-    } from '../actions/Manager'
+import {CREATE_CLASS_PENDING,
+    CREATE_CLASS_FULFILLED,
+    CREATE_CLASS_REJECTED,
+
+    RESET_MANAGER,
+
+    CLASSES_PENDING,
+    CLASSES_FULFILLED,
+    CLASSES_REJECTED,
+
+    GET_CLASSES_REQUEST_PENDING,
+    GET_CLASSES_REQUEST_FULFILLED,
+    GET_CLASSES_REQUEST_REJECTED,
+
+    APPROVE_STUDENT_PENDING,
+    APPROVE_STUDENT_FULFILLED,
+    APPROVE_STUDENT_REJECTED,
+
+    REJECT_STUDENT_PENDING,
+    REJECT_STUDENT_FULFILLED,
+    REJECT_STUDENT_REJECTED,
+
+    EDIT_CLASS_PENDING,
+    EDIT_CLASS_FULFILLED,
+    EDIT_CLASS_REJECTED,
+
+    DELETE_CLASS_PENDING,
+    DELETE_CLASS_FULFILLED,
+    DELETE_CLASS_REJECTED,
+
+    CREATE_QR_PENDING,
+    CREATE_QR_FULFILLED,
+    CREATE_QR_REJECTED,
+
+    GET_QR_INFO_PENDING,
+    GET_QR_INFO_FULFILLED,
+    GET_QR_INFO_REJECTED,
+
+    SEND_NOTIFICATION_PENDING,
+    SEND_NOTIFICATION_FULFILLED,
+    SEND_NOTIFICATION_REJECTED,
+
+} from '../actions/Manager'
 
 const initialState={
-    lastQrId:"",
-    createClass:"",
-    classes:[],
-    Error:{
-        statusCode:"",
-        statusText:""
-    },
-    qrInfo:"",
-    requestStudents:[]
+qrInfoLoading:false,
+isLoading: false,
+lastQrId:"",
+createClass:"",
+classes:[],
+Error:{
+    statusCode:"",
+    statusText:""
+},
+qrInfo:"",
+requestStudents:[]
 }
 
 export default (state=initialState,action)=>{
-    switch(action.type){
-        case CREATE_CLASS:
-            return{
-                ...state,
-                createClass:action.payload
-            }
-        case CREATE_CLASS_ERROR:
-            return{
-                ...state,
-                Error:{
-                    statusCode:action.payload.status,
-                    statusText:action.payload.statusText
-                }  
-            }
-        case CLASSES:
-            return{
-                ...state,
-                classes:action.payload
-            }
-        case CLASSES_ERROR:
-            return{
-                ...state,
-                Error:{
-                    statusCode:action.payload.status,
-                    statusText:action.payload.statusText
-                }  
-            }
-        case GET_CLASSES_REQUEST:
-            return{
-                ...state,
-                requestStudents:action.payload
-            }
-        case GET_CLASSES_REQUEST_ERROR:
-            return{
-                ...state,
-                Error:{
-                    statusCode:action.payload.status,
-                    statusText:action.payload.statusText
-                }  
-            }
-        case APPROVE_STUDENT:
-            return{
-                ...state,
-                requestStudents:state.requestStudents.filter(item=>item._id!==action.payload)
-            }
-        case APPROVE_STUDENT_ERROR:
-            console.log(action.payload[1])
-            if(action.payload[1]===406){
+switch(action.type){
+    case CREATE_CLASS_PENDING:
+        return{
+            ...state,
+            isLoading:true
+        }
+    case CREATE_CLASS_FULFILLED:
+        return{
+            ...state,
+            isLoading:false,
+            createClass:action.payload
+        }
+    case CREATE_CLASS_REJECTED:
+        return{
+            ...state,
+            Error:{
+                statusCode:action.payload.status,
+                statusText:action.payload.statusText
+            }  
+        }
+    case CLASSES_PENDING:
+        return{
+            ...state,
+            isLoading:true,
+        }
+    case CLASSES_FULFILLED:
+        return{
+            ...state,
+            isLoading:false,
+            classes:action.payload
+        }
+    case CLASSES_REJECTED:
+        return{
+            ...state,
+            Error:{
+                statusCode:action.payload.status,
+                statusText:action.payload.statusText
+            }  
+        }
+    case GET_CLASSES_REQUEST_PENDING:
+        return{
+            ...state,
+            isLoading:true
+        }
+    case GET_CLASSES_REQUEST_FULFILLED:
+        return{
+            ...state,
+            isLoading:false,
+            requestStudents:action.payload
+        }
+    case GET_CLASSES_REQUEST_REJECTED:
+        return{
+            ...state,
+            Error:{
+                statusCode:action.payload.status,
+                statusText:action.payload.statusText
+            }  
+        }
+    case APPROVE_STUDENT_PENDING:
+        return{
+            ...state,
+            isLoading:true
+        }
+    case APPROVE_STUDENT_FULFILLED:
+        return{
+            ...state,
+            isLoading:false,
+            requestStudents:state.requestStudents.filter(item=>item._id!==action.payload)
+        }
+    case APPROVE_STUDENT_REJECTED:
+        console.log(action.payload[1])
+        if(action.payload[1]===406){
 
-                return{
-                    ...state,
-                    requestStudents:state.requestStudents.filter(item=>item._id!==action.payload[0])
-                }  
-            }else{
-                return{
-                    ...state,
-                    Error:{
-                        statusCode:action.payload.status,
-                        statusText:action.payload.statusText
-                    }  
-                }  
-            }   
-        case REJECT_STUDENT:
             return{
                 ...state,
-                requestStudents:state.requestStudents.filter(item=>item._id!==action.payload)
-            }
-        case REJECT_STUDENT_ERROR:
+                requestStudents:state.requestStudents.filter(item=>item._id!==action.payload[0])
+            }  
+        }else{
             return{
                 ...state,
                 Error:{
                     statusCode:action.payload.status,
                     statusText:action.payload.statusText
                 }  
-            }
-        case EDIT_CLASS:
-            return{
-                ...state,
-                Error:{
-                    statusCode:action.payload,
-                    statusText:"Ok"
-                }  
-            }
-        case EDIT_CLASS_ERROR:
-            return{
-                ...state,
-                Error:{
-                    statusCode:action.payload.status,
-                    statusText:action.payload.statusText
-                }  
-            }
-        case DELETE_CLASS:
-            return{
-                ...state
-            }
-        case DELETE_CLASS_ERROR:
-            return{
-                ...state,
-                Error:{
-                    statusCode:action.payload.status,
-                    statusText:action.payload.statusText
-                }  
-            }
-        case CREATE_QR:
-            return{
-                ...state,
-                lastQrId:action.payload
-            }
-        case CREATE_QR_ERROR:
-            return{
-                ...state,
-                Error:{
-                    statusCode:action.payload.status,
-                    statusText:action.payload.statusText
-                }  
-            }
-        case GET_QR_INFO:
-            return{
-                ...state,
-                qrInfo:action.payload   
-            }
-        case GET_QR_INFO_ERROR:
-            return{
-                ...state,
-                Error:{
-                    statusCode:action.payload.status,
-                    statusText:action.payload.statusText
-                }  
-            }
-        case SEND_NOTİFİCATION:
-            return{
-                ...state,
-                Error:{
-                    statusCode:action.payload,
-                    statusText:""
-                }  
-            }
-        case SEND_NOTİFİCATION_ERROR:
-            return{
-                ...state,
-                Error:{
-                    statusCode:action.payload.status,
-                    statusText:action.payload.statusText
-                }  
-            }
-        case RESET_MANAGER:
-            return{
-                ...state,
-                createClass:""
-            }
-        default:
-            return state;
-    }
+            }  
+        }   
+    case REJECT_STUDENT_PENDING:
+        return{
+            ...state,
+            isLoading:true
+        }
+    case REJECT_STUDENT_FULFILLED:
+        return{
+            ...state,
+            isLoading:false,
+            requestStudents:state.requestStudents.filter(item=>item._id!==action.payload)
+        }
+    case REJECT_STUDENT_REJECTED:
+        return{
+            ...state,
+            Error:{
+                statusCode:action.payload.status,
+                statusText:action.payload.statusText
+            }  
+        }
+    case EDIT_CLASS_PENDING:
+        return{
+            ...state,
+            isLoading:true
+        }
+    case EDIT_CLASS_FULFILLED:
+        return{
+            ...state,
+            isLoading:false,
+            Error:{
+                statusCode:action.payload,
+                statusText:"Ok"
+            }  
+        }
+    case EDIT_CLASS_REJECTED:
+        return{
+            ...state,
+            Error:{
+                statusCode:action.payload.status,
+                statusText:action.payload.statusText
+            }  
+        }
+    case DELETE_CLASS_PENDING:
+        return{
+            ...state,
+            isLoading:true
+        }
+    case DELETE_CLASS_FULFILLED:
+        return{
+            ...state,
+            isLoading:true
+        }
+    case DELETE_CLASS_REJECTED:
+        return{
+            ...state,
+            Error:{
+                statusCode:action.payload.status,
+                statusText:action.payload.statusText
+            }  
+        }
+    case CREATE_QR_PENDING:
+        return{
+            ...state,
+            isLoading:true
+        }
+    case CREATE_QR_FULFILLED:
+        localStorage.setItem('lastQrId',action.payload)
+        return{
+            ...state,
+            isLoading:false,
+            lastQrId:action.payload
+        }
+    case CREATE_QR_REJECTED:
+        return{
+            ...state,
+            Error:{
+                statusCode:action.payload.status,
+                statusText:action.payload.statusText
+            }  
+        }
+    case GET_QR_INFO_PENDING:
+        return{
+            ...state,
+            isLoading:true
+        }
+    case GET_QR_INFO_FULFILLED:
+        return{
+            ...state,
+            isLoading:false,
+            qrInfo:action.payload  
+        }
+    case GET_QR_INFO_REJECTED:
+        return{
+            ...state,
+            Error:{
+                statusCode:action.payload.status,
+                statusText:action.payload.statusText
+            }  
+        }
+    case SEND_NOTIFICATION_PENDING:
+        return{
+            ...state,
+            isLoading:true,
+        }
+    case SEND_NOTIFICATION_FULFILLED:
+        return{
+            ...state,
+            isLoading:false,
+            Error:{
+                statusCode:action.payload,
+                statusText:""
+            }  
+        }
+    case SEND_NOTIFICATION_REJECTED:
+        return{
+            ...state,
+            Error:{
+                statusCode:action.payload.status,
+                statusText:action.payload.statusText
+            }  
+        }
+    case RESET_MANAGER:
+        return{
+            ...state,
+            createClass:""
+        }
+    default:
+        return state;
+}
 }

@@ -1,9 +1,9 @@
 import React,{Component} from 'react'
 import {connect} from 'react-redux'
 import QRCode from 'react-qr-code';
-import {Redirect} from 'react-router-dom'
 import io from 'socket.io-client';
 import {List, Divider} from 'semantic-ui-react'
+import {getQrInfo} from '../actions/Manager'
  
 const socket = io('http://localhost:3001/');
 
@@ -11,29 +11,17 @@ class ClassQhere extends Component{
 
     state={
         classid:"",
-        finished:false,
         socketStudents:[],
     }
 
     componentWillMount(){
         var _id = window.location.pathname.slice(18, 42);
-            this.setState({
-                classid:_id,
-            })
-
-        this.props.classes.find(instance=>{
-                if(instance._id===_id)
-                {
-                    if(instance.qheres.length===15){
-                        this.setState({
-                            finished:true
-                        })
-                    }
-                }
-                return null;
+        this.setState({
+            classid:_id,
         })
-    }
 
+    }
+    
     componentWillUnmount(){
         socket.emit('deleteClass',{ classId:this.state.classid});
     }
@@ -50,18 +38,17 @@ class ClassQhere extends Component{
         });
         return true
     }
-
+    
     render() {
-      console.log(this.state)
         socket.emit('createClass',{ classId:this.state.classid});
-        
+        console.log(this.state)
         const Qr=(       
-                <div >
+                <div>
                     <h1>
                         React QR Codes
                     </h1>
                     <QRCode
-                    value={`http://yigitkurtcu.com/student/${this.state.classid}/joinRollCall/${this.props.lastQrId}`}
+                    value={`http://localhost:3000/student/${this.state.classid}/joinRollCall/${this.props.lastQrId}`}
                     size={256}
                     bgColor='#fff'
                     fgColor='#000'
@@ -72,9 +59,9 @@ class ClassQhere extends Component{
                         Yoklamaya Katılan Öğrenciler
                 </h1>
                 {
-                    
+                
                     this.state.socketStudents.map((student)=>
-                        <List key={student.classId} divided relaxed>
+                        <List key={student.schoolNumber} divided relaxed>
                         <List.Item>
                         <List.Content floated='left'>
                             <List.Header>{student.fullName+" "+student.schoolNumber}</List.Header>
@@ -92,7 +79,7 @@ class ClassQhere extends Component{
 
         return (
                 <div>
-                   {this.state.finished === false ? Qr : <Redirect to="/homePage/classes"/>}
+                    {this.props.loading === false ? Qr : ""}
                 </div>
         );
 
@@ -101,9 +88,15 @@ class ClassQhere extends Component{
 
 const mapStateToProps=(state)=>{
     return{
+        loading:state.manager.isLoading,
         classes:state.manager.classes,
-        lastQrId:state.manager.lastQrId
+        lastQrId:state.manager.lastQrId,
+        qrInfo:state.manager.qrInfo
     }
+}
+
+const mapDispatchToProps={
+    getQrInfo,
 }
 
 const style={
@@ -120,4 +113,4 @@ const style={
     
 }
 
-export default connect(mapStateToProps) (ClassQhere);
+export default connect(mapStateToProps,mapDispatchToProps) (ClassQhere);
