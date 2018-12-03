@@ -1,7 +1,8 @@
 import React,{Component} from 'react';
 import {connect} from 'react-redux';
-import {Card} from 'semantic-ui-react';
-import {getStudentClasses} from '../actions/Student'
+import {Card,Button} from 'semantic-ui-react';
+import  {Link} from 'react-router-dom';
+import {getStudentClasses,getDiscontinuity} from '../actions/Student'
 
 class Classes extends Component{
     
@@ -27,8 +28,15 @@ class Classes extends Component{
                              <Card.Description> 
                                  Açıklama:{instance.description}
                              </Card.Description>
-                           </Card.Content>
-                         </Card>
+                            </Card.Content>
+                            <Card.Content extra>
+                            <div className='ui two buttons'>
+                            <Button basic as={Link} to={`/homePage/classes/${instance._id}`} color='green' onClick={()=>this.props.getDiscontinuity(instance._id)}>
+                                Ayrıntılar
+                            </Button>
+                            </div>
+                            </Card.Content>
+                       </Card>
                      ):""
                  }
                  </Card.Group>
@@ -71,7 +79,8 @@ const mapStateToProps=(state)=>{
 }
 
 const mapDispatchToProps={
-    getStudentClasses
+    getStudentClasses,
+    getDiscontinuity
 }
 
 export default connect(mapStateToProps,mapDispatchToProps) (Classes);

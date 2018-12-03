@@ -4,7 +4,9 @@ import {
     JOIN_CLASS_PENDING,
     JOIN_CLASS_FULFILLED,
     GET_STUDENT_CLASSES_PENDING,
-    GET_STUDENT_CLASSES_FULFILLED
+    GET_STUDENT_CLASSES_FULFILLED,
+    GET_DISCONTINUITY_PENDING,
+    GET_DISCONTINUITY_FULFILLED
 } from '../actions/Student'
 
 const initialState={
@@ -14,9 +16,14 @@ const initialState={
     Error:{
         statusCode:"",
         statusText:""
+    },
+    weeks:{
+        qhereCount:"",
+        roolCall:"",
+        weeksInfo:[]
     }
-}
 
+}
 export default (state=initialState,action)=>{
     switch(action.type){
         case CLASSES_STUDENT_PENDING:
@@ -51,6 +58,17 @@ export default (state=initialState,action)=>{
                 ...state,
                 isLoading:false,
                 myClasses:action.payload
+            }
+        case GET_DISCONTINUITY_PENDING:
+            return{
+                ...state,
+                isLoading:true
+            }
+        case GET_DISCONTINUITY_FULFILLED:
+            return{
+                ...state,
+                isLoading:false,
+                weeks:action.payload
             }
         default:
             return state;

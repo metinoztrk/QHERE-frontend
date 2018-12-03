@@ -34,11 +34,6 @@ class HomePageStudents extends Component{
                 isDashBoard:false
             })
         }
-        if(window.location.pathname==='/homePage/classes')
-        {  
-           //sa
-        }
-
     }
 
     componentWillReceiveProps(){

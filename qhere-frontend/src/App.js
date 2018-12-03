@@ -15,6 +15,7 @@ import QhereInfo from './components/QhereInfo'
 import UpdateClass from './components/UpdateClass'
 import HomePageStundent from './components/pages/HomePageStudent'
 import ClassesStudent from './components/ClassesStudent'
+import ClassInfoStudent from './components/ClassInfoStudent'
 
 class App extends Component {
 
@@ -49,6 +50,7 @@ class App extends Component {
           <div>
           <Route path='/homePage' component={HomePageStundent}></Route>
           <Route exact path='/homePage/classes' component={ClassesStudent}></Route>
+          <Route exact path='/homePage/classes/:id' component={ClassInfoStudent}></Route>
           </div>
       } 
       </div>
