@@ -12,10 +12,30 @@ class ClassInfoStudent extends Component{
         weeksNumber:[]
     }
 
+    componentDidUpdate(previousProps, previousState){
+        if(previousProps.weeks.weeksInfo.length!==0 && previousState.weeksNumber.length===0)
+        {
+            var _id = window.location.pathname.slice(18, 42); 
+            var classes=this.props.classes
+            classes.find(instance=>{
+                if(instance._id===_id)
+                {
+                    this.setState({
+                        id:_id,
+                        class:instance,
+                        qhereCount:this.props.weeks.qhereCount,
+                        weeksNumber:this.props.weeks.weeksInfo,
+                    })
+                }
+                return null;
+            }) 
+        }
+    }
+
     componentWillMount(){
         var _id = window.location.pathname.slice(18, 42); 
         this.props.getDiscontinuity(_id)
-        this.props.getStudentClasses();
+        this.props.getStudentClasses()
         var classes=this.props.classes
         classes.find(instance=>{
             if(instance._id===_id)
@@ -33,10 +53,10 @@ class ClassInfoStudent extends Component{
 
 
     render(){
-        console.log(this.state)
-
+        
+        
         const createWeek = () => {
-            if(this.props.isLoading===false){
+            
             let week = []
             for (let i = 0; i < this.props.weeks.qhereCount; i++) {
                 var res=this.props.weeks.weeksInfo.find((instance)=>
@@ -50,7 +70,6 @@ class ClassInfoStudent extends Component{
                     week.push(<Grid.Column key={i+1} style={style.grid}><Menu.Item  style={{backgroundColor:"#F53A3A"}}>{i+1+'. Hafta'}</Menu.Item></Grid.Column>)
             }
             return week
-            }
           }
 
         const info=(

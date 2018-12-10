@@ -7,6 +7,7 @@ const InfoStudentList = ({student}) => (
                 <Table.Cell >{student.fullName}</Table.Cell>
                 <Table.Cell>{student.schoolNumber}</Table.Cell>
                 <Table.Cell>{student.email}</Table.Cell>
+                <Table.Cell>{student.studentDiscontinuity}</Table.Cell>
             </Table.Row>
     )
 )

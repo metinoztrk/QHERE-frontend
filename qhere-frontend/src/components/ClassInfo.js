@@ -44,7 +44,7 @@ class ClassInfo extends Component{
 
     render(){
 
-        console.log(this.state)
+        console.log(this.state.class)
         const Info=(
             <Grid columns={2} divided>
                 <Grid.Row>
@@ -96,6 +96,7 @@ class ClassInfo extends Component{
                                     <Table.HeaderCell>Adı Soyadı</Table.HeaderCell>
                                     <Table.HeaderCell>Okul Numarası</Table.HeaderCell>
                                     <Table.HeaderCell>Email</Table.HeaderCell>
+                                    <Table.HeaderCell>Devamsızlık Sayısı</Table.HeaderCell>
                                 </Table.Row>
                                 </Table.Header>
                                 <TableBody>
