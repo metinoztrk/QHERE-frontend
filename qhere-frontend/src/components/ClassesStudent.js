@@ -1,20 +1,26 @@
 import React,{Component} from 'react';
 import {connect} from 'react-redux';
-import {Card,Button} from 'semantic-ui-react';
+import {Card,Button,Grid} from 'semantic-ui-react';
 import  {Link} from 'react-router-dom';
-import {getStudentClasses,getDiscontinuity} from '../actions/Student'
+import {getStudentClasses,getDiscontinuity,getRequestClasses} from '../actions/Student'
 
 class Classes extends Component{
     
     componentDidMount(){
         this.props.getStudentClasses()
+        this.props.getRequestClasses()
     }
 
     render(){
+
             return(
-                <div  style={style.div}>
-                 <h1>Derslerim</h1>
-                 <Card.Group>
+                <div>
+                <Grid columns={2} divided>
+                <Grid.Row>
+                <div style={style.div}>
+                <h1>Derslerim</h1>
+                <Grid.Column>
+                <Card.Group>
                  {
                      this.props.isLoading===false ?
                      this.props.myClasses.map((instance)=>
@@ -40,6 +46,28 @@ class Classes extends Component{
                      ):""
                  }
                  </Card.Group>
+                 </Grid.Column>
+                 </div>
+                 <div style={style.form}>
+                 <h1>Katılma İsteği yollanan dersler</h1>
+                 <Grid.Column>
+                 <Card.Group>
+                 {
+                     this.props.isLoading===false ?
+                     this.props.requestClasses.map((instance)=>
+                         <Card key={instance._id}>
+                           <Card.Content>
+                             <Card.Header>Ders Adı:{instance.className}</Card.Header>
+                             <Card.Header>Dersin Hocası:{instance.managerName}</Card.Header>
+                            </Card.Content>           
+                       </Card>
+                     ):""
+                 }
+                 </Card.Group>
+                 </Grid.Column>
+                 </div>
+                 </Grid.Row>
+                 </Grid>
                  </div>
         )
     }
@@ -47,40 +75,37 @@ class Classes extends Component{
 }
 
 const style={
-    header:{
-        float:'Left',
-        fontSize: 16
-    },
-    list:{
+    form:{
         marginTop:50,
-        marginLeft:175,
+        marginLeft:100,
         padding:20,
-        width: 600,
+        width: 300,
         borderStyle: 'groove',
         borderRadius: 25,
     },
     div:{
         margin:'auto',
         marginTop:50,
-        marginLeft:150,
-        marginRight:150,
+        marginLeft:50,
+        marginRight:50,
         borderStyle: 'groove',
         borderRadius: 25,
         padding:20
     }
-    
 }
 
 const mapStateToProps=(state)=>{
     return{
         isLoading:state.student.isLoading,
-        myClasses:state.student.myClasses
+        myClasses:state.student.myClasses,
+        requestClasses:state.student.requestClasses
     }
 }
 
 const mapDispatchToProps={
     getStudentClasses,
-    getDiscontinuity
+    getDiscontinuity,
+    getRequestClasses
 }
 
 export default connect(mapStateToProps,mapDispatchToProps) (Classes);

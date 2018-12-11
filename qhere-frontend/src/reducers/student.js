@@ -5,6 +5,8 @@ import {
     JOIN_CLASS_FULFILLED,
     GET_STUDENT_CLASSES_PENDING,
     GET_STUDENT_CLASSES_FULFILLED,
+    GET_REQUEST_CLASSES_PENDING,
+    GET_REQUEST_CLASSES_FULFILLED,
     GET_DISCONTINUITY_PENDING,
     GET_DISCONTINUITY_FULFILLED
 } from '../actions/Student'
@@ -12,6 +14,7 @@ import {
 const initialState={
     isLoading: false,
     myClasses:[],
+    requestClasses:[],
     classes:[],
     Error:{
         statusCode:"",
@@ -58,6 +61,17 @@ export default (state=initialState,action)=>{
                 ...state,
                 isLoading:false,
                 myClasses:action.payload
+            }
+        case GET_REQUEST_CLASSES_PENDING:
+            return{
+                ...state,
+                isLoading:true
+            }
+        case GET_REQUEST_CLASSES_FULFILLED:
+            return{
+                ...state,
+                isLoading:false,
+                requestClasses:action.payload
             }
         case GET_DISCONTINUITY_PENDING:
             return{

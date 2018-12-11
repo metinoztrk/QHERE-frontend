@@ -1,6 +1,7 @@
 import React,{Component} from 'react'
 import {connect} from 'react-redux'
 import {List,Grid,Menu } from 'semantic-ui-react'
+import {Redirect} from 'react-router-dom'
 import {getDiscontinuity,getStudentClasses} from '../actions/Student'
 
 class ClassInfoStudent extends Component{
@@ -97,7 +98,7 @@ class ClassInfoStudent extends Component{
                         </List.Item>
                         <List.Item>
                         <List.Content>
-                            <List.Header style={style.header}>Devamsızlık</List.Header>
+                            <List.Header style={style.header}>Devamsızlık Hakkı</List.Header>
                             <List.Description>{this.state.class.discontinuity}</List.Description>
                         </List.Content>
                         </List.Item>
@@ -130,6 +131,7 @@ class ClassInfoStudent extends Component{
         return(
             <div>
                 { this.props.isLoading===false && this.props.classes.length !==0 ? info : "" }
+                { this.props.classes.length === 0 ? <Redirect to="/homePage"/> :"" }
             </div>
         )
     }
