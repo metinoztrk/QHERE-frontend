@@ -4,6 +4,10 @@ import {CREATE_CLASS_PENDING,
 
     RESET_MANAGER,
 
+    CLASS_INFO_PENDING,
+    CLASS_INFO_FULFILLED,
+    CLASS_INFO_REJECTED,
+
     CLASSES_PENDING,
     CLASSES_FULFILLED,
     CLASSES_REJECTED,
@@ -47,6 +51,7 @@ qrInfoLoading:false,
 isLoading: false,
 lastQrId:"",
 createClass:"",
+classInfo:"",
 classes:[],
 Error:{
     statusCode:"",
@@ -70,6 +75,25 @@ switch(action.type){
             createClass:action.payload
         }
     case CREATE_CLASS_REJECTED:
+        return{
+            ...state,
+            Error:{
+                statusCode:action.payload.status,
+                statusText:action.payload.statusText
+            }  
+        }
+    case CLASS_INFO_PENDING:
+        return{
+            ...state,
+            isLoading:true,
+        }
+    case CLASS_INFO_FULFILLED:
+        return{
+            ...state,
+            isLoading:false,
+            classInfo:action.payload
+        }
+    case CLASS_INFO_REJECTED:
         return{
             ...state,
             Error:{

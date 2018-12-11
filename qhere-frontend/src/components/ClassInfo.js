@@ -2,7 +2,7 @@ import React,{Component} from 'react'
 import {connect} from 'react-redux'
 import {List,Button,Table, TableBody,Form,Grid} from 'semantic-ui-react'
 import {Redirect} from 'react-router-dom'
-import {deleteClass,editClass,getClasses,sendNotification} from '../actions/Manager'
+import {deleteClass,editClass,getClasses,sendNotification,getClassInfo} from '../actions/Manager'
 import InfoStudentList from './InfoStudentList'
 import QhereList from '../components/QhereList'
 import {Link} from 'react-router-dom';
@@ -14,6 +14,7 @@ class ClassInfo extends Component{
         class:"",
         title:"",
         content:"",
+        loading:true
     }
 
     handleChange=(e)=>{
@@ -22,19 +23,13 @@ class ClassInfo extends Component{
         })
     }
 
-    componentWillMount(){
-        var _id = window.location.pathname.slice(18, 42);
-        var classes=this.props.classes
-        classes.find(instance=>{
-            if(instance._id===_id)
-            {
-                this.setState({
-                    id:_id,
-                    class:instance
-                })
-            }
-            return null;
-        })
+    update=()=>{
+        if(this.state.class===""){
+            this.setState({ 
+                class:this.props.classInfo[0],
+                loading:false 
+            })
+        }
     }
 
     onDelete=()=>{
@@ -139,7 +134,9 @@ class ClassInfo extends Component{
 
         return(
             <div>
-                { this.props.classes.length === 0 ? <Redirect to="/homePage"/> : Info }
+                { this.props.loading===false ?  this.update() : "" }
+                { this.props.loading===false && this.state.loading===false ?  Info : ""  }
+                { this.props.classes.length === 0 ? <Redirect to="/homePage"/> :"" }
             </div>
         )
     }
@@ -184,6 +181,8 @@ const style={
 const mapStateToProps=(state)=>{
     return{
         classes:state.manager.classes,
+        classInfo:state.manager.classInfo,
+        loading:state.manager.isLoading
     }
 }
 
@@ -191,7 +190,8 @@ const mapDispatchToProps={
     deleteClass,
     editClass,
     getClasses,
-    sendNotification
+    sendNotification,
+    getClassInfo
 }
 
 export default connect(mapStateToProps,mapDispatchToProps) (ClassInfo)

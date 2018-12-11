@@ -12,7 +12,7 @@ class ClassesList extends Component{
                     this.props.classes.map((Class)=>
                                 <List key={Class._id} divided relaxed style={style.list}>
                                     <List.Item>
-                                    <List.Content as={Link} to={`/homePage/classes/${Class._id}/info`} floated='left'>
+                                    <List.Content as={Link} onClick={()=>this.props.getClassInfo(Class._id)} to={`/homePage/classes/${Class._id}/info`} floated='left'>
                                         <List.Header style={style.header}>{Class.className}</List.Header>
                                     </List.Content>
                                     <List.Content as={Link} to={`/homePage/classes/${Class._id}/Qhere`} floated='right'>

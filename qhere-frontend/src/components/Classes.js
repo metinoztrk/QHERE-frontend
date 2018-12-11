@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import {connect} from 'react-redux'
 import ClassesList from '../components/ClassesList'
-import {getClasses,createQr} from '../actions/Manager'
+import {getClasses,createQr,getClassInfo} from '../actions/Manager'
 class Classes extends Component{
 
     componentWillMount(){
@@ -12,7 +12,10 @@ class Classes extends Component{
         return(
             <div>
                 <h1>Dersler</h1>
-                {this.props.loading===false ?<ClassesList classes={this.props.classes} createQr={this.props.createQr}/> : "" }
+                {this.props.loading===false ?<ClassesList 
+                        classes={this.props.classes} 
+                        getClassInfo={this.props.getClassInfo}
+                        createQr={this.props.createQr}/> : "" }
             </div>
         )
     }
@@ -30,7 +33,8 @@ const mapStateToProps=(state)=>{
 
 const mapDispatchToProps={
     getClasses,
-    createQr
+    createQr,
+    getClassInfo
 }
 
 export default connect(mapStateToProps,mapDispatchToProps) (Classes)

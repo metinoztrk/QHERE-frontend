@@ -6,6 +6,10 @@ export const CREATE_CLASS_REJECTED="CREATE_CLASS_REJECTED";
 
 export const RESET_MANAGER="RESET_MANAGER"
 
+export const CLASS_INFO_PENDING="CLASS_INFO_PENDING";
+export const CLASS_INFO_FULFILLED="CLASS_INFO_FULFILLED";
+export const CLASS_INFO_REJECTED="CLASS_INFO_REJECTED";
+
 export const CLASSES_PENDING="CLASSES_PENDING";
 export const CLASSES_FULFILLED="CLASSES_FULFILLED";
 export const CLASSES_REJECTED="CLASSES_REJECTED";
@@ -53,6 +57,16 @@ export function createClass({className,lastJoinTime,quota,discontinuity,descript
         
     }
 }
+
+export function getClassInfo(id) { 
+    return dispatch=>{
+        dispatch({
+            type:"CLASS_INFO",
+            payload:axios.get(`http://localhost:3000/manager/class/${id}/info`)
+            .then((data)=>data.data.data)
+        })
+    }
+ }
 
 export function getClasses(){
     return dispatch=>{
