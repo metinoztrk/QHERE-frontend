@@ -18,10 +18,10 @@ import ClassesStudent from './components/ClassesStudent'
 import ClassInfoStudent from './components/ClassInfoStudent'
 
 class App extends Component {
-
-
+  
+  
   render() {
-
+    console.log(process.env.REACT_APP_SECRET_CODE)
     const LoginOff=(
       <div>
           <Route path='/' component={IndexPage}></Route>

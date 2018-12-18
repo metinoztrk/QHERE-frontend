@@ -4,17 +4,33 @@ import QRCode from 'react-qr-code';
 import io from 'socket.io-client';
 import {List, Divider} from 'semantic-ui-react'
 import {getQrInfo} from '../actions/Manager'
- 
-const socket = io('http://localhost:3001/');
+const socket = io('http://localhost:3001/');;
+
 
 class ClassQhere extends Component{
 
-    state={
-        classid:"",
-        socketStudents:[],
+    constructor(props){
+        super(props);
+        this.state = { 
+            Url:"",
+            classid:"",
+            socketStudents:[],
+        };
     }
 
     componentWillMount(){
+        if(process.env.REACT_APP_SECRET_CODE === "development ")
+        {
+            this.setState({
+                Url:"http://localhost:3000"
+            })
+        }
+        else
+        {
+            this.setState({
+                Url:"http://yigitkurtcu.com"
+            })
+        }
         var _id = window.location.pathname.slice(18, 42);
         this.setState({
             classid:_id,
@@ -48,7 +64,7 @@ class ClassQhere extends Component{
                         React QR Codes
                     </h1>
                     <QRCode
-                    value={`http://localhost:3000/student/${this.state.classid}/joinRollCall/${this.props.lastQrId}`}
+                    value={`${this.state.Url}/student/${this.state.classid}/joinRollCall/${this.props.lastQrId}`}
                     size={256}
                     bgColor='#fff'
                     fgColor='#000'

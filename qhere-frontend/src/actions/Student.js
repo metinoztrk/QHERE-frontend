@@ -20,11 +20,22 @@ export const GET_REQUEST_CLASSES_PENDING="GET_REQUEST_CLASSES_PENDING";
 export const GET_REQUEST_CLASSES_FULFILLED="GET_REQUEST_CLASSES_FULFILLED";
 export const GET_REQUEST_CLASSES_REJECTED="GET_REQUEST_CLASSES_REJECTED";
 
+let URL="";
+
+if(process.env.REACT_APP_SECRET_CODE === "development ")
+{
+    URL="http://localhost:3000"
+}
+else
+{
+    URL="http://yigitkurtcu.com"
+}
+
 export function classes(){
     return dispatch=>{
         dispatch({
             type:"CLASSES_STUDENT",
-            payload:axios.get('http://localhost:3000/student/getClasses')
+            payload:axios.get(`${URL}/student/getClasses`)
             .then((data)=>data.data.data)
         })  
     }
@@ -34,7 +45,7 @@ export function joinClass(id){
     return dispatch=>{
         dispatch({
             type:"JOIN_CLASS",
-            payload:axios.post(`http://localhost:3000/student/${id}/joinClass`)
+            payload:axios.post(`${URL}/student/${id}/joinClass`)
             .then((data)=>id)
         })
     }
@@ -44,7 +55,7 @@ export function getStudentClasses(){
     return dispatch=>{
         dispatch({
             type:"GET_STUDENT_CLASSES",
-            payload:axios.get('http://localhost:3000/student/getUserClasses')
+            payload:axios.get(`${URL}/student/getUserClasses`)
             .then(data=>data.data.data)
         })
     }
@@ -54,7 +65,7 @@ export function getDiscontinuity(id){
     return dispatch=>{
         dispatch({
             type:"GET_DISCONTINUITY",
-            payload:axios.get(`http://localhost:3000/student/${id}/getDiscontinuity`)
+            payload:axios.get(`${URL}/student/${id}/getDiscontinuity`)
             .then(data=>data.data.data)
         })
     }
@@ -64,7 +75,7 @@ export function getRequestClasses(){
     return dispatch=>{
         dispatch({
             type:"GET_REQUEST_CLASSES",
-            payload:axios.get('http://localhost:3000/student/getRequestClasses')
+            payload:axios.get(`${URL}/student/getRequestClasses`)
             .then(data=>data.data.data)
         })
     }

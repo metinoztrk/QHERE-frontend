@@ -46,12 +46,24 @@ export const SEND_NOTIFICATION_PENDING="SEND_NOTIFICATION_PENDING";
 export const SEND_NOTIFICATION_FULFILLED="SEND_NOTIFICATION_FULFILLED";
 export const SEND_NOTIFICATION_REJECTED="SEND_NOTIFICATION_REJECTED";
 
+
+let URL="";
+
+if(process.env.REACT_APP_SECRET_CODE === "development ")
+{
+    URL="http://localhost:3000"
+}
+else
+{
+    URL="http://yigitkurtcu.com"
+}
+
 export function createClass({className,lastJoinTime,quota,discontinuity,description}){
     return dispatch=>{
 
         dispatch({
             type:"CREATE_CLASS",
-            payload:axios.post('http://localhost:3000/manager/createClass',{className,lastJoinTime,quota,discontinuity,description})
+            payload:axios.post(`${URL}/manager/createClass`,{className,lastJoinTime,quota,discontinuity,description})
             .then((data)=>data.data.status_code)
         })
         
@@ -62,7 +74,7 @@ export function getClassInfo(id) {
     return dispatch=>{
         dispatch({
             type:"CLASS_INFO",
-            payload:axios.get(`http://localhost:3000/manager/class/${id}/info`)
+            payload:axios.get(`${URL}/manager/class/${id}/info`)
             .then((data)=>data.data.data)
         })
     }
@@ -73,7 +85,7 @@ export function getClasses(){
 
         dispatch({
             type:"CLASSES",
-            payload:axios.get('http://localhost:3000/manager/getClasses')
+            payload:axios.get(`${URL}/manager/getClasses`)
             .then((data)=>data.data.data)
         })
 
@@ -85,7 +97,7 @@ export function getClassesRequest(){
 
         dispatch({
             type:"GET_CLASSES_REQUEST",
-            payload:axios.get('http://localhost:3000/manager/getClassesRequest')
+            payload:axios.get(`${URL}/manager/getClassesRequest`)
             .then((data)=>data.data.data)
             })
 
@@ -98,7 +110,7 @@ export function approveStudent(id){
 
             dispatch({
                 type:"APPROVE_STUDENT",
-                payload:axios.put(`http://localhost:3000/manager/${id}/approveStudent`)
+                payload:axios.put(`${URL}/manager/${id}/approveStudent`)
                 .then((data)=>id)
             })
     }
@@ -109,7 +121,7 @@ export function rejectStudent(id){
 
         dispatch({
             type:"REJECT_STUDENT",
-            payload:axios.post(`http://localhost:3000/manager/${id}/rejectStudent`)
+            payload:axios.post(`${URL}/manager/${id}/rejectStudent`)
             .then((data)=>id)
         })
     }
@@ -120,7 +132,7 @@ export function editClass({classId,className,lastJoinTime,quota,discontinuity,de
 
         dispatch({
             type:"EDIT_CLASS",
-            payload:axios.put(`http://localhost:3000/manager/${classId}/updateClass`,{className,lastJoinTime,quota,discontinuity,description})
+            payload:axios.put(`${URL}/manager/${classId}/updateClass`,{className,lastJoinTime,quota,discontinuity,description})
             .then((data)=>data.data.status_code)
         })
     }
@@ -131,7 +143,7 @@ export function deleteClass(id){
 
         dispatch({
             type:"DELETE_CLASS",
-            payload:axios.delete(`http://localhost:3000/manager/${id}/deleteClass`)
+            payload:axios.delete(`${URL}/manager/${id}/deleteClass`)
             .then((data)=>data.data)
         })
     }
@@ -142,7 +154,7 @@ export function createQr(classId){
         
         dispatch({
             type:"CREATE_QR",
-            payload:axios.put('http://localhost:3000/manager/createQr',{classId})
+            payload:axios.put(`${URL}/manager/createQr`,{classId})
             .then((data)=>data.data.data.qheres[data.data.data.qheres.length-1]._id)
         })
     }
@@ -153,7 +165,7 @@ export function getQrInfo(qrId){
         
         dispatch({
             type:"GET_QR_INFO",
-            payload:axios.get(`http://localhost:3000/manager/getQrInfo/${qrId}`)
+            payload:axios.get(`${URL}/manager/getQrInfo/${qrId}`)
             .then((data)=>data.data.data)
         })
     }
@@ -164,7 +176,7 @@ export function sendNotification({id,title,content}){
 
         dispatch({
             type:"SEND_NOTIFICATION",
-            payload:axios.post('http://localhost:3000/manager/sendNotification',{id,title,content})
+            payload:axios.post(`${URL}/manager/sendNotification`,{id,title,content})
             .then((data)=>data.data.status_code)
         })
     }

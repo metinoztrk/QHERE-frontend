@@ -18,12 +18,22 @@ export const RESET_PASSWORD_ERROR="RESET_PASSWORD_ERROR"
 
 export const RESET_USER="RESET_USER"
 
+let URL="";
+
+if(process.env.REACT_APP_SECRET_CODE === "development ")
+{
+    URL="http://localhost:3000"
+}
+else
+{
+    URL="http://yigitkurtcu.com"
+}
 
 export function login({email,password}) {
     console.log(email,password);
     return dispatch=>{  
         let tokenCopy
-        axios.post('http://localhost:3000/user/login',{email,password})
+        axios.post(`${URL}/user/login`,{email,password})
             .then(token=>token.data.data)       
             .then(token=>{
                 console.log(token.userType)
@@ -47,7 +57,7 @@ export function login({email,password}) {
 export function register({schoolNumber,fullName,email,password,gender,userType}){
     console.log(schoolNumber+" "+fullName+" "+email+" "+password+" "+gender,userType)
     return dispatch=>{
-        axios.post('http://localhost:3000/user/register',{schoolNumber,fullName,email,password,gender,userType})
+        axios.post(`${URL}/user/register`,{schoolNumber,fullName,email,password,gender,userType})
             .then(data=>{
                 dispatch({
                     type:REGISTER,
@@ -64,7 +74,7 @@ export function register({schoolNumber,fullName,email,password,gender,userType})
 
 export function logout(){
     return dispatch=>{
-        axios.post('http://localhost:3000/user/logout')
+        axios.post(`${URL}/user/logout'`)
         .then(data=>{
             console.log(data)
             dispatch({
@@ -88,7 +98,7 @@ export function forgot({email}){
     console.log(email)
 
     return dispatch=>{
-        axios.post('http://localhost:3000/user/forgot',{email})
+        axios.post(`${URL}/user/forgot`,{email})
         .then(data=>{
             dispatch({
                 type:FORGOT,
@@ -106,7 +116,7 @@ export function forgot({email}){
 export function resetPassword({code,newPassword}){
     console.log(code+" "+newPassword)
     return dispatch=>{
-        axios.post('http://localhost:3000/user/resetPassword',{code,newPassword})
+        axios.post(`${URL}/user/resetPassword`,{code,newPassword})
         .then(data=>{
             dispatch({
                 type:RESET_PASSWORD,
