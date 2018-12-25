@@ -8,10 +8,16 @@ import {
     GET_REQUEST_CLASSES_PENDING,
     GET_REQUEST_CLASSES_FULFILLED,
     GET_DISCONTINUITY_PENDING,
-    GET_DISCONTINUITY_FULFILLED
+    GET_DISCONTINUITY_FULFILLED,
+    GET_NOTIFICATION_PENDING,
+    GET_NOTIFICATION_FULFILLED,
+    READ_NOTIFICATION_PENDING,
+    READ_NOTIFICATION_FULFILLED
+    
 } from '../actions/Student'
 
 const initialState={
+    isNotification:false,
     isLoading: false,
     myClasses:[],
     requestClasses:[],
@@ -24,7 +30,8 @@ const initialState={
         qhereCount:"",
         roolCall:"",
         weeksInfo:[]
-    }
+    },
+    notification:[]
 
 }
 export default (state=initialState,action)=>{
@@ -83,6 +90,29 @@ export default (state=initialState,action)=>{
                 ...state,
                 isLoading:false,
                 weeks:action.payload
+            }
+        case GET_NOTIFICATION_PENDING:
+            return{
+                ...state,
+                isLoading:true
+            }
+        case GET_NOTIFICATION_FULFILLED:
+            return{
+                ...state,
+                isLoading:false,
+                notification:action.payload
+            }
+        case READ_NOTIFICATION_PENDING:
+            return{
+                ...state,
+                isLoading:true
+            }
+        case READ_NOTIFICATION_FULFILLED:
+            console.log(action.payload);
+            return{
+                ...state,
+                isLoading:false,
+                notification:state.notification.filter(item=>item._id!==action.payload._id)
             }
         default:
             return state;

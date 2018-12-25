@@ -14,9 +14,13 @@ import {getClasses,getClassesRequest,approveStudent,rejectStudent,reloadManager}
 import DashBoard from '../DashBoard';
 import {Link ,Redirect} from 'react-router-dom';
 class HomePage extends Component{
-    state = {
-        isHome:true,
-        isDashBoard:true
+
+    constructor(props) {
+        super(props);
+        this.state = { 
+            isHome:true,
+            isDashBoard:true
+        };
     }
 
     hideFixedMenu = () => this.setState({ fixed: false })

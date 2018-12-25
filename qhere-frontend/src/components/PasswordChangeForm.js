@@ -5,11 +5,15 @@ import {Form,Button,Message} from 'semantic-ui-react'
 import {Redirect} from 'react-router-dom'
  class PasswordChangeForm extends Component{
 
-    state={
-        code:"",
-        newPassword:"",
-        confirmNewPassword:"",
-        redirect:false
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            code:"",
+            newPassword:"",
+            confirmNewPassword:"",
+            redirect:false
+        };
     }
 
     componentWillMount(){

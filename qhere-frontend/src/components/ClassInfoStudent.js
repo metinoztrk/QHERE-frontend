@@ -6,11 +6,14 @@ import {getDiscontinuity,getStudentClasses} from '../actions/Student'
 
 class ClassInfoStudent extends Component{
 
-    state={
-        id:"",
-        class:"",
-        qhereCount:"",
-        weeksNumber:[]
+    constructor(props) {
+        super(props);
+        this.state = { 
+            id:"",
+            class:"",
+            qhereCount:"",
+            weeksNumber:[]
+        };
     }
 
     componentDidUpdate(previousProps, previousState){

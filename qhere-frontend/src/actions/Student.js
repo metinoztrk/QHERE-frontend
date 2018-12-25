@@ -20,6 +20,14 @@ export const GET_REQUEST_CLASSES_PENDING="GET_REQUEST_CLASSES_PENDING";
 export const GET_REQUEST_CLASSES_FULFILLED="GET_REQUEST_CLASSES_FULFILLED";
 export const GET_REQUEST_CLASSES_REJECTED="GET_REQUEST_CLASSES_REJECTED";
 
+export const GET_NOTIFICATION_PENDING="GET_NOTIFICATION_PENDING";
+export const GET_NOTIFICATION_FULFILLED="GET_NOTIFICATION_FULFILLED";
+export const GET_NOTIFICATION_REJECTED="GET_NOTIFICATION_REJECTED";
+
+export const READ_NOTIFICATION_PENDING="READ_NOTIFICATION_PENDING";
+export const READ_NOTIFICATION_FULFILLED="READ_NOTIFICATION_FULFILLED";
+export const READ_NOTIFICATION_REJECTED="READ_NOTIFICATION_REJECTED";
+
 let URL="";
 
 if(process.env.REACT_APP_SECRET_CODE === "development ")
@@ -76,6 +84,26 @@ export function getRequestClasses(){
         dispatch({
             type:"GET_REQUEST_CLASSES",
             payload:axios.get(`${URL}/student/getRequestClasses`)
+            .then(data=>data.data.data)
+        })
+    }
+}
+
+export function getNotification(){
+    return dispatch=>{
+        dispatch({
+            type:"GET_NOTIFICATION",
+            payload:axios.get(`${URL}/student/getNotification`)
+            .then(data=>data.data.data)
+        })
+    }
+}
+
+export function readNotification(id){
+    return dispatch=>{
+        dispatch({
+            type:"READ_NOTIFICATION",
+            payload:axios.put(`${URL}/student/readNotification`,{id})
             .then(data=>data.data.data)
         })
     }

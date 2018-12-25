@@ -9,12 +9,17 @@ import {Link} from 'react-router-dom';
 
 class ClassInfo extends Component{
 
-    state={
-        id:"",
-        class:"",
-        title:"",
-        content:"",
-        loading:true
+    constructor(props) {
+        super(props);
+        this.state = { 
+            id:"",
+            className:"",
+            class:"",
+            title:"",
+            content:"",
+            loading:true,
+            redirect:false
+        };
     }
 
     handleChange=(e)=>{
@@ -25,10 +30,18 @@ class ClassInfo extends Component{
 
     update=()=>{
         if(this.state.class===""){
-            this.setState({ 
-                class:this.props.classInfo[0],
-                loading:false 
-            })
+            if(this.props.classInfo==="")
+                this.setState({
+                    redirect:true
+                })
+            else{
+                this.setState({
+                    id: this.props.classInfo[0]._id,
+                    className:this.props.classInfo[0].className,
+                    class:this.props.classInfo[0],
+                    loading:false 
+                })
+            }
         }
     }
 
@@ -39,7 +52,7 @@ class ClassInfo extends Component{
 
     render(){
 
-        console.log(this.state.class)
+
         const Info=(
             <Grid columns={2} divided>
                 <Grid.Row>
@@ -107,7 +120,7 @@ class ClassInfo extends Component{
                 <div style={style.form}>
                 <Grid.Column>
                     <Form>
-                        <h1 class="ui header">Duyuru paylaş</h1>
+                        <h1 className="ui header">Duyuru paylaş</h1>
                         <Form.Group widths='equal'>
                         <Form.Input 
                         fluid label='title' 
@@ -124,7 +137,7 @@ class ClassInfo extends Component{
                         value={this.state.content}
                         onChange={this.handleChange}
                         placeholder='Content' />
-                        <Form.Button onClick={()=>{this.props.sendNotification(this.state);this.setState({id:"",title:"",content:"",})}}>Paylaş</Form.Button>
+                        <Form.Button onClick={()=>{this.props.sendNotification(this.state);this.setState({id:"",title:"",content:"",className:""})}}>Paylaş</Form.Button>
                     </Form>
                 </Grid.Column>
                 </div>
@@ -136,7 +149,7 @@ class ClassInfo extends Component{
             <div>
                 { this.props.loading===false ?  this.update() : "" }
                 { this.props.loading===false && this.state.loading===false ?  Info : ""  }
-                { this.props.classes.length === 0 ? <Redirect to="/homePage"/> :"" }
+                { this.state.redirect === true ? <Redirect to="/homePage/classes"/> :"" }
             </div>
         )
     }
@@ -164,6 +177,7 @@ const style={
         marginLeft:175,
         padding:20,
         width: 300,
+        height:350,
         borderStyle: 'groove',
         borderRadius: 25,
     },

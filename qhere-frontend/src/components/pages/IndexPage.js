@@ -4,8 +4,11 @@ import { Button ,Responsive,Visibility,Segment,Menu,Container} from 'semantic-ui
 import {Link} from 'react-router-dom';
 class IndexPage extends Component{
 
-    state={
-        isIndex:false
+    constructor(props) {
+        super(props);
+        this.state = { 
+            isIndex:false
+        };
     }
 
     hideFixedMenu = () => this.setState({ fixed: false })

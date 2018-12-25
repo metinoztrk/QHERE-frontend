@@ -171,12 +171,13 @@ export function getQrInfo(qrId){
     }
 }
 
-export function sendNotification({id,title,content}){
+export function sendNotification({id,title,content,className}){
+    console.log(id,title,content,className);
     return dispatch=>{
 
         dispatch({
             type:"SEND_NOTIFICATION",
-            payload:axios.post(`${URL}/manager/sendNotification`,{id,title,content})
+            payload:axios.post(`${URL}/manager/sendNotification`,{id,title,content,className})
             .then((data)=>data.data.status_code)
         })
     }

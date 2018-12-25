@@ -11,17 +11,16 @@ class UpdateClass extends Component{
 
     constructor(props) {
         super(props);
+        this.state={
+            classId:"",
+            className:"",
+            lastJoinTime:"",
+            quota:"",
+            discontinuity:"",
+            description:"",
+            redirect:false
+        }
         this.handleDayChange = this.handleDayChange.bind(this);
-    }
-
-    state={
-        classId:"",
-        className:"",
-        lastJoinTime:"",
-        quota:"",
-        discontinuity:"",
-        description:"",
-        redirect:false
     }
 
     componentWillMount(){

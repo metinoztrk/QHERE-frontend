@@ -2,19 +2,22 @@ import React,{Component} from 'react';
 import {Redirect} from 'react-router-dom';
 import { Button, Form ,Radio,Message} from 'semantic-ui-react';
 class RegisterForm extends Component{
-
-    state = {
-        schoolNumber:"",
-        fullName:"",
-        email:"",
-        password:"",
-        gender:"",
-        userType:"",
-        error:{
-            statusCode:"",
-            statusText:""
-        },
-        redirect:false
+    
+    constructor(props) {
+        super(props);
+        this.state = {
+            schoolNumber:"",
+            fullName:"",
+            email:"",
+            password:"",
+            gender:"",
+            userType:"",
+            error:{
+                statusCode:"",
+                statusText:""
+            },
+            redirect:false
+            };
     }
     
     handleRadioChange = (e, { value }) => {

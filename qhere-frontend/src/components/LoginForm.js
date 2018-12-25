@@ -6,14 +6,17 @@ import {Link} from 'react-router-dom';
 
 class LoginForm extends Component{
 
-    state={
-        email:"",
-        password:"",
-        redirect:false,
-        error:{
-            statusCode:"",
-            statusText:""
-        }
+    constructor(props) {
+        super(props);
+        this.state = {
+            email:"",
+            password:"",
+            redirect:false,
+            error:{
+                statusCode:"",
+                statusText:""
+            }
+        };
     }
 
     handleChange=(e)=>{

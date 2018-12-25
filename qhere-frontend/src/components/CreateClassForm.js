@@ -13,18 +13,14 @@ class CreateClassForm extends Component{
         this.handleDayChange = this.handleDayChange.bind(this);
         this.state = {
             lastJoinTime: undefined,
+            className:"",
+            quota:"",
+            discontinuity:"",
+            description:"",
+            redirect:false,
+            status:""
         };
       }
-
-    state={
-        className:"",
-        lastJoinTime:"",
-        quota:"",
-        discontinuity:"",
-        description:"",
-        redirect:false,
-        status:""
-    }
 
     handleChange=(e)=>{
         this.setState({

@@ -1,7 +1,7 @@
 import React,{Component} from 'react'
 import  {connect} from 'react-redux'
 import {logout,reload} from '../../actions/Users'
-import  {classes,joinClass} from '../../actions/Student'
+import  {classes,joinClass,getNotification,readNotification} from '../../actions/Student'
 import {
     Button,
     Container,
@@ -13,12 +13,17 @@ import {
   } from 'semantic-ui-react'
 import {Link,Redirect} from 'react-router-dom';
 import DashboardStudents from '../DashBoardStudent';
+import NotificationStudent from '../NotificationStudent';
 
 class HomePageStudents extends Component{
 
-    state = {
-        isHome:true,
-        isDashBoard:true
+
+    constructor(props) {
+        super(props);
+        this.state = { 
+            isHome:true,
+            isDashBoard:true
+        };
     }
 
     componentWillMount(){  
@@ -76,13 +81,19 @@ class HomePageStudents extends Component{
 
         const DashBoard=(
             <div>
-                <Grid>
+                <Grid columns={2}>
                     <Grid.Row>
                         <Grid.Column>
                             <DashboardStudents  getClasses={this.props.classes}
                                                 isLoading={this.props.isLoading}
                                                 joinClass={this.props.joinClass}
                                                 openClasses={this.props.openClasses}/>
+                        </Grid.Column>
+                        <Grid.Column>
+                            <NotificationStudent getNotification={this.props.getNotification}
+                                                 isNotification={this.props.isNotification}
+                                                 readNotification={this.props.readNotification}
+                                                 notification={this.props.notification}/>
                         </Grid.Column>
                     </Grid.Row>
                 </Grid> 
@@ -135,7 +146,9 @@ class HomePageStudents extends Component{
 const mapStateToProps=(state)=>{
     return {    
         openClasses:state.student.classes,
-        isLoading:state.student.isLoading
+        isLoading:state.student.isLoading,
+        isNotification:state.student.isNotification,
+        notification:state.student.notification
     }
 }
 
@@ -143,7 +156,9 @@ const mapDispatchToProps={
     logout,
     reload,
     classes,
-    joinClass
+    joinClass,
+    getNotification,
+    readNotification
 }
 
 

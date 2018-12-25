@@ -5,13 +5,16 @@ import { Button, Form, Message } from 'semantic-ui-react'
 import {forgot,reset} from '../../actions/Users'
 class PasswordReset extends Component{
 
-    state={
-        email:"",
-        error:{
-            status:"",
-            statusText:""
-        },
-        redirect:false   
+    constructor(props) {
+        super(props);
+        this.state = { 
+            email:"",
+            error:{
+                status:"",
+                statusText:""
+            },
+            redirect:false
+        };
     }
 
     componentWillUnmount( ){

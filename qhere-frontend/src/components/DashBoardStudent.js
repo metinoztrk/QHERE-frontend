@@ -8,7 +8,7 @@ class DashBoard extends Component{
     }
 
     render(){
-        console.log(this.props.openClasses)
+        
         return(
            <div  style={style.div}>
             <h1>Dashboard</h1>
@@ -48,10 +48,11 @@ class DashBoard extends Component{
 const style={
 
     div:{
+        width:750,
         margin:'auto',
         marginTop:50,
-        marginLeft:150,
-        marginRight:150,
+        marginLeft:20,
+        marginRight:20,
         borderStyle: 'groove',
         borderRadius: 25,
         padding:20
