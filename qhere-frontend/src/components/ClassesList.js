@@ -1,11 +1,30 @@
 import React,{Component} from 'react'
-import {List,Button, Divider} from 'semantic-ui-react'
-import {Link} from 'react-router-dom'
+import {List,Button, Divider,Confirm} from 'semantic-ui-react'
+import {Link,Redirect } from 'react-router-dom'
 
 class ClassesList extends Component{
 
+    constructor(props) {
+        super(props);
+        this.handleConfirm = this.handleConfirm.bind(this);
+        this.handleCancel = this.handleCancel.bind(this);
+        this.state = {
+            open: false,
+            confirm:false,
+            id:""
+        };
+      }
+
+    show = () => this.setState({ open: true })
+
+    handleConfirm(id){
+        this.setState({ open: false,confirm:true ,id:id})
+    }
+    handleCancel(){
+         this.setState({ open: false })
+    }
+    
     render(){
-        
         return(
             <div style={style.div}>
                 { 
@@ -15,14 +34,21 @@ class ClassesList extends Component{
                                     <List.Content as={Link} onClick={()=>this.props.getClassInfo(Class._id)} to={`/homePage/classes/${Class._id}/info`} floated='left'>
                                         <List.Header style={style.header}>{Class.className}</List.Header>
                                     </List.Content>
-                                    <List.Content as={Link} to={`/homePage/classes/${Class._id}/Qhere`} floated='right'>
-                                        <Button style={style.button} onClick={()=>this.props.createQr(Class._id)}>QHERE</Button>
+                                    <List.Content floated='right'>
+                                        <Button onClick={this.show} style={style.button}>QHERE</Button>
+                                        <Confirm
+                                        content="Qr kod oluşturmak istiyor musunuz?"
+                                        open={this.state.open}
+                                        onCancel={this.handleCancel}
+                                        onConfirm={()=>this.handleConfirm(Class._id)}
+                                        />
                                     </List.Content>
                                     </List.Item>
                                     <Divider/>
                                 </List>   
-                    ) 
+                    )     
                 }
+                {this.state.confirm === true ? <Redirect  to={`/homePage/classes/${this.state.id}/Qhere`}/> :""}
             </div>
         )
     }

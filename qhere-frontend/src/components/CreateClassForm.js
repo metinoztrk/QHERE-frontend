@@ -2,7 +2,7 @@ import React ,{Component} from 'react';
 import {connect} from 'react-redux';
 import {createClass,reset} from '../actions/Manager'
 import {Redirect} from 'react-router-dom'
-import { Button, Form } from 'semantic-ui-react';
+import { Button, Form,Confirm } from 'semantic-ui-react';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'react-day-picker/lib/style.css';
 
@@ -11,7 +11,10 @@ class CreateClassForm extends Component{
     constructor(props) {
         super(props);
         this.handleDayChange = this.handleDayChange.bind(this);
+        this.handleConfirm = this.handleConfirm.bind(this);
+        this.handleCancel = this.handleCancel.bind(this);
         this.state = {
+            open: false,
             lastJoinTime: undefined,
             className:"",
             quota:"",
@@ -21,6 +24,22 @@ class CreateClassForm extends Component{
             status:""
         };
       }
+    
+    show = () => this.setState({ open: true })
+
+    handleConfirm(){
+        this.setState({ 
+            open: false,
+            redirect:true
+        })
+        this.props.createClass(this.state)
+        
+    }
+
+    handleCancel(){
+         this.setState({ open: false })
+    }
+    
 
     handleChange=(e)=>{
         this.setState({
@@ -43,10 +62,6 @@ class CreateClassForm extends Component{
                 redirect:true
             })
         }
-    }
-
-    onSubmit=()=>{
-        this.props.createClass(this.state)
     }
 
     render(){
@@ -91,7 +106,13 @@ class CreateClassForm extends Component{
                     <label>Last Join Time</label>
                     <DayPickerInput style={style.Date} onDayChange={this.handleDayChange} />
                     </Form.Field>
-                    <Button type='submit' onClick={this.onSubmit}>Oluştur</Button>
+                    <Button type='submit' onClick={this.show} style={style.button}>Oluştur</Button>
+                                        <Confirm
+                                        content="Sınıf oluşturmak istiyor musunuz?"
+                                        open={this.state.open}
+                                        onCancel={this.handleCancel}
+                                        onConfirm={this.handleConfirm}
+                                        />
                 </Form>
                 {this.state.redirect === true ? <Redirect to="/homePage"/>  : ""}
             </div>

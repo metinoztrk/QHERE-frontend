@@ -1,5 +1,5 @@
 import React,{Component} from 'react'
-import { Button, Form } from 'semantic-ui-react';
+import { Button, Form,Confirm } from 'semantic-ui-react';
 import {connect} from 'react-redux'
 import {editClass} from '../actions/Manager' 
 import DayPickerInput from 'react-day-picker/DayPickerInput';
@@ -11,6 +11,8 @@ class UpdateClass extends Component{
 
     constructor(props) {
         super(props);
+        this.handleConfirm = this.handleConfirm.bind(this);
+        this.handleCancel = this.handleCancel.bind(this);
         this.state={
             classId:"",
             className:"",
@@ -22,6 +24,20 @@ class UpdateClass extends Component{
             reloadRedirect:false
         }
         this.handleDayChange = this.handleDayChange.bind(this);
+    }
+
+    show = () => this.setState({ open: true })
+
+    handleConfirm(){
+        this.setState({ 
+            open: false,
+            redirect:true
+        })
+        this.props.editClass(this.state)
+    }
+
+    handleCancel(){
+         this.setState({ open: false })
     }
 
     componentWillMount(){
@@ -58,15 +74,7 @@ class UpdateClass extends Component{
         this.setState({  lastJoinTime: day });
     }
 
-    onSubmit=()=>{
-        this.props.editClass(this.state)
-        this.setState({
-            redirect:true
-        })
-    }
-
     render(){
-        console.log(this.props.state.manager.Error)
         const form=(
             <div>
                 <Form style={style.UpdateClassForm}>
@@ -108,7 +116,13 @@ class UpdateClass extends Component{
                     value={this.state.lastJoinTime}
                     onDayChange={this.handleDayChange} />
                     </Form.Field>
-                    <Button type='submit' onClick={this.onSubmit}>Düzenle</Button>
+                    <Button type='submit' onClick={this.show}>Düzenle</Button>
+                                        <Confirm
+                                        content="Sınıfı güncellemek istiyor musunuz?"
+                                        open={this.state.open}
+                                        onCancel={this.handleCancel}
+                                        onConfirm={this.handleConfirm}
+                                        />
                 </Form>
             </div>
         )

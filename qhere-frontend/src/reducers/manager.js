@@ -192,6 +192,7 @@ switch(action.type){
             isLoading:true
         }
     case EDIT_CLASS_FULFILLED:
+        console.log(action.payload);
         return{
             ...state,
             isLoading:false,

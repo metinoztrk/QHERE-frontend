@@ -129,11 +129,10 @@ export function rejectStudent(id){
 
 export function editClass({classId,className,lastJoinTime,quota,discontinuity,description}){
     return dispatch=>{
-
         dispatch({
             type:"EDIT_CLASS",
             payload:axios.put(`${URL}/manager/${classId}/updateClass`,{className,lastJoinTime,quota,discontinuity,description})
-            .then((data)=>data.data.status_code)
+            .then(data=>data.data.statusCode)
         })
     }
 }

@@ -1,6 +1,6 @@
 import React,{Component} from 'react'
 import {connect} from 'react-redux'
-import {List,Button,Table, TableBody,Form,Grid,Modal} from 'semantic-ui-react'
+import {List,Button,Table, TableBody,Form,Grid,Modal,Confirm} from 'semantic-ui-react'
 import {Redirect} from 'react-router-dom'
 import {deleteClass,editClass,getClasses,sendNotification,getClassInfo} from '../actions/Manager'
 import InfoStudentList from './InfoStudentList'
@@ -11,6 +11,8 @@ class ClassInfo extends Component{
 
     constructor(props) {
         super(props);
+        this.handleConfirm = this.handleConfirm.bind(this);
+        this.handleCancel = this.handleCancel.bind(this);
         this.state = { 
             id:"",
             className:"",
@@ -20,6 +22,17 @@ class ClassInfo extends Component{
             loading:true,
             redirect:false
         };
+    }
+
+    show = () => this.setState({ open: true })
+
+    handleConfirm(){
+        this.props.deleteClass(this.state.id)
+        this.props.getClasses()
+        this.setState({ open: false,confirm:true})
+    }
+    handleCancel(){
+         this.setState({ open: false })
     }
 
     handleChange=(e)=>{
@@ -62,7 +75,13 @@ class ClassInfo extends Component{
                         <List.Item>
                         <List.Content>
                             <List.Header style={style.header}>{this.state.class.className}</List.Header>
-                            <Button as={Link} to={'/homePage/classes'} color='red' style={style.button} onClick={this.onDelete}>Sil</Button>
+                            <Button color='red' style={style.button} onClick={this.show} style={style.button}>Sil</Button>
+                                        <Confirm
+                                        content="Sınıfı silmek istiyor musunuz?"
+                                        open={this.state.open}
+                                        onCancel={this.handleCancel}
+                                        onConfirm={this.handleConfirm}
+                                        />
                             <Button as={Link} to={`/homePage/updateClass/${this.state.id}`} color='yellow' style={style.button}>Düzenle</Button>
                             <Modal trigger={<Button style={style.button}>Duyurular</Button>}>
                                 <Modal.Header>Ders Duyuruları</Modal.Header>
@@ -161,6 +180,7 @@ class ClassInfo extends Component{
 
         return(
             <div>
+                {this.state.confirm === true ? <Redirect  to={'/homePage/classes'}/> :""}
                 { this.props.loading===false ?  this.update() : "" }
                 { this.props.loading===false && this.state.loading===false ?  Info : ""  }
                 { this.state.redirect === true ? <Redirect to="/homePage/classes"/> :"" }
