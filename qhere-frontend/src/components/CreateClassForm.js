@@ -91,7 +91,7 @@ class CreateClassForm extends Component{
                     <label>Last Join Time</label>
                     <DayPickerInput style={style.Date} onDayChange={this.handleDayChange} />
                     </Form.Field>
-                    <Button type='submit' onClick={this.onSubmit}>Kayıt</Button>
+                    <Button type='submit' onClick={this.onSubmit}>Oluştur</Button>
                 </Form>
                 {this.state.redirect === true ? <Redirect to="/homePage"/>  : ""}
             </div>

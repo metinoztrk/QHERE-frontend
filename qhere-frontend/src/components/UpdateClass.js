@@ -18,13 +18,19 @@ class UpdateClass extends Component{
             quota:"",
             discontinuity:"",
             description:"",
-            redirect:false
+            redirect:false,
+            reloadRedirect:false
         }
         this.handleDayChange = this.handleDayChange.bind(this);
     }
 
     componentWillMount(){
         var id = window.location.pathname.slice(22, 46);
+        if(this.props.classes.length===0){
+            this.setState({
+                reloadRedirect:true
+            })
+        }
         this.props.classes.find(instance=>{
             if(instance._id===id){
                 this.setState({
@@ -102,7 +108,7 @@ class UpdateClass extends Component{
                     value={this.state.lastJoinTime}
                     onDayChange={this.handleDayChange} />
                     </Form.Field>
-                    <Button type='submit' onClick={this.onSubmit}>Kayıt</Button>
+                    <Button type='submit' onClick={this.onSubmit}>Düzenle</Button>
                 </Form>
             </div>
         )
@@ -110,6 +116,7 @@ class UpdateClass extends Component{
         return(
             <div>
                 {this.props.state.manager.Error.statusCode === 200 && this.state.redirect ? <Redirect to="/homePage/classes"/> : form }
+                {this.state.reloadRedirect === true ? <Redirect to="/homePage/classes"/> : "" }
             </div>
         )
     }

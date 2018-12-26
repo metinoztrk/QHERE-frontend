@@ -1,6 +1,6 @@
 import React,{Component} from 'react'
 import {connect} from 'react-redux'
-import {List,Button,Table, TableBody,Form,Grid} from 'semantic-ui-react'
+import {List,Button,Table, TableBody,Form,Grid,Modal} from 'semantic-ui-react'
 import {Redirect} from 'react-router-dom'
 import {deleteClass,editClass,getClasses,sendNotification,getClassInfo} from '../actions/Manager'
 import InfoStudentList from './InfoStudentList'
@@ -51,7 +51,7 @@ class ClassInfo extends Component{
     }
 
     render(){
-
+        console.log(this.state.class.notification);
 
         const Info=(
             <Grid columns={2} divided>
@@ -63,7 +63,21 @@ class ClassInfo extends Component{
                         <List.Content>
                             <List.Header style={style.header}>{this.state.class.className}</List.Header>
                             <Button as={Link} to={'/homePage/classes'} color='red' style={style.button} onClick={this.onDelete}>Sil</Button>
-                            <Button as={Link} to={`/homePage/updateClass/${this.state.id}`} color='yellow' style={style.button}>Düzenle</Button>  
+                            <Button as={Link} to={`/homePage/updateClass/${this.state.id}`} color='yellow' style={style.button}>Düzenle</Button>
+                            <Modal trigger={<Button style={style.button}>Duyurular</Button>}>
+                                <Modal.Header>Ders Duyuruları</Modal.Header>
+                                {
+                                    this.props.loading===false && this.state.loading===false ?
+                                        this.state.class.notification.map((not)=>
+                                        <Modal.Description style={style.notification} key={not._id}>
+                                            <h4>Duyuru başlığı:{not.title}</h4>
+                                            <p>Duyuru içeriği:{not.content}</p>
+                                            <p>Paylaşım Tarihi:{not.sendDate}</p>
+                                            <hr></hr> 
+                                        </Modal.Description>
+                                        ) :""
+                                }
+                            </Modal>  
                         </List.Content>
                         </List.Item>
                         <List.Item>
@@ -188,6 +202,9 @@ const style={
     },
     table:{
         border:'hidden'
+    },
+    notification:{
+        marginLeft:30,
     }
     
 }

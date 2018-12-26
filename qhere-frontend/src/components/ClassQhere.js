@@ -4,7 +4,7 @@ import QRCode from 'react-qr-code';
 import io from 'socket.io-client';
 import {List, Divider} from 'semantic-ui-react'
 import {getQrInfo} from '../actions/Manager'
-const socket = io('http://localhost:3001/');;
+const socket = io('http://localhost:3001/');
 
 
 class ClassQhere extends Component{
