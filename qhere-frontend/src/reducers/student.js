@@ -108,11 +108,10 @@ export default (state=initialState,action)=>{
                 isLoading:true
             }
         case READ_NOTIFICATION_FULFILLED:
-            console.log(action.payload);
             return{
                 ...state,
                 isLoading:false,
-                notification:state.notification.filter(item=>item._id!==action.payload._id)
+                //notification:state.notification.filter(item=>item._id!==action.payload._id)
             }
         default:
             return state;

@@ -27,6 +27,7 @@ class HomePageStudents extends Component{
     }
 
     componentWillMount(){  
+        
         this.props.reload()
         if(window.location.pathname === '/')
         {

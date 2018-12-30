@@ -31,9 +31,9 @@ class ClassQhere extends Component{
                 Url:"http://yigitkurtcu.com"
             })
         }
-        var _id = window.location.pathname.slice(18, 42);
+        const{match:{params}}=this.props;
         this.setState({
-            classid:_id,
+            classid:params.id,
         })
 
     }
@@ -57,7 +57,6 @@ class ClassQhere extends Component{
     
     render() {
         socket.emit('createClass',{ classId:this.state.classid});
-        console.log(this.state)
         const Qr=(       
                 <div>
                     <h1>

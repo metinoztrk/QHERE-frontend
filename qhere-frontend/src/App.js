@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import {Route,Redirect} from 'react-router-dom'
+import {Route,Redirect } from 'react-router-dom'
 import PasswordChangeForm from './components/PasswordChangeForm'
 import PasswordReset from './components/pages/PasswordReset'
 import RegisterPage from './components/pages/RegisterPage'
@@ -16,12 +16,11 @@ import UpdateClass from './components/UpdateClass'
 import HomePageStundent from './components/pages/HomePageStudent'
 import ClassesStudent from './components/ClassesStudent'
 import ClassInfoStudent from './components/ClassInfoStudent'
+import Report from './components/Report'
 
 class App extends Component {
   
-  
   render() {
-    console.log(process.env.REACT_APP_SECRET_CODE)
     const LoginOff=(
       <div>
           <Route path='/' component={IndexPage}></Route>
@@ -45,6 +44,7 @@ class App extends Component {
           <Route exact path='/homePage/classes/:_id/info' component={ClassInfo}></Route>
           <Route exact path='/homePage/classes/:_id/Qhere' component={ClassQhere}></Route>
           <Route exact path='/homePage/classes/:id/qrInfo/:id' component={QhereInfo}></Route> 
+          <Route exact path='/homePage/report/:id' component={Report}></Route> 
           </div>
           :
           <div>
@@ -60,7 +60,7 @@ class App extends Component {
     return (
       <div className="App">
         { localStorage.token === undefined ? LoginOff : LoginOn }
-        { localStorage.token !== undefined && (window.location.pathname==="/" || window.location.pathname==="/login" || window.location.pathname==="/register") ? <Redirect to="/homePage"/> : ""}    
+        { localStorage.token !== undefined && (window.location.pathname==="/" || window.location.pathname==="/login" || window.location.pathname==="/register") ? <Redirect to="/homePage"/> : ""}
       </div>
     );
   }

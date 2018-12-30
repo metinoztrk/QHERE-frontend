@@ -5,7 +5,6 @@ import {Link} from 'react-router-dom'
 class QhereList extends Component{
 
     render(){
-        console.log(this.props)
         return(
             <div>
                 <Grid columns='five'>   

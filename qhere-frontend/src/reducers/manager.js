@@ -44,6 +44,10 @@ import {CREATE_CLASS_PENDING,
     SEND_NOTIFICATION_FULFILLED,
     SEND_NOTIFICATION_REJECTED,
 
+    MAKE_REPORT_PENDING,
+    MAKE_REPORT_FULFILLED,
+    MAKE_REPORT_REJECTED
+
 } from '../actions/Manager'
 
 const initialState={
@@ -53,6 +57,7 @@ lastQrId:"",
 createClass:"",
 classInfo:"",
 classes:[],
+makeReport:[],
 Error:{
     statusCode:"",
     statusText:""
@@ -151,7 +156,6 @@ switch(action.type){
             requestStudents:state.requestStudents.filter(item=>item._id!==action.payload)
         }
     case APPROVE_STUDENT_REJECTED:
-        console.log(action.payload[1])
         if(action.payload[1]===406){
 
             return{
@@ -192,7 +196,6 @@ switch(action.type){
             isLoading:true
         }
     case EDIT_CLASS_FULFILLED:
-        console.log(action.payload);
         return{
             ...state,
             isLoading:false,
@@ -287,6 +290,21 @@ switch(action.type){
                 statusCode:action.payload.status,
                 statusText:action.payload.statusText
             }  
+        }
+    case MAKE_REPORT_PENDING:
+        return{
+            ...state,
+            isLoading:true,
+        }
+    case MAKE_REPORT_FULFILLED:
+        return{
+            ...state,
+            isLoading:false,
+            makeReport:action.payload
+        }
+    case MAKE_REPORT_REJECTED:
+        return{
+            ...state, 
         }
     case RESET_MANAGER:
         return{

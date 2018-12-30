@@ -9,15 +9,14 @@ class NotificationStudent extends Component{
 
     
     render(){
-        console.log(this.props.notification)
         return(
             <div style={style.div}><h1>Duyurular</h1>
             <Card.Group>
                 {
-                    this.props.isNotification===false ?
-                    this.props.notification.map((instance)=>
-                    <Card key={instance._id} style={style.card}>  
-                    <Checkbox style={style.checkbox} onClick={()=>{this.props.readNotification(instance._id)}}/>
+
+                    this.props.notification.map((instance)=> 
+                    <Card key={instance._id} style={style.card} style={instance.isRead=== true ? { backgroundColor:'#ffffff'}: { backgroundColor:'#b9b7b8'} }>  
+                    <Checkbox style={style.checkbox} checked={instance.isRead=== true ? true : false } onClick={()=>{this.props.readNotification(instance._id)}}/>
                     <Label>Ders Adı:{instance.className}</Label>
                     <Card.Content key={instance._id}>
                         <Card.Header>Duyuru Başlığı:{instance.title}</Card.Header>
@@ -25,7 +24,7 @@ class NotificationStudent extends Component{
                         <Card.Description>Paylaşım Saati:{instance.sendDate}</Card.Description>
                     </Card.Content>
                     </Card>
-                    ):""
+                    )
                 }
                 
             </Card.Group>    

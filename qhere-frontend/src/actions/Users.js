@@ -30,13 +30,12 @@ else
 }
 
 export function login({email,password}) {
-    console.log(email,password);
+
     return dispatch=>{  
         let tokenCopy
         axios.post(`${URL}/user/login`,{email,password})
             .then(token=>token.data.data)       
             .then(token=>{
-                console.log(token.userType)
                 tokenCopy=token.token.accessToken;
                 localStorage.setItem('userType',token.userType)
                 localStorage.setItem('token',tokenCopy);
@@ -55,7 +54,6 @@ export function login({email,password}) {
 }
 
 export function register({schoolNumber,fullName,email,password,gender,userType}){
-    console.log(schoolNumber+" "+fullName+" "+email+" "+password+" "+gender,userType)
     return dispatch=>{
         axios.post(`${URL}/user/register`,{schoolNumber,fullName,email,password,gender,userType})
             .then(data=>{
@@ -74,15 +72,14 @@ export function register({schoolNumber,fullName,email,password,gender,userType})
 
 export function logout(){
     return dispatch=>{
-        axios.post(`${URL}/user/logout'`)
+        axios.post(`${URL}/user/logout`)
         .then(data=>{
-            console.log(data)
             dispatch({
                 type:LOGOUT,
                 payload:""
             })
-        }).catch((err)=>{  
-            console.log(err.response)
+        }).catch((err)=>{ 
+
             dispatch({
                 type:LOGOUT_ERROR,
                 payload:err.response
@@ -95,8 +92,6 @@ export function logout(){
 }
 
 export function forgot({email}){
-    console.log(email)
-
     return dispatch=>{
         axios.post(`${URL}/user/forgot`,{email})
         .then(data=>{
@@ -114,7 +109,6 @@ export function forgot({email}){
 }
 
 export function resetPassword({code,newPassword}){
-    console.log(code+" "+newPassword)
     return dispatch=>{
         axios.post(`${URL}/user/resetPassword`,{code,newPassword})
         .then(data=>{

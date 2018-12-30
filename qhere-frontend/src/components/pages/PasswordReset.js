@@ -22,7 +22,6 @@ class PasswordReset extends Component{
     }
 
     componentWillUpdate(nextProps) {
-        console.log(nextProps.state.users.isForgot)
         if(nextProps.state.users.isForgot===true){
             this.setState({
                 redirect:true
@@ -41,7 +40,6 @@ class PasswordReset extends Component{
     )
 
     render(){
-    console.log(this.state)
     const message=(
             <div style={style.Message}>
             <Message negative>

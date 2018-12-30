@@ -19,7 +19,8 @@ class ClassInfoStudent extends Component{
     componentDidUpdate(previousProps, previousState){
         if(previousProps.weeks.weeksInfo.length!==0 && previousState.weeksNumber.length===0)
         {
-            var _id = window.location.pathname.slice(18, 42); 
+            const{match:{params}}=this.props;
+            var _id = params.id;
             var classes=this.props.classes
             classes.find(instance=>{
                 if(instance._id===_id)
@@ -37,7 +38,8 @@ class ClassInfoStudent extends Component{
     }
 
     componentWillMount(){
-        var _id = window.location.pathname.slice(18, 42); 
+        const{match:{params}}=this.props;
+        var _id = params.id;
         this.props.getDiscontinuity(_id)
         this.props.getStudentClasses()
         var classes=this.props.classes

@@ -1,31 +1,83 @@
-import React from 'react'
-import {List,Button,Divider} from 'semantic-ui-react'
+import React,{Component} from 'react'
+import {List,Button,Divider,Confirm} from 'semantic-ui-react'
 
-const DashBoardItem=({student,actions})=>{
+class DashBoardItem extends Component{
+
+    constructor(props) {
+        super(props);
+        this.handleConfirmApprove = this.handleConfirmApprove.bind(this);
+        this.handleConfirmReject = this.handleConfirmReject.bind(this);
+        this.state = { 
+            id:"",
+            className:"",
+            class:"",
+            title:"",
+            content:"",
+            loading:true,
+            openReject: false,
+            openApprove:false,
+            confirm:false
+        };
+    }
     
-    return(
-        <List key={student.classId} relaxed style={style.list}>
-        <List.Item >
-        <List.Content floated='left'>
-            <List.Header as='a' style={style.header}>{student.studentName+" "+student.className} dersine katılma isteğinde bulundu.</List.Header>
-        </List.Content>
-        <List.Content floated='right'>
-            <Button style={style.button} onClick={()=>onApprove(student,actions)}>Kabul</Button>
-            <Button color='red' style={{padding:12}}onClick={()=>onReject(student,actions) }>Reddet</Button>
-        </List.Content>
-        </List.Item>
-        <Divider />
-        </List>
-    )
-}
 
+    showApprove = () => this.setState({ openApprove: true })
 
-const onApprove=(student,action)=>{
-    action.approveStudent(student._id)
-}
+    showReject = () => this.setState({ openReject: true })
 
-const onReject=(student,action)=>{
-    action.rejectStudent(student._id)
+    handleConfirmApprove(student){
+        this.props.actions.getClassesRequest()
+        this.props.actions.approveStudent(student);
+        this.setState({ openApprove: false,confirm:true})
+    }
+
+    handleConfirmReject(student){
+        this.props.actions.getClassesRequest()
+        this.props.actions.rejectStudent(student);
+        this.setState({ openReject: false,confirm:true})
+    }
+
+    handleCancel(){
+        this.setState({ openReject: false,openApprove:false })
+   }
+    
+
+    render(){
+        return(
+            <div>
+                {
+                    this.props.actions.requestStudents.map((student)=>
+                    <List key={student.classId} relaxed style={style.list}>
+                        <List.Item >
+                        <List.Content floated='left'>
+                            <List.Header as='a' style={style.header}>{student.studentName+" "+student.className} dersine katılma isteğinde bulundu.</List.Header>
+                        </List.Content>
+                        <List.Content floated='right'>
+                            <Button style={style.button} onClick={this.showApprove}>Kabul</Button>
+                                        <Confirm
+                                        content="Kabul etmek istiyor musunuz"
+                                        open={this.state.openApprove}
+                                        onCancel={()=>this.handleCancel()}
+                                        onConfirm={()=>this.handleConfirmApprove(student._id)}
+                                        />
+                            <Button color='red' onClick={this.showReject}>Reddet</Button>
+                                        <Confirm
+                                        content="Reddetmek istiyor musunuz?"
+                                        open={this.state.openReject}
+                                        onCancel={()=>this.handleCancel()}
+                                        onConfirm={()=>this.handleConfirmReject(student._id)}
+                                        />
+                        </List.Content>
+                        </List.Item>
+                        <Divider />
+                    </List>
+                    )
+                }
+                
+            </div>
+        )
+    }
+
 }
 
 

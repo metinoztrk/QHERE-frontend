@@ -1,14 +1,15 @@
 import React,{Component} from 'react'
 import {connect} from 'react-redux'
-import {List,Button,Table, TableBody,Form,Grid,Modal,Confirm} from 'semantic-ui-react'
+import {List,Button,Table, TableBody,Grid,Modal,Confirm} from 'semantic-ui-react'
 import {Redirect} from 'react-router-dom'
 import {deleteClass,editClass,getClasses,sendNotification,getClassInfo} from '../actions/Manager'
 import InfoStudentList from './InfoStudentList'
 import QhereList from '../components/QhereList'
+import SendNotification from '../components/SendNotification';
 import {Link} from 'react-router-dom';
 
 class ClassInfo extends Component{
-
+    
     constructor(props) {
         super(props);
         this.handleConfirm = this.handleConfirm.bind(this);
@@ -23,6 +24,7 @@ class ClassInfo extends Component{
             redirect:false
         };
     }
+    
 
     show = () => this.setState({ open: true })
 
@@ -64,8 +66,6 @@ class ClassInfo extends Component{
     }
 
     render(){
-        console.log(this.state.class.notification);
-
         const Info=(
             <Grid columns={2} divided>
                 <Grid.Row>
@@ -75,7 +75,7 @@ class ClassInfo extends Component{
                         <List.Item>
                         <List.Content>
                             <List.Header style={style.header}>{this.state.class.className}</List.Header>
-                            <Button color='red' style={style.button} onClick={this.show} style={style.button}>Sil</Button>
+                            <Button color='red' style={style.button} onClick={this.show}>Sil</Button>
                                         <Confirm
                                         content="Sınıfı silmek istiyor musunuz?"
                                         open={this.state.open}
@@ -96,7 +96,8 @@ class ClassInfo extends Component{
                                         </Modal.Description>
                                         ) :""
                                 }
-                            </Modal>  
+                            </Modal>
+                            <Button  style={style.button} as={Link} to={`/homePage/report/${this.state.id}`}>Rapor</Button>  
                         </List.Content>
                         </List.Item>
                         <List.Item>
@@ -152,26 +153,9 @@ class ClassInfo extends Component{
                 </div>
                 <div style={style.form}>
                 <Grid.Column>
-                    <Form>
-                        <h1 className="ui header">Duyuru paylaş</h1>
-                        <Form.Group widths='equal'>
-                        <Form.Input 
-                        fluid label='title' 
-                        name='title'
-                        value={this.state.title}
-                        onChange={this.handleChange}
-                        placeholder='Title' />
-                        </Form.Group>
-                        <Form.Group inline>
-                        </Form.Group>
-                        <Form.TextArea 
-                        label='content' 
-                        name='content'
-                        value={this.state.content}
-                        onChange={this.handleChange}
-                        placeholder='Content' />
-                        <Form.Button onClick={()=>{this.props.sendNotification(this.state);this.setState({id:"",title:"",content:"",className:""})}}>Paylaş</Form.Button>
-                    </Form>
+                    <SendNotification sendNotification={this.props.sendNotification} 
+                                        className={this.state.className}
+                                        id={this.state.id} />
                 </Grid.Column>
                 </div>
                 </Grid.Row>  

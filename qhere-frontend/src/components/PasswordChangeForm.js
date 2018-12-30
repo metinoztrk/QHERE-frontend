@@ -15,13 +15,8 @@ import {Redirect} from 'react-router-dom'
             redirect:false
         };
     }
-
-    componentWillMount(){
-        console.log(this.props)
-    }
-
     componentDidUpdate(){
-        console.log(this.props.state.users.isResetPassword)
+        
         if(this.props.state.users.isResetPassword===true){
             this.setState({
                 redirect:true
@@ -45,7 +40,6 @@ import {Redirect} from 'react-router-dom'
     }
 
     render(){ 
-        console.log(this.props.state.users.Error.statusCode)
         const message=(
             <div style={style.Message}>
             <Message negative>

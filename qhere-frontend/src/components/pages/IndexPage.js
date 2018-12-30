@@ -15,8 +15,8 @@ class IndexPage extends Component{
     showFixedMenu = () => this.setState({ fixed: true })
 
     componentWillMount(){
-        
-        if(window.location.pathname === '/')
+        const{match:{path}}=this.props;
+        if(path === '/')
         {   
             this.setState({
                 isIndex:true
@@ -29,7 +29,8 @@ class IndexPage extends Component{
     }
 
     componentWillReceiveProps(){
-        if(window.location.pathname === '/')
+        const{match:{path}}=this.props;
+        if(path === '/')
         {
                 this.setState({
                     isIndex:true

@@ -4,20 +4,17 @@ import DashBoardItem from './DashBoardItem'
 class DashBoard extends Component{
 
 
-    componentWillMount(){
+    componentDidMount(){
         this.props.getClassesRequest()
     }
 
     render(){
-
         return(
             <div  style={style.div}>
             <h1>Dashboard</h1>
             {
                 this.props.loading===false ?
-                this.props.requestStudents.map((student)=>
-                    <DashBoardItem key={student.classId} student={student} actions={this.props}/>
-                ):""
+                <DashBoardItem actions={this.props}/>:""
             }
             </div>
         )

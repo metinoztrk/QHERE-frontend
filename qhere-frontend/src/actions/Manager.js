@@ -46,6 +46,10 @@ export const SEND_NOTIFICATION_PENDING="SEND_NOTIFICATION_PENDING";
 export const SEND_NOTIFICATION_FULFILLED="SEND_NOTIFICATION_FULFILLED";
 export const SEND_NOTIFICATION_REJECTED="SEND_NOTIFICATION_REJECTED";
 
+export const MAKE_REPORT_PENDING="MAKE_REPORT_PENDING";
+export const MAKE_REPORT_FULFILLED="MAKE_REPORT_FULFILLED";
+export const MAKE_REPORT_REJECTED="MAKE_REPORT_REJECTED";
+
 
 let URL="";
 
@@ -105,7 +109,6 @@ export function getClassesRequest(){
 }
 
 export function approveStudent(id){
-
     return dispatch=>{
 
             dispatch({
@@ -171,13 +174,22 @@ export function getQrInfo(qrId){
 }
 
 export function sendNotification({id,title,content,className}){
-    console.log(id,title,content,className);
     return dispatch=>{
 
         dispatch({
             type:"SEND_NOTIFICATION",
             payload:axios.post(`${URL}/manager/sendNotification`,{id,title,content,className})
             .then((data)=>data.data.status_code)
+        })
+    }
+}
+
+export function makeReport(id){
+    return dispatch=>{
+        dispatch({
+            type:"MAKE_REPORT",
+            payload:axios.get(`${URL}/manager/makeReport/${id}`)
+            .then((data)=>data.data.data)
         })
     }
 }

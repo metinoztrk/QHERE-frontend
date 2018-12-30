@@ -5,14 +5,12 @@ import {getQrInfo} from '../actions/Manager'
 
 class QhereInfo extends Component{
 
-    componentWillMount(){
-        let qrId=window.location.pathname.slice(50,74)
-        console.log(qrId);
-        this.props.getQrInfo(qrId);
+    componentDidMount(){
+        const{match:{params}}=this.props;
+         this.props.getQrInfo(params.id);
     }
 
     render(){
-        console.log(this.props.qrInfo);
         return(
             <div style={style.qrInfo}>
             <h1>{this.props.qrInfo.number} Hafta Yoklamaya Katılan Öğrenciler</h1>

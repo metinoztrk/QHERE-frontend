@@ -41,7 +41,8 @@ class UpdateClass extends Component{
     }
 
     componentWillMount(){
-        var id = window.location.pathname.slice(22, 46);
+        const{match:{params}}=this.props;
+        var id =params.id;
         if(this.props.classes.length===0){
             this.setState({
                 reloadRedirect:true
