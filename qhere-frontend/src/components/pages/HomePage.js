@@ -126,7 +126,7 @@ class HomePage extends Component{
                             <Menu.Item as={Link} to="/homePage/createClass" style={{ marginLeft: '5em' , color:'#FFFFFF' }}>Create Class</Menu.Item>
                             <Menu.Item as={Link} to="/homePage/classes" style={{ marginLeft: '5em' , color:'#FFFFFF' }} onClick={()=>this.props.getClasses()}>Classes</Menu.Item>
                             <Menu.Item position='right'>
-                            <Button inverted={!fixed} primary={fixed} style={{ marginRight: '5em' }} onClick={this.onSubmit}>
+                            <Button style={{ marginRight: '5em' }} onClick={this.onSubmit}>
                                 Logout
                             </Button>
                             </Menu.Item>

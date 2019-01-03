@@ -4,16 +4,7 @@ import QRCode from 'react-qr-code';
 import io from 'socket.io-client';
 import {List, Divider} from 'semantic-ui-react'
 import {getQrInfo,createQr} from '../actions/Manager'
-
-if(process.env.REACT_APP_SECRET_CODE === "development ")
-        {
-            URL = io("http://localhost:3000");
-        }
-        else
-        {
-            URL = io("http://yigitkurtcu.com");
-        }
-const socket = io(URL);
+const socket = io("http://yigitkurtcu.com");
 
 
 class ClassQhere extends Component{
@@ -28,7 +19,7 @@ class ClassQhere extends Component{
     }
 
     componentWillMount(){
-        if(process.env.REACT_APP_SECRET_CODE === "development")
+        if(process.env.REACT_APP_SECRET_CODE === "development ")
         {
             this.setState({
                 Url:"http://localhost:3000"

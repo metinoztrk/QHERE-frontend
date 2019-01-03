@@ -11,7 +11,7 @@ class Classes extends Component{
     render(){
         return(
             <div>
-                <h1>Dersler</h1>
+                <h1 style={{marginTop: '20px'}}>Dersler</h1>
                 {this.props.loading===false ?<ClassesList 
                         classes={this.props.classes} 
                         loading={this.props.loading} 
