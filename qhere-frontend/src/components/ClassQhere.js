@@ -3,8 +3,17 @@ import {connect} from 'react-redux'
 import QRCode from 'react-qr-code';
 import io from 'socket.io-client';
 import {List, Divider} from 'semantic-ui-react'
-import {getQrInfo} from '../actions/Manager'
-const socket = io('http://localhost:3001/');
+import {getQrInfo,createQr} from '../actions/Manager'
+
+if(process.env.REACT_APP_SECRET_CODE === "development ")
+        {
+            URL = io("http://localhost:3000");
+        }
+        else
+        {
+            URL = io("http://yigitkurtcu.com");
+        }
+const socket = io(URL);
 
 
 class ClassQhere extends Component{
@@ -19,7 +28,7 @@ class ClassQhere extends Component{
     }
 
     componentWillMount(){
-        if(process.env.REACT_APP_SECRET_CODE === "development ")
+        if(process.env.REACT_APP_SECRET_CODE === "development")
         {
             this.setState({
                 Url:"http://localhost:3000"
@@ -27,15 +36,19 @@ class ClassQhere extends Component{
         }
         else
         {
+
             this.setState({
                 Url:"http://yigitkurtcu.com"
             })
         }
         const{match:{params}}=this.props;
         this.setState({
-            classid:params.id,
+            classid:params._id,
         })
+    }
 
+    componentDidMount(){
+        this.props.createQr(this.state.classid);
     }
     
     componentWillUnmount(){
@@ -56,6 +69,7 @@ class ClassQhere extends Component{
     }
     
     render() {
+        console.log(`${this.state.classid}/joinRollCall/${this.props.lastQrId}`)
         socket.emit('createClass',{ classId:this.state.classid});
         const Qr=(       
                 <div>
@@ -63,7 +77,7 @@ class ClassQhere extends Component{
                         React QR Codes
                     </h1>
                     <QRCode
-                    value={`${this.state.Url}/student/${this.state.classid}/joinRollCall/${this.props.lastQrId}`}
+                    value={`${this.state.classid}/joinRollCall/${this.props.lastQrId}`}
                     size={256}
                     bgColor='#fff'
                     fgColor='#000'
@@ -112,6 +126,7 @@ const mapStateToProps=(state)=>{
 
 const mapDispatchToProps={
     getQrInfo,
+    createQr
 }
 
 const style={

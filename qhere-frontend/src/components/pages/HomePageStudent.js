@@ -94,6 +94,7 @@ class HomePageStudents extends Component{
                             <NotificationStudent getNotification={this.props.getNotification}
                                                  isNotification={this.props.isNotification}
                                                  readNotification={this.props.readNotification}
+                                                 isLoading={this.props.isLoading}
                                                  notification={this.props.notification}/>
                         </Grid.Column>
                     </Grid.Row>

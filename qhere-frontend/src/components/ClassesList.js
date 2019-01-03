@@ -5,6 +5,7 @@ import {Link,Redirect } from 'react-router-dom'
 class ClassesList extends Component{
 
     constructor(props) {
+        console.log("burdamı")
         super(props);
         this.handleConfirm = this.handleConfirm.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
@@ -25,6 +26,7 @@ class ClassesList extends Component{
     }
     
     render(){
+        console.log(this.props.loading);
         return(
             <div style={style.div}>
                 { 
@@ -40,7 +42,8 @@ class ClassesList extends Component{
                                         content="Qr kod oluşturmak istiyor musunuz?"
                                         open={this.state.open}
                                         onCancel={this.handleCancel}
-                                        onConfirm={()=>this.handleConfirm(Class._id)}
+                                        onConfirm={()=>
+                                                        this.handleConfirm(Class._id) }
                                         />
                                     </List.Content>
                                     </List.Item>
@@ -48,7 +51,7 @@ class ClassesList extends Component{
                                 </List>   
                     )     
                 }
-                {this.state.confirm === true ? <Redirect  to={`/homePage/classes/${this.state.id}/Qhere`}/> :""}
+                {this.state.confirm == true ? <Redirect  to={`/homePage/classes/${this.state.id}/Qhere`}/> :""}
             </div>
         )
     }

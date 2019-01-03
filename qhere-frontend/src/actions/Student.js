@@ -105,6 +105,9 @@ export function readNotification(id){
             type:"READ_NOTIFICATION",
             payload:axios.put(`${URL}/student/readNotification`,{id})
             .then(data=>data.data.data)
+        }).then(()=>{
+            this.getNotification()
         })
     }
+    
 }

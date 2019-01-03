@@ -53,7 +53,7 @@ export const MAKE_REPORT_REJECTED="MAKE_REPORT_REJECTED";
 
 let URL="";
 
-if(process.env.REACT_APP_SECRET_CODE === "development ")
+if(process.env.REACT_APP_SECRET_CODE == "development")
 {
     URL="http://localhost:3000"
 }
@@ -152,6 +152,7 @@ export function deleteClass(id){
 }
 
 export function createQr(classId){
+    console.log(classId);
     return dispatch=>{
         
         dispatch({

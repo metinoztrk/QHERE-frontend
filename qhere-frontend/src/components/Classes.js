@@ -14,6 +14,7 @@ class Classes extends Component{
                 <h1>Dersler</h1>
                 {this.props.loading===false ?<ClassesList 
                         classes={this.props.classes} 
+                        loading={this.props.loading} 
                         getClassInfo={this.props.getClassInfo}
                         createQr={this.props.createQr}/> : "" }
             </div>

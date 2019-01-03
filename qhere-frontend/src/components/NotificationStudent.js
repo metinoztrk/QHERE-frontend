@@ -1,5 +1,5 @@
 import React ,{Component} from 'react';
-import {Card,Checkbox, Label} from 'semantic-ui-react'
+import {Card, Label} from 'semantic-ui-react'
 
 class NotificationStudent extends Component{
 
@@ -7,16 +7,18 @@ class NotificationStudent extends Component{
         this.props.getNotification();
     }
 
-    
+    onSubmit=(instance)=>{
+        this.props.readNotification(instance._id)
+         
+    }
+
     render(){
         return(
             <div style={style.div}><h1>Duyurular</h1>
             <Card.Group>
                 {
-
                     this.props.notification.map((instance)=> 
-                    <Card key={instance._id} style={style.card} style={instance.isRead=== true ? { backgroundColor:'#ffffff'}: { backgroundColor:'#b9b7b8'} }>  
-                    <Checkbox style={style.checkbox} checked={instance.isRead=== true ? true : false } onClick={()=>{this.props.readNotification(instance._id)}}/>
+                    <Card key={instance._id} onClick={()=>this.onSubmit(instance)} style={style.card} style={instance.isRead=== true ? { backgroundColor:'#ffffff'}: { backgroundColor:'#b9b7b8'} }>  
                     <Label>Ders Adı:{instance.className}</Label>
                     <Card.Content key={instance._id}>
                         <Card.Header>Duyuru Başlığı:{instance.title}</Card.Header>
