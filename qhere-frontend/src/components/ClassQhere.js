@@ -2,7 +2,7 @@ import React,{Component} from 'react'
 import {connect} from 'react-redux'
 import QRCode from 'react-qr-code';
 import io from 'socket.io-client';
-import {List, Divider} from 'semantic-ui-react'
+import {Table,TableBody} from 'semantic-ui-react'
 import {getQrInfo,createQr} from '../actions/Manager'
 const socket = io("http://yigitkurtcu.com");
 
@@ -14,6 +14,8 @@ class ClassQhere extends Component{
         this.state = { 
             Url:"",
             classid:"",
+            className:"",
+            quota:"",
             socketStudents:[],
         };
     }
@@ -33,9 +35,15 @@ class ClassQhere extends Component{
             })
         }
         const{match:{params}}=this.props;
-        this.setState({
-            classid:params._id,
-        })
+        this.props.classes.map(instance=>{
+            if(instance._id===params._id)
+                this.setState({
+                    className:instance.className,
+                    quota:instance.quota,
+                    classid:params._id,
+                })
+        });
+        
     }
 
     componentDidMount(){
@@ -60,12 +68,12 @@ class ClassQhere extends Component{
     }
     
     render() {
-        console.log(`${this.state.classid}/joinRollCall/${this.props.lastQrId}`)
+        console.log(this.props)
         socket.emit('createClass',{ classId:this.state.classid});
         const Qr=(       
                 <div>
-                    <h1>
-                        React QR Codes
+                    <h1 style={style.header}>
+                        {this.state.className}
                     </h1>
                     <QRCode
                     value={`${this.state.classid}/joinRollCall/${this.props.lastQrId}`}
@@ -78,20 +86,31 @@ class ClassQhere extends Component{
                 <h1>
                         Yoklamaya Katılan Öğrenciler
                 </h1>
+                <Table>
+                <Table.Header>
+                    <Table.Row>
+                        <Table.HeaderCell>Adı Soyadı</Table.HeaderCell>
+                        <Table.HeaderCell>Okul Numarası</Table.HeaderCell>
+                        <Table.HeaderCell>{this.state.socketStudents.length+"/"+this.state.quota}</Table.HeaderCell>
+                    </Table.Row>
+                </Table.Header>
+                <TableBody>
                 {
-                
                     this.state.socketStudents.map((student)=>
-                        <List key={student.schoolNumber} divided relaxed>
-                        <List.Item>
-                        <List.Content floated='left'>
-                            <List.Header>{student.fullName+" "+student.schoolNumber}</List.Header>
-                        </List.Content>
-                        </List.Item>
-                        <Divider/>
-                        </List> 
+                    <Table.Row key={student.schoolNumber}>
+                     <Table.Cell>
+                        {student.fullName}
+                     </Table.Cell>
+                     <Table.Cell>
+                        {student.schoolNumber}
+                     </Table.Cell>
+                     <Table.Cell>
+                     </Table.Cell>
+                    </Table.Row>
                     )
-
                 }
+                </TableBody>
+                </Table>
                 </div>
                 </div>
                 
@@ -130,6 +149,9 @@ const style={
         borderStyle: 'groove',
         borderRadius: 25,
         padding:20
+    },
+    header:{
+        marginTop:20
     }
     
 }

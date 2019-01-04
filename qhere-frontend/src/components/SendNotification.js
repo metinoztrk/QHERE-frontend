@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Form,Confirm,Button} from 'semantic-ui-react'
+import {Redirect,Link} from 'react-router-dom'
 class SendNotification extends Component{
 
     constructor(props) {
@@ -11,6 +12,8 @@ class SendNotification extends Component{
             className:this.props.className,
             title:"",
             content:"",
+            open:false,
+            confirm:false,
             loading:true,
             redirect:false
         };
@@ -20,8 +23,6 @@ class SendNotification extends Component{
 
     handleConfirm(){
         this.props.sendNotification(this.state)
-        this.setState({ open: false,confirm:true})
-        this.setState({id:"",title:"",content:"",className:""})
     }
     handleCancel(){
          this.setState({ open: false })
@@ -34,7 +35,6 @@ class SendNotification extends Component{
     }
 
     render(){
-
         return(
         <div>
         <Form>
@@ -60,7 +60,9 @@ class SendNotification extends Component{
                                         content="Duyuru paylaşmak istiyor musunuz?"
                                         open={this.state.open}
                                         onCancel={this.handleCancel}
-                                        onConfirm={this.handleConfirm}
+                                        as={Link}
+                                        to={`/homePage/classes/`}
+                                         onConfirm={this.handleConfirm}
                                         />
         </Form>
         </div>

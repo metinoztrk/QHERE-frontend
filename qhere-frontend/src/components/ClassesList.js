@@ -5,7 +5,6 @@ import {Link,Redirect } from 'react-router-dom'
 class ClassesList extends Component{
 
     constructor(props) {
-        console.log("burdamı")
         super(props);
         this.handleConfirm = this.handleConfirm.bind(this);
         this.handleCancel = this.handleCancel.bind(this);

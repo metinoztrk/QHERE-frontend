@@ -86,7 +86,6 @@ export function getClassInfo(id) {
 
 export function getClasses(){
     return dispatch=>{
-
         dispatch({
             type:"CLASSES",
             payload:axios.get(`${URL}/manager/getClasses`)
@@ -176,7 +175,6 @@ export function getQrInfo(qrId){
 
 export function sendNotification({id,title,content,className}){
     return dispatch=>{
-
         dispatch({
             type:"SEND_NOTIFICATION",
             payload:axios.post(`${URL}/manager/sendNotification`,{id,title,content,className})

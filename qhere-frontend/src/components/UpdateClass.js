@@ -78,6 +78,7 @@ class UpdateClass extends Component{
     render(){
         const form=(
             <div>
+                <h1 style={style.header}>Sınıf Güncelle</h1>
                 <Form style={style.UpdateClassForm}>
                     <Form.Field>
                     <label>Class Name</label>
@@ -143,6 +144,9 @@ const style={
         margin:'auto',
         marginTop:50,
         width: 500
+    },
+    header:{
+        marginTop:25
     }
 }
 

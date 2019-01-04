@@ -18,6 +18,7 @@ class ClassInfo extends Component{
             id:"",
             className:"",
             class:"",
+            weeklength:"",
             title:"",
             content:"",
             loading:true,
@@ -53,6 +54,7 @@ class ClassInfo extends Component{
                 this.setState({
                     id: this.props.classInfo[0]._id,
                     className:this.props.classInfo[0].className,
+                    weeklength:this.props.classInfo[0].qheres.length,
                     class:this.props.classInfo[0],
                     loading:false 
                 })
@@ -138,11 +140,12 @@ class ClassInfo extends Component{
                                     <Table.HeaderCell>Adı Soyadı</Table.HeaderCell>
                                     <Table.HeaderCell>Okul Numarası</Table.HeaderCell>
                                     <Table.HeaderCell>Email</Table.HeaderCell>
-                                    <Table.HeaderCell>Devamsızlık Sayısı</Table.HeaderCell>
+                                    <Table.HeaderCell>Devam Durumu</Table.HeaderCell>
                                 </Table.Row>
                                 </Table.Header>
                                 <TableBody>
-                                    <InfoStudentList student={this.state.class.students} />
+                                    <InfoStudentList student={this.state.class.students} 
+                                                     weeklength={this.state.weeklength}/>
                                 </TableBody>
                                 </Table>
                             </List.Description>

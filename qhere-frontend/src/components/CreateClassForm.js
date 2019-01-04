@@ -68,6 +68,7 @@ class CreateClassForm extends Component{
 
         return(
             <div>
+                <h1 style={style.header}>Sınıf Oluştur</h1>
                 <Form style={style.CreateClassForm}>
                     
                     <Form.Field>
@@ -132,6 +133,9 @@ const style={
     },
     Date:{
         width:500
+    },
+    header:{
+        marginTop:25
     }
 }
 
