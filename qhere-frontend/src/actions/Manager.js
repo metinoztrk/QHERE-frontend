@@ -57,7 +57,7 @@ export const FINISH_QHERE_REJECTED="FINISH_QHERE_REJECTED";
 
 let URL="";
 
-if(process.env.REACT_APP_SECRET_CODE === "development ")
+if(process.env.REACT_APP_SECRET_CODE == "development ")
 {
     URL="http://localhost:3000"
 }
