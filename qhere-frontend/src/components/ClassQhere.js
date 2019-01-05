@@ -2,8 +2,9 @@ import React,{Component} from 'react'
 import {connect} from 'react-redux'
 import QRCode from 'react-qr-code';
 import io from 'socket.io-client';
-import {Table,TableBody} from 'semantic-ui-react'
-import {getQrInfo,createQr} from '../actions/Manager'
+import {Table,TableBody,Button,Confirm} from 'semantic-ui-react'
+import {getQrInfo,createQr,finishQhere} from '../actions/Manager'
+import {Redirect } from 'react-router-dom';
 const socket = io("http://yigitkurtcu.com");
 
 
@@ -11,27 +12,40 @@ class ClassQhere extends Component{
 
     constructor(props){
         super(props);
+        this.handleConfirm = this.handleConfirm.bind(this);
+        this.handleCancel = this.handleCancel.bind(this);
         this.state = { 
             Url:"",
             classid:"",
             className:"",
             quota:"",
             socketStudents:[],
+            redirect:false
         };
+    }
+
+    show = () => this.setState({ open: true })
+
+    handleConfirm(){
+        this.setState({ open: false,confirm:true,redirect:true})
+        this.props.finishQhere(this.state.classid) 
+    }
+    handleCancel(){
+         this.setState({ open: false })
     }
 
     componentWillMount(){
         if(process.env.REACT_APP_SECRET_CODE === "development ")
         {
             this.setState({
-                Url:"http://localhost:3000"
+                Url:"http://localhost:3000",
             })
         }
         else
         {
 
             this.setState({
-                Url:"http://yigitkurtcu.com"
+                Url:"http://yigitkurtcu.com",
             })
         }
         const{match:{params}}=this.props;
@@ -43,11 +57,21 @@ class ClassQhere extends Component{
                     classid:params._id,
                 })
         });
-        
+
     }
 
     componentDidMount(){
-        this.props.createQr(this.state.classid);
+        if(this.state.classid==="")
+        {
+            const{match:{params}}=this.props;
+            this.setState({redirect:true})
+            this.props.finishQhere(params._id) 
+            console.log("sayfa yenilendiğinde")
+        }
+        else{
+            console.log("ilk calışma")
+            this.props.createQr(this.state.classid);
+        }
     }
     
     componentWillUnmount(){
@@ -68,12 +92,11 @@ class ClassQhere extends Component{
     }
     
     render() {
-        console.log(this.props)
         socket.emit('createClass',{ classId:this.state.classid});
         const Qr=(       
                 <div>
                     <h1 style={style.header}>
-                        {this.state.className}
+                       {this.state.className}
                     </h1>
                     <QRCode
                     value={`${this.state.classid}/joinRollCall/${this.props.lastQrId}`}
@@ -88,10 +111,20 @@ class ClassQhere extends Component{
                 </h1>
                 <Table>
                 <Table.Header>
+                    
                     <Table.Row>
                         <Table.HeaderCell>Adı Soyadı</Table.HeaderCell>
                         <Table.HeaderCell>Okul Numarası</Table.HeaderCell>
                         <Table.HeaderCell>{this.state.socketStudents.length+"/"+this.state.quota}</Table.HeaderCell>
+                        <Table.HeaderCell>
+                        <Button color='red' style={style.button} onClick={this.show}>Qr Kapat</Button>
+                                        <Confirm
+                                        content="Qr kodu kapatmak istiyor musunuz?"
+                                        open={this.state.open}
+                                        onCancel={this.handleCancel}
+                                        onConfirm={this.handleConfirm}
+                                        />
+                        </Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
                 <TableBody>
@@ -119,6 +152,7 @@ class ClassQhere extends Component{
         return (
                 <div>
                     {this.props.loading === false ? Qr : ""}
+                    {this.state.redirect === true ? <Redirect  to={`/homePage/classes`}/>:""}
                 </div>
         );
 
@@ -127,8 +161,8 @@ class ClassQhere extends Component{
 
 const mapStateToProps=(state)=>{
     return{
-        loading:state.manager.isLoading,
         classes:state.manager.classes,
+        loading:state.manager.isLoading,
         lastQrId:state.manager.lastQrId,
         qrInfo:state.manager.qrInfo
     }
@@ -136,7 +170,8 @@ const mapStateToProps=(state)=>{
 
 const mapDispatchToProps={
     getQrInfo,
-    createQr
+    createQr,
+    finishQhere
 }
 
 const style={
@@ -152,6 +187,9 @@ const style={
     },
     header:{
         marginTop:20
+    },
+    button:{
+        padding:12,
     }
     
 }

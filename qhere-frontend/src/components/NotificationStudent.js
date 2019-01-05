@@ -18,7 +18,7 @@ class NotificationStudent extends Component{
             <Card.Group>
                 {
                     this.props.notification.map((instance)=> 
-                    <Card key={instance._id} onClick={()=>this.onSubmit(instance)} style={style.card} style={instance.isRead=== true ? { backgroundColor:'#ffffff'}: { backgroundColor:'#b9b7b8'} }>  
+                    <Card key={instance._id} onClick={()=>this.onSubmit(instance)} style={ (instance.isRead=== true ? { backgroundColor:'#ffffff'}: { backgroundColor:'#b9b7b8'}) && style.card}>  
                     <Label>Ders Adı:{instance.className}</Label>
                     <Card.Content key={instance._id}>
                         <Card.Header>Duyuru Başlığı:{instance.title}</Card.Header>
@@ -41,18 +41,15 @@ const style={
         width:400,
         float:'right',
         marginTop:50,
-        marginLeft:20,
-        marginRight:50,
+        marginLeft:50,
+        marginRight:20,
         borderStyle: 'groove',
         borderRadius: 25,
         padding:20
     },
-    checkbox:{
-        marginTop:1,
-        marginLeft:330
-    },
     card:{
-        width:350
+        width:350,
+        margin:'auto',
     }
     
 }

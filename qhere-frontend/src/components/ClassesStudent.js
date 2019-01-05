@@ -17,10 +17,11 @@ class Classes extends Component{
                 <div>
                 <Grid columns={2} divided>
                 <Grid.Row>
-                <div style={style.div}>
-                <h1>Derslerim</h1>
-                <Grid.Column>
-                <Card.Group>
+                <div>
+                
+                <Grid.Column >
+                <h1 style={style.header}>Derslerim</h1>
+                <Card.Group style={style.div}>
                  {
                      this.props.isLoading===false ?
                      this.props.myClasses.map((instance)=>
@@ -48,6 +49,7 @@ class Classes extends Component{
                  </Card.Group>
                  </Grid.Column>
                  </div>
+                 
                  <div style={style.form}>
                  <h1>Katılma İsteği yollanan dersler</h1>
                  <Grid.Column>
@@ -76,21 +78,24 @@ class Classes extends Component{
 
 const style={
     form:{
-        marginTop:50,
-        marginLeft:100,
+        marginTop:75,
+        marginLeft:20,
         padding:20,
-        width: 300,
+        width: 400,
         borderStyle: 'groove',
         borderRadius: 25,
     },
     div:{
-        margin:'auto',
-        marginTop:50,
+        width:660,
+        marginTop:20,
         marginLeft:50,
         marginRight:50,
         borderStyle: 'groove',
         borderRadius: 25,
         padding:20
+    },
+    header:{
+        marginTop:20
     }
 }
 

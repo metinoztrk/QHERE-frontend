@@ -89,7 +89,7 @@ class ClassInfo extends Component{
                                 <Modal.Header>Ders Duyuruları</Modal.Header>
                                 {
                                     this.props.loading===false && this.state.loading===false ?
-                                        this.state.class.notification.map((not)=>
+                                    this.props.classInfo[0].notification.map((not)=>
                                         <Modal.Description style={style.notification} key={not._id}>
                                             <h4>Duyuru başlığı:{not.title}</h4>
                                             <p>Duyuru içeriği:{not.content}</p>
@@ -157,6 +157,8 @@ class ClassInfo extends Component{
                 <div style={style.form}>
                 <Grid.Column>
                     <SendNotification sendNotification={this.props.sendNotification} 
+                                        loading={this.props.loading}
+                                        getClassInfo={this.props.getClassInfo}
                                         className={this.state.className}
                                         id={this.state.id} />
                 </Grid.Column>

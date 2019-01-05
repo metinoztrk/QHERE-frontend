@@ -50,10 +50,14 @@ export const MAKE_REPORT_PENDING="MAKE_REPORT_PENDING";
 export const MAKE_REPORT_FULFILLED="MAKE_REPORT_FULFILLED";
 export const MAKE_REPORT_REJECTED="MAKE_REPORT_REJECTED";
 
+export const FINISH_QHERE_PENDING="FINISH_QHERE_PENDING";
+export const FINISH_QHERE_FULFILLED="FINISH_QHERE_FULFILLED";
+export const FINISH_QHERE_REJECTED="FINISH_QHERE_REJECTED";
+
 
 let URL="";
 
-if(process.env.REACT_APP_SECRET_CODE == "development")
+if(process.env.REACT_APP_SECRET_CODE === "development ")
 {
     URL="http://localhost:3000"
 }
@@ -151,7 +155,6 @@ export function deleteClass(id){
 }
 
 export function createQr(classId){
-    console.log(classId);
     return dispatch=>{
         
         dispatch({
@@ -189,6 +192,16 @@ export function makeReport(id){
             type:"MAKE_REPORT",
             payload:axios.get(`${URL}/manager/makeReport/${id}`)
             .then((data)=>data.data.data)
+        })
+    }
+}
+
+export function finishQhere(classId){
+    return dispatch=>{
+        dispatch({
+            type:"FINISH_QHERE",
+            payload:axios.post(`${URL}/manager/finishQhere`,{classId})
+            .then((data)=>data.data.statusCode)
         })
     }
 }

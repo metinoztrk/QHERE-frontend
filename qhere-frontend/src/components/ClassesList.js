@@ -15,17 +15,18 @@ class ClassesList extends Component{
         };
       }
 
-    show = () => this.setState({ open: true })
+    show = (id) => {
+        this.setState({ open: true ,id:id})
+    }
 
-    handleConfirm(id){
-        this.setState({ open: false,confirm:true ,id:id})
+    handleConfirm(){
+        this.setState({ open: false,confirm:true})
     }
     handleCancel(){
          this.setState({ open: false })
     }
     
     render(){
-        console.log(this.props.loading);
         return(
             <div style={style.div}>
                 { 
@@ -36,21 +37,19 @@ class ClassesList extends Component{
                                         <List.Header style={style.header}>{Class.className}</List.Header>
                                     </List.Content>
                                     <List.Content floated='right'>
-                                        <Button onClick={this.show} style={style.button}>QHERE</Button>
-                                        <Confirm
+                                        <Button onClick={()=>this.show(Class._id)} style={style.button}>QHERE</Button>
+                                        <Confirm 
                                         content="Qr kod oluşturmak istiyor musunuz?"
                                         open={this.state.open}
                                         onCancel={this.handleCancel}
-                                        onConfirm={()=>
-                                                        this.handleConfirm(Class._id) }
-                                        />
+                                        onConfirm={this.handleConfirm}/>
                                     </List.Content>
                                     </List.Item>
                                     <Divider/>
                                 </List>   
                     )     
                 }
-                {this.state.confirm == true ? <Redirect  to={`/homePage/classes/${this.state.id}/Qhere`}/> :""}
+                {this.state.confirm === true ? <Redirect  to={`/homePage/classes/${this.state.id}/Qhere`}/> :""}
             </div>
         )
     }

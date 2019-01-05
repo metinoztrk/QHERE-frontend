@@ -15,8 +15,8 @@ class IndexPage extends Component{
     showFixedMenu = () => this.setState({ fixed: true })
 
     componentWillMount(){
-        const{match:{path}}=this.props;
-        if(path === '/')
+        const{location:{pathname}}=this.props;
+        if(pathname === '/')
         {   
             this.setState({
                 isIndex:true
@@ -29,8 +29,7 @@ class IndexPage extends Component{
     }
 
     componentWillReceiveProps(){
-        const{match:{path}}=this.props;
-        if(path === '/')
+        if(window.location.pathname==="/")
         {
                 this.setState({
                     isIndex:true
@@ -72,12 +71,12 @@ class IndexPage extends Component{
                         </Menu.Item>
                         <Menu.Item position='right'>
                         <Link to="/register"> 
-                            <Button inverted={!fixed} primary={fixed} style={{ marginRight: '1em' }}>
+                            <Button style={{ marginRight: '1em' }}>
                                 Register
                             </Button>
                         </Link>
                         <Link to="/login"> 
-                            <Button inverted={!fixed} primary={fixed} style={{ marginRight: '5em' }}>
+                            <Button style={{ marginRight: '5em' }}>
                                 Login
                             </Button>
                         </Link>

@@ -46,7 +46,12 @@ import {CREATE_CLASS_PENDING,
 
     MAKE_REPORT_PENDING,
     MAKE_REPORT_FULFILLED,
-    MAKE_REPORT_REJECTED
+    MAKE_REPORT_REJECTED,
+
+    FINISH_QHERE_PENDING,
+    FINISH_QHERE_FULFILLED,
+    FINISH_QHERE_REJECTED
+
 
 } from '../actions/Manager'
 
@@ -303,6 +308,24 @@ switch(action.type){
             makeReport:action.payload
         }
     case MAKE_REPORT_REJECTED:
+        return{
+            ...state, 
+        }
+    case FINISH_QHERE_PENDING:
+        return{
+            ...state,
+            isLoading:true,
+        }
+    case FINISH_QHERE_FULFILLED:
+        return{
+            ...state,
+            isLoading:false,
+            Error:{
+                statusCode:action.payload,
+                statusText:"Ok"
+            }
+        }
+    case FINISH_QHERE_REJECTED:
         return{
             ...state, 
         }
