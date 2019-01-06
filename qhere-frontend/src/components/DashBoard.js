@@ -11,7 +11,7 @@ class DashBoard extends Component{
     render(){
         return(
             <div  style={style.div}>
-            <h1>Dashboard</h1>
+            <h1>Ana Sayfa</h1>
             {
                 this.props.loading===false ?
                 <DashBoardItem actions={this.props}/>:""

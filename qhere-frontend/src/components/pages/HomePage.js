@@ -121,13 +121,13 @@ class HomePage extends Component{
                         >
                         <Container>
                             <Menu.Item as={Link} to="/homePage" style={{ marginLeft: '5em' , color:'#FFFFFF' }} onClick={()=>this.props.getClassesRequest()}>
-                            Home
+                            Ana Sayfa
                             </Menu.Item>
-                            <Menu.Item as={Link} to="/homePage/createClass" style={{ marginLeft: '5em' , color:'#FFFFFF' }}>Create Class</Menu.Item>
-                            <Menu.Item as={Link} to="/homePage/classes" style={{ marginLeft: '5em' , color:'#FFFFFF' }} onClick={()=>this.props.getClasses()}>Classes</Menu.Item>
+                            <Menu.Item as={Link} to="/homePage/createClass" style={{ marginLeft: '5em' , color:'#FFFFFF' }}>Sınıf Oluştur</Menu.Item>
+                            <Menu.Item as={Link} to="/homePage/classes" style={{ marginLeft: '5em' , color:'#FFFFFF' }} onClick={()=>this.props.getClasses()}>Sınıflar</Menu.Item>
                             <Menu.Item position='right'>
                             <Button style={{ marginRight: '5em' }} onClick={this.onSubmit}>
-                                Logout
+                                Çıkış
                             </Button>
                             </Menu.Item>
                         </Container>

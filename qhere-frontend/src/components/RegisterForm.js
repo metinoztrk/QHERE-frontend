@@ -82,25 +82,25 @@ class RegisterForm extends Component{
         const RegisterForm=(
             <div>
                 <Form style={style.RegisterForm}>
-                <h1 style={{marginBottom:50}}>Register</h1>
+                <h1 style={{marginBottom:50}}>Kayıt</h1>
                     {
                         this.state.userType!=="Manager" ? 
                         <Form.Field>
-                        <label>School Number</label>
+                        <label>Okul Numarası</label>
                         <input 
                         name='schoolNumber'
                         value={this.state.schoolNumber}
                         onChange={this.handleChange}
-                        placeholder='School Number' />
+                        placeholder='Okul Numarası' />
                         </Form.Field> : " "
                     }
                     <Form.Field>
-                    <label>Full Name</label>
+                    <label>Adı Soyadı</label>
                     <input 
                     name='fullName'
                     value={this.state.fullName}
                     onChange={this.handleChange}
-                    placeholder='Full Name' />
+                    placeholder='Adı Soyadı' />
                     </Form.Field>
                     <Form.Field>
                     <label>E mail</label>
@@ -111,12 +111,12 @@ class RegisterForm extends Component{
                     placeholder='E mail' />
                     </Form.Field>
                     <Form.Field>
-                    <label>Password</label>
+                    <label>Şifre</label>
                     <input 
                     name='password'
                     value={this.state.password}
                     onChange={this.handleChange}
-                    placeholder='Password' />
+                    placeholder='Şifre' />
                     </Form.Field>
                     <div>
                     <Form.Field>

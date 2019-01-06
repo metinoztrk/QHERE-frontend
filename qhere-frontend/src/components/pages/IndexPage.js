@@ -72,12 +72,12 @@ class IndexPage extends Component{
                         <Menu.Item position='right'>
                         <Link to="/register"> 
                             <Button style={{ marginRight: '1em' }}>
-                                Register
+                                Kayıt
                             </Button>
                         </Link>
                         <Link to="/login"> 
                             <Button style={{ marginRight: '5em' }}>
-                                Login
+                                Giriş
                             </Button>
                         </Link>
                         </Menu.Item>

@@ -69,7 +69,7 @@ class LoginForm extends Component{
                 <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
                     <Grid.Column style={{ maxWidth: 450 }}>
                     <Header as='h2' color='teal' textAlign='center'>
-                         Log-in to your account
+                         Hesabınıza Giriş Yapınız
                     </Header>
                     <Form size='large'>
                         <Segment stacked>
@@ -78,7 +78,7 @@ class LoginForm extends Component{
                             name='email'
                             icon='user' 
                             iconPosition='left' 
-                            placeholder='E-mail address' 
+                            placeholder='E-mail' 
                             value={this.state.eMail}
                             onChange={this.handleChange} />
                         <Form.Input
@@ -86,7 +86,7 @@ class LoginForm extends Component{
                             name='password'
                             icon='lock'
                             iconPosition='left'
-                            placeholder='Password'
+                            placeholder='Şifre'
                             type='password'
                             value={this.state.password}
                             onChange={this.handleChange}
@@ -94,13 +94,13 @@ class LoginForm extends Component{
                         <div>
                         <Link to="/passwordReset" res={this.state}>
                         <Label  color='teal' style={style.ForgotLabel} >
-                        Forgot password?
+                        Şifremi Unuttum
                         </Label>
                         </Link>
                         </div>
                         <div>
                         <Button color='teal' fluid size='large' onClick={this.onSubmit}>
-                            Login
+                            Giriş
                         </Button>
                         </div>
                         { this.state.error.statusCode !== "" ?  message : ""}

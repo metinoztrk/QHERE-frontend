@@ -52,16 +52,16 @@ class PasswordReset extends Component{
     const form=(
         <div >
                 <Form style={style.PasswordResetForm}>
-                <h1>Forgot Password</h1>
+                <h1>Şifre Yenile</h1>
                         <Form.Input 
                         label='Email'
                         name='email'
                         value={this.state.email} 
                         onChange={this.handleChange}
-                        placeholder='Enter your email address' 
+                        placeholder='Mail Adresinizi Giriniz' 
                         style={style.PasswordResetInput}/>
                         <Message success header='Form Completed' content="You're all signed up for the newsletter" />
-                        <Button onClick={this.onSubmit}>Send password reset Email</Button>
+                        <Button onClick={this.onSubmit}>Şifre Sıfırlama</Button>
                         { this.state.error.status !== 400  ?  "" : message }
                 </Form>
             </div>

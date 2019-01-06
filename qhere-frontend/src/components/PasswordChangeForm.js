@@ -53,37 +53,37 @@ import {Redirect} from 'react-router-dom'
         return(
             <div>
                 <Form style={style.Form}>
-                    <label style={style.Label}>Code</label>
+                    <label style={style.Label}>Kod</label>
                     <Form.Input
                             fluid
                             name='code'
-                            placeholder='Code'
+                            placeholder='Kod'
                             value={this.state.code}
                             onChange={this.handleChange}
                         />
-                    <label style={style.Label}>New Password</label>
+                    <label style={style.Label}>Yeni Şifre</label>
                     <Form.Input
                             fluid
                             name='newPassword'
                             icon='lock'
                             iconPosition='left'
-                            placeholder='New Password'
+                            placeholder='Yeni Şifre'
                             type='password'
                             value={this.state.newPassword}
                             onChange={this.handleChange}
                         />
-                    <label style={style.Label}>Confirm New Password</label>
+                    <label style={style.Label}>Yeni Şifreyi Onayla</label>
                     <Form.Input
                             fluid
                             name='confirmNewPassword'
                             icon='lock'
                             iconPosition='left'
-                            placeholder='Confirm New Password'
+                            placeholder='Yeni Şifreyi Onayla'
                             type='password'
                             value={this.state.confirmNewPassword}
                             onChange={this.handleChange}
                         />
-                    <Button type='submit' onClick={this.onSubmit}>Update Password</Button>
+                    <Button type='submit' onClick={this.onSubmit}>Şifre Güncelle</Button>
                 </Form>
                 {this.state.newPassword === this.state.confirmNewPassword ? "" : message}
                 {this.state.redirect === true ? <Redirect to="/"/> : ""}

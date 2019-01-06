@@ -17,8 +17,8 @@ class QhereInfo extends Component{
             <Table striped>
                 <Table.Header>
                 <Table.Row>
-                    <Table.HeaderCell>School Number</Table.HeaderCell>
-                    <Table.HeaderCell>Fullname</Table.HeaderCell>
+                    <Table.HeaderCell>Okul Numarası</Table.HeaderCell>
+                    <Table.HeaderCell>Adı Soyadı</Table.HeaderCell>
                     <Table.HeaderCell>E-mail</Table.HeaderCell>
                 </Table.Row>
                 </Table.Header>

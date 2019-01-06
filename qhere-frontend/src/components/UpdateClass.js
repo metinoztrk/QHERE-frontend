@@ -81,39 +81,39 @@ class UpdateClass extends Component{
                 <h1 style={style.header}>Sınıf Güncelle</h1>
                 <Form style={style.UpdateClassForm}>
                     <Form.Field>
-                    <label>Class Name</label>
+                    <label>Sınıf Adı</label>
                     <input
                     name='className'
                     value={this.state.className}
                     onChange={this.handleChange}
-                    placeholder='Class Name' />
+                    placeholder='Sınıf Adı' />
                     </Form.Field>
                     <Form.Field>
-                    <label>Quota</label>
+                    <label>Kontenjan</label>
                     <input
                     name='quota'
                     value={this.state.quota}
                     onChange={this.handleChange}
-                    placeholder='Quota' />
+                    placeholder='Kontenjan' />
                     </Form.Field>
                     <Form.Field>
-                    <label>Discontinuity</label>
+                    <label>Devamsızlık Sınırı</label>
                     <input
                     name='discontinuity'
                     value={this.state.discontinuity}
                     onChange={this.handleChange}
-                    placeholder='Discontinuity' />
+                    placeholder='Devamsızlık Sınırı' />
                     </Form.Field>
                     <Form.Field>
-                    <label>Description</label>
+                    <label>Açıklama</label>
                     <input
                     name='description'
                     value={this.state.description}
                     onChange={this.handleChange}
-                    placeholder='Description' />
+                    placeholder='Açıklama' />
                     </Form.Field>
                     <Form.Field>
-                    <label>Last Join Time</label>
+                    <label>Son Katılım Tarihi</label>
                     <DayPickerInput 
                     value={this.state.lastJoinTime}
                     onDayChange={this.handleDayChange} />

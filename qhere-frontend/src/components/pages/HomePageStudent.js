@@ -125,12 +125,12 @@ class HomePageStudents extends Component{
                         >
                         <Container>
                             <Menu.Item as={Link} to="/homePage" style={{ marginLeft: '5em' , color:'#FFFFFF' }}>
-                            Home
+                            Ana Sayfa
                             </Menu.Item>
-                            <Menu.Item as={Link} to="/homePage/classes" style={{ marginLeft: '5em' , color:'#FFFFFF' }}>Classes</Menu.Item>
+                            <Menu.Item as={Link} to="/homePage/classes" style={{ marginLeft: '5em' , color:'#FFFFFF' }}>Sınıflar</Menu.Item>
                             <Menu.Item position='right'>
-                            <Button inverted={!fixed} primary={fixed} style={{ marginRight: '5em' }} onClick={this.onSubmit}>
-                                Logout
+                            <Button style={{ marginRight: '5em' }} onClick={this.onSubmit}>
+                                Çıkış
                             </Button>
                             </Menu.Item>
                         </Container>
